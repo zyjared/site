@@ -1,7 +1,7 @@
 import { defineConfig } from './core/options'
 
 export default defineConfig({
-  input: './public/README.md',
+  input: 'README.md',
   output: {
     dir: './dist',
     file: 'index.html', // will be './dist/index.html'

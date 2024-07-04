@@ -22,5 +22,3 @@ export function generateHtml() {
 
   writeHtml(head, body, lang)
 }
-
-generateHtml()

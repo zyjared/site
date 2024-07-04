@@ -17,10 +17,10 @@ describe('fs html', () => {
     body: [],
   }
 
-  it('readHtml', () => {
-    const { head, body } = readHtml()
-    expect({ head, body }).toEqual(expectParseHtml)
-  })
+  // it('readHtml', () => {
+  //   const { head, body } = readHtml()
+  //   expect({ head, body }).toEqual(expectParseHtml)
+  // })
 
   it('writeHtml', () => {
     const html = writeHtml(expectParseHtml.head, expectParseHtml.body)

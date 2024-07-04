@@ -8,8 +8,7 @@ export default defineConfig({
     clean: true,
   },
   template: {
-    html: { // or './core/templates/index.html' , default lang is 'zh-CN'
-      // path: './core/templates/index.html',
+    html: {
       path: './public/index.html',
       lang: 'zh-CN',
     },

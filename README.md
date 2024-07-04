@@ -1,7 +1,5 @@
 # 欢迎访问
 
-[https://zhangyujiang.cn](https://zhangyujiang.cn)
-
 ## 图标
 
 These favicons were generated using the following font:

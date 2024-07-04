@@ -1,0 +1,25 @@
+{
+  "type": "module",
+  "module": "NodeNext",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "pnpm vitest"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.21.2",
+    "@types/fs-extra": "^11.0.4",
+    "@types/js-yaml": "^4.0.9",
+    "@types/markdown-it": "^14.1.1",
+    "@types/node": "^20.14.9",
+    "commander": "^12.1.0",
+    "eslint": "^8.57.0",
+    "fs-extra": "^11.2.0",
+    "js-yaml": "^4.1.0",
+    "markdown-it": "^14.1.0",
+    "markdown-it-front-matter": "^0.2.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3",
+    "vitest": "^1.6.0"
+  }
+}

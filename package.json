@@ -1,12 +1,13 @@
 {
   "type": "module",
+  "packageManager": "pnpm@9.4.0",
   "module": "NodeNext",
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest",
     "dev": "vitest dev",
-    "build": "vitest --run --coverage"
+    "build": "vitest --run"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.21.2",

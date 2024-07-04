@@ -25,7 +25,6 @@
     "javascriptreact",
     "typescript",
     "typescriptreact",
-    "vue",
     "html",
     "markdown",
     "json",
@@ -33,13 +32,7 @@
     "yaml",
     "toml",
     "xml",
-    "gql",
-    "graphql",
-    "astro",
     "css",
-    "less",
-    "scss",
-    "pcss",
     "postcss"
   ]
 }

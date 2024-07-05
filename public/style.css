@@ -23,8 +23,10 @@
 
 @media (prefers-color-scheme: light) {
   :root {
+    --b: #2563eb;
     --c: #1f2937;
     --bg: #fff;
+    --b-rgb: 37, 99, 235;
     --c-rgb: 31, 41, 55;
     --bg-rgb: 255, 255, 255;
   }
@@ -63,13 +65,21 @@ h1 {
 }
 
 h1 strong:first-child {
-  color: rgba(var(--b-rgb), .5);
+  color: rgba(var(--d-rgb), .6);
   font-weight: 300;
   text-decoration: line-through;
+
+  font-family: "montecarlo", sans-serif;
+  font-style: normal;
+  padding-right: .2em;
 }
 
 h1 strong:last-child {
   color: var(--b);
+
+  font-family: "montecarlo", sans-serif;
+  font-style: normal;
+  font-size: 1.1em;
 }
 
 h2 {
@@ -140,7 +150,7 @@ ul {
 /* 大屏 */
 @media (min-width: 1024px) {
   body {
-    padding: 5rem 40vw 5rem 5rem;
+    padding: 5rem 45vw 5rem 5rem;
   }
 }
 
@@ -148,11 +158,11 @@ ul {
 
 @media (min-width: 768px) {
   body {
-    padding: 3rem 30vw 3rem 3rem;
+    padding: 3rem 35vw 3rem 3rem;
   }
 }
 
-/* 手机 */
+/* 手机 横屏*/
 @media (max-width: 767px) {
   body {
     padding: 1rem;

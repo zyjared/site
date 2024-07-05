@@ -1,11 +1,11 @@
 ---
-title: zyjared
+title: zyJared
 lang: zh-CN
 meta:
   - name: description
-    content: zyjared 一名前端技术爱好者 欢迎访问我的主页。
+    content: zyjared, a frontend engineer.
   - name: keywords
-    content: Jared Zhang, zyjared
+    content: Jared Zhang, zyjared, 张玉江
 ---
 
 # Welcome to __zy__**Jared**'s Page

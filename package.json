@@ -6,8 +6,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest",
-    "dev": "vitest dev",
-    "build": "vitest --run"
+    "dev": "vitest --watch ./test/generate.test.ts",
+    "build": "vitest --run ./test/generate.test.ts"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.21.2",
@@ -16,7 +16,6 @@
     "@types/markdown-it": "^14.1.1",
     "@types/node": "^20.14.9",
     "@vitest/coverage-v8": "^1.6.0",
-    "commander": "^12.1.0",
     "eslint": "^8.57.0",
     "fs-extra": "^11.2.0",
     "js-yaml": "^4.1.0",

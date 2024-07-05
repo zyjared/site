@@ -58,7 +58,7 @@ function _parseMd(text: string) {
   }
 }
 
- function getMd(filepath: string) {
+function getMd(filepath: string) {
   return _parseMd(_readMd(filepath))
 }
 
@@ -88,7 +88,7 @@ ${bodyTags}
 </html>`
 }
 
- async function renderHtml(frontMatter: FrontMatterYaml, body = '') {
+async function renderHtml(frontMatter: FrontMatterYaml, body = '') {
   const playload = await _htmlHead(frontMatter)
 
   return _htmlTemplate({ ...playload, body })
@@ -102,12 +102,11 @@ async function saveHtml(html: string, filepath: string) {
 // public
 // ============================
 
- function copyPublic(publicDir: string, distDir: string) {
+function copyPublic(publicDir: string, distDir: string) {
   fs.removeSync(path(distDir))
   fs.ensureDirSync(path(distDir))
   fs.copySync(path(publicDir), path(distDir))
 }
-
 
 function _fileInPublic(filename: string, publicDir: string) {
   return fs.existsSync(path(publicDir, filename))
@@ -168,7 +167,7 @@ async function mergeConfig(options: Partial<Options>): Promise<Options> {
 // generate
 // ============================
 
-export async function generate(options: Partial<Options>={}) {
+export async function generate(options: Partial<Options> = {}) {
   const opt = await mergeConfig(options)
 
   copyPublic(opt.public, opt.dist)

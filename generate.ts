@@ -9,7 +9,7 @@ import type { Head, SSRHeadPayload } from '@unhead/schema'
 import { renderSSRHead } from '@unhead/ssr'
 import _ from 'lodash'
 
-type FontMatterYaml = Head
+type FrontMatterYaml = Head
 type HtmlPayload = SSRHeadPayload & { body: string }
 
 function path(...p: string[]) {
@@ -40,14 +40,14 @@ function _readMd(filepath: string) {
 }
 
 function _parseMd(text: string) {
-  let frontMatter: FontMatterYaml = {}
+  let frontMatter: FrontMatterYaml = {}
   const md = markdownit({
     html: true,
     linkify: true,
     typographer: true,
   })
     .use(markdownitFrontMatter, (fm: string) => {
-      frontMatter = yaml.load(fm) as FontMatterYaml
+      frontMatter = yaml.load(fm) as FrontMatterYaml
     })
 
   const body = md.render(text)
@@ -66,7 +66,7 @@ function _parseMd(text: string) {
 // html
 // ============================
 
-async function _htmlHead(frontMatter: FontMatterYaml) {
+async function _htmlHead(frontMatter: FrontMatterYaml) {
   const head = createHead()
   head.push(frontMatter)
 
@@ -88,7 +88,7 @@ ${bodyTags}
 </html>`
 }
 
- async function renderHtml(frontMatter: FontMatterYaml, body = '') {
+ async function renderHtml(frontMatter: FrontMatterYaml, body = '') {
   const playload = await _htmlHead(frontMatter)
 
   return _htmlTemplate({ ...playload, body })
@@ -114,7 +114,7 @@ function _fileInPublic(filename: string, publicDir: string) {
 }
 
 function publicFrontMatter(publicDir: string) {
-  const frontMatter = {} as FontMatterYaml
+  const frontMatter = {} as FrontMatterYaml
 
   if (_fileInPublic('style.css', publicDir)) {
     const item = { rel: 'stylesheet', href: 'style.css' }
@@ -125,7 +125,6 @@ function publicFrontMatter(publicDir: string) {
     const item = { rel: 'icon', href: 'favicon.ico', type: 'image/x-icon' }
     frontMatter.link = frontMatter.link ? [...frontMatter.link, item] : [item]
   }
-
   return frontMatter
 }
 
@@ -138,7 +137,7 @@ interface Options {
   output: string
   public: string
   dist: string
-  head: FontMatterYaml
+  head: FrontMatterYaml
 }
 
 const _defaultOptions = {
@@ -149,7 +148,7 @@ const _defaultOptions = {
   head: {},
 }
 
-const defaultFontMatter: FontMatterYaml = {
+const defaultFontMatter: FrontMatterYaml = {
   meta: [
     { charset: 'utf-8' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },

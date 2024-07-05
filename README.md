@@ -1,6 +1,7 @@
 ---
 title: zyJared
-lang: zh-CN
+htmlAttrs:
+  - lang: zh-CN
 meta:
   - name: description
     content: zyjared, a frontend engineer.

@@ -3,7 +3,7 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "build": "ts-node ./scripts/build.ts -i ./README.md -o ./dist/index.html"
+    "build": "ts-node ./scripts/build.ts"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.21.2",

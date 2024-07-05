@@ -1,48 +1,37 @@
----
-title: zyJared
-htmlAttrs:
-  - lang: zh-CN
-meta:
-  - name: description
-    content: zyjared, a frontend engineer.
-  - name: keywords
-    content: Jared Zhang, zyjared, 张玉江
----
+# README site
 
-# __zy__**Jared**
+This project allows you to generate an `index.html` file from a `README.md` file, making it easy to create a personal homepage. The generated `index.html` is optimized for search engines, compatible with various browsers, and ensures fast rendering.
 
-> I obtained a bachelor's degree in Management and self-taught JavaScript, Typescript, Python, C, and Java during my university years. After graduation, I started my career as a management trainee and later transitioned into front-end development. Currently, I am focused on expanding my expertise in front-end technologies and Rust. My objective is to enhance my academic qualifications and broaden my professional horizons.
+## Usage
 
-## Navigation
+Here is an example configuration:
 
-+ [Outlook](https://outlook.live.com/)
-+ [MDN](https://developer.mozilla.org/zh-CN/)
-+ [ChatGPT](https://chatgpt.com/?temporary-chat=true)
-+ [有道词典](https://dict.youdao.com/)
-+ [bilibili](https://www.bilibili.com/)
+```ts
+// config.ts
+import { defineConfig } from "./generate";
 
-## About Me
+export default defineConfig({
+  // Specifies the path to the input README.md file. The default value is "README.md".
+  input: "./public/README.md",
 
-- [Github](https://github.com/zyjared/)
-- [Twitter](https://x.com/home)
-- [Bookmarks](https://github.com/zyjared/zyjared/tree/main/bookmarks)
-- [Email](mailto:zyjared@outlook.com)
+  // Specifies the path to the output index.html file.
+  output: "./dist/index.html",
 
-<small>🌱 I’m currently learning Rust.</small>
+  // Directory for public assets.
+  public: "./public",
 
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=zyjared&layout=compact&theme=onedark" alt="Top Langs" />
+  // Directory for distribution files.
+  dist: "./dist",
 
-<!--
+  // Configuration for the <head> section of the HTML, such as adding stylesheets.
+  head: {
+    link: [{ rel: "stylesheet", href: "https://use.typekit.net/rzl1qcy.css" }]
+  }
+});
+```
 
-Here are some ideas to get you started:
+To generate the index.html file, use the following command:
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
-
--->
+```sh
+pnpm build
+```

@@ -171,14 +171,12 @@ async function mergeConfig(options: Partial<Options>): Promise<Options> {
 
 export async function generate(options: Partial<Options>={}) {
   const opt = await mergeConfig(options)
-  console.log(JSON.stringify(opt, null, 2))
 
   copyPublic(opt.public, opt.dist)
 
   const { frontMatter, body } = getMd(opt.input)
   const autoFrontMatter = publicFrontMatter(opt.public)
   const fm = merge(defaultFontMatter, opt.head, autoFrontMatter, frontMatter)
-  console.log(JSON.stringify( fm, null, 2))
 
   const html = await renderHtml(fm, body)
 

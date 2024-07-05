@@ -1,6 +1,6 @@
 # README site
 
-This project allows you to generate an `index.html` file from a `README.md` file, making it easy to create a personal homepage. The generated `index.html` is optimized for search engines, compatible with various browsers, and ensures fast rendering.
+Generate my site from a `README.md` file.
 
 ## Usage
 
@@ -25,7 +25,7 @@ export default defineConfig({
 
   // Configuration for the <head> section of the HTML, such as adding stylesheets.
   head: {
-    link: [{ rel: "stylesheet", href: "https://use.typekit.net/rzl1qcy.css" }]
+    link: [{ rel: "stylesheet", href: "style.css" }]
   }
 });
 ```

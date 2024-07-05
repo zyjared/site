@@ -19,6 +19,18 @@ function path(...p: string[]) {
   return Path.resolve(process.cwd(), ...p)
 }
 
+function merge(...args: any[]) {
+  const customizer = (objValue: any, srcValue: any) => {
+    if (_.isArray(objValue)) {
+      return objValue.concat(srcValue)
+    }
+  }
+
+  args = args.filter(Boolean)
+
+  return _.mergeWith({}, ...args, customizer)
+}
+
 // ============================
 // markdown
 // ============================
@@ -118,7 +130,7 @@ function publicFrontMatter(publicDir: string) {
 }
 
 // ============================
-// generate
+// options
 // ============================
 
 interface Options {
@@ -126,13 +138,15 @@ interface Options {
   output: string
   public: string
   dist: string
+  head: FontMatterYaml
 }
 
-const defaultOptions = {
+const _defaultOptions = {
   input: 'README.md',
   output: 'dist/index.html',
   public: 'public',
   dist: 'dist',
+  head: {},
 }
 
 const defaultFontMatter: FontMatterYaml = {
@@ -142,14 +156,29 @@ const defaultFontMatter: FontMatterYaml = {
   ],
 }
 
-export async function generate(options: Options) {
-  const opt = { ...defaultOptions, ...options }
+export function defineConfig(options: Partial<Options>) {
+  return options
+}
+
+async function mergeConfig(options: Partial<Options>): Promise<Options> {
+  const custom = await import('./config')
+  return merge(_defaultOptions, custom.default, options)
+}
+
+// ============================
+// generate
+// ============================
+
+export async function generate(options: Partial<Options>={}) {
+  const opt = await mergeConfig(options)
+  console.log(JSON.stringify(opt, null, 2))
 
   copyPublic(opt.public, opt.dist)
 
   const { frontMatter, body } = getMd(opt.input)
   const autoFrontMatter = publicFrontMatter(opt.public)
-  const fm = _.merge({}, defaultFontMatter, autoFrontMatter, frontMatter)
+  const fm = merge(defaultFontMatter, opt.head, autoFrontMatter, frontMatter)
+  console.log(JSON.stringify( fm, null, 2))
 
   const html = await renderHtml(fm, body)
 

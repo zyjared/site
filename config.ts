@@ -1,12 +1,15 @@
 import { defineConfig } from '.'
 
 export default defineConfig({
-  input: './public/README.md', // default is "README.md"
-  output: './dist/index.html',
-
-  public: './public',
-  dist: './dist',
-
+  input: {
+    filepath: 'public/README.md',
+    public: 'public',
+  },
+  output: {
+    dist: 'public',
+    filename: 'index.html',
+    clean: true,
+  },
   head: {
     htmlAttrs: { lang: 'zh-CN' },
     link: [

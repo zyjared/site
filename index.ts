@@ -8,6 +8,7 @@ import { createHead } from 'unhead'
 import type { Head, SSRHeadPayload, SchemaAugmentations, Unhead } from '@unhead/schema'
 import { renderSSRHead } from '@unhead/ssr'
 import _ from 'lodash'
+import rootConfig from './config'
 
 // #region Utils
 
@@ -18,16 +19,13 @@ export function path(...p: string[]) {
   return Path.resolve(process.cwd(), ...p)
 }
 
-export function merge(...args: any[]) {
-  const customizer = (objValue: any, srcValue: any) => {
+export function merge<T = any, U = any>(...args: U[]): T {
+  args = args.filter(Boolean)
+  return (_.mergeWith({}, ...args, (objValue: any, srcValue: any) => {
     if (_.isArray(objValue)) {
       return objValue.concat(srcValue)
     }
-  }
-
-  args = args.filter(Boolean)
-
-  return _.mergeWith({}, ...args, customizer)
+  }))
 }
 
 // #region Md
@@ -35,40 +33,26 @@ export function merge(...args: any[]) {
 type FrontMatterYaml = Head
 
 export class Md {
-  filepath: string
-  frontMatter: FrontMatterYaml = {}
-  body: string = ''
-
-  constructor(filepath: string) {
-    this.filepath = filepath
+  static read(filepath: string) {
+    return fs.readFileSync(path(filepath), 'utf-8')
   }
 
-  private read() {
-    return fs.readFileSync(path(this.filepath), 'utf-8')
-  }
-
-  parse() {
+  static toHtml(filepath: string) {
+    let frontMatter: FrontMatterYaml = {}
     const md = markdownit({
       html: true,
       linkify: true,
       typographer: true,
+    }).use(markdownitFrontMatter, (fm: string) => {
+      frontMatter = yaml.load(fm) as FrontMatterYaml
     })
-      .use(markdownitFrontMatter, (fm: string) => {
-        this.frontMatter = yaml.load(fm) as FrontMatterYaml
-      })
 
-    this.body = md.render(this.read())
-
-    return {
-      frontMatter: this.frontMatter,
-      body: this.body,
-    }
+    const body = md.render(Md.read(filepath))
+    return { frontMatter, body }
   }
 }
 
 // #region Html
-
-type HtmlPayload = SSRHeadPayload & { body: string }
 
 interface HtmlParams {
   head?: Head
@@ -84,6 +68,17 @@ export class Html {
     this.setHeadAndBody(params)
   }
 
+  static async template(head: Unhead<Head<SchemaAugmentations>>, body: string) {
+    const { htmlAttrs, headTags, bodyAttrs, bodyTagsOpen, bodyTags } = { ...(await renderSSRHead(head)) }
+    return `<!DOCTYPE html>
+  <html${htmlAttrs}>
+  <head>
+    ${headTags}
+  </head>
+  <body${bodyAttrs}>${bodyTagsOpen}${body}${bodyTags}</body>
+</html>`
+  }
+
   private setHeadAndBody(params?: HtmlParams) {
     if (!params)
       return
@@ -93,21 +88,6 @@ export class Html {
     if (params.body) {
       this.body = params.body
     }
-  }
-
-  private static template(playload: HtmlPayload) {
-    const { htmlAttrs, headTags, bodyAttrs, bodyTagsOpen, body, bodyTags } = playload
-    return `<!DOCTYPE html>
-  <html${htmlAttrs}>
-  <head>
-  ${headTags}
-  </head>
-  <body${bodyAttrs}>
-  ${bodyTagsOpen}
-  ${body}
-  ${bodyTags}
-  </body>
-  </html>`
   }
 
   async pushHead(...heads: Head[]) {
@@ -121,22 +101,14 @@ export class Html {
     return this
   }
 
-  async getPayload(head?: Head): Promise<HtmlPayload> {
-    if (head) {
-      this.head.push(head)
-    }
-    return { ...(await renderSSRHead(this.head)), body: this.body }
-  }
-
   async render(params?: HtmlParams) {
     this.setHeadAndBody(params)
-    const playload = await this.getPayload()
-    return Html.template(playload)
+    return await Html.template(this.head, this.body)
   }
 
   async save(filepath: string, params?: HtmlParams) {
     const html = await this.render(params)
-    await fs.outputFile(path(filepath), html)
+    fs.outputFile(path(filepath), html)
   }
 }
 
@@ -171,6 +143,10 @@ export class Public {
 
   copyTo(dest: string, options: { clean?: boolean } = { clean: true }) {
     dest = path(dest)
+
+    if (path(this.dir) === dest)
+      return
+
     if (options.clean) {
       fs.removeSync(dest)
     }
@@ -181,74 +157,76 @@ export class Public {
 
 // #region Config
 
-interface Options {
-  input?: string
-  output?: string
-  public?: string
-  dist?: string
-  head?: Head
+interface ConfigOptions {
+  input: {
+    filepath: string
+    public: string
+  }
+  output: {
+    dist: string
+    clean: boolean
+    filename: string
+    filepath: string
+  }
+  head: Head
 }
 
-const defaultConfig: Options = {
-  input: 'README.md',
-  output: 'dist/index.html',
-  public: 'public',
-  dist: 'dist',
-  head: {
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
-    ],
-  },
-}
-
-export class Config {
-  protected defaultConfig = defaultConfig
-  rootConfig: Options = {}
-  customConfig: Options = {}
-
-  constructor(config?: Options) {
-    if (config) {
-      this.customConfig = config
-    }
-  }
-
-  async getRootConfig() {
-    const m = await import('./config')
-    if (m && m.default) {
-      this.rootConfig = m.default
-    }
-
-    return this.rootConfig
-  }
-
-  async merge(config?: Options): Promise<Required<Options>> {
-    return merge(this.defaultConfig, await this.getRootConfig(), this.customConfig, config)
-  }
+type Options = {
+  [k in keyof ConfigOptions]?: ConfigOptions[k] extends Record<string, any> ? Partial<ConfigOptions[k]> : ConfigOptions[k]
 }
 
 export function defineConfig(options: Options) {
   return options
 }
 
+export class Config {
+  static readonly rootConfig: Options = rootConfig
+  static readonly defaultConfig: ConfigOptions = {
+    input: {
+      filepath: 'public/README.md.md',
+      public: 'public',
+    },
+    output: {
+      dist: 'dist',
+      filename: 'index.html',
+      filepath: '',
+      clean: true,
+    },
+    head: {
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
+      ],
+    },
+  }
+
+  static formate(...options: (Options | undefined)[]) {
+    const config = merge<ConfigOptions>(Config.defaultConfig, Config.rootConfig, ...options)
+    if (!config.output.filepath) {
+      config.output.filepath = path(config.output.dist, config.output.filename)
+    }
+
+    return config
+  }
+}
+
 // #region Generate
 
-export async function generate(options: Options = {}) {
-  const opt = await new Config().merge(options)
+export async function generate(options?: Options) {
+  const config = Config.formate(options)
+  const { frontMatter, body } = Md.toHtml(config.input.filepath)
 
-  const assets = new Public(opt.public)
-  assets.copyTo(opt.dist, { clean: true })
-
-  const { frontMatter, body } = new Md(opt.input).parse()
+  const assets = new Public(config.input.public)
+  assets.copyTo(config.output.dist, { clean: config.output.clean })
 
   const html = new Html()
   html
     .setBody(body)
     .pushHead(
       assets.autoHead(),
-      opt.head,
+      config.head,
       frontMatter,
     )
 
-  await html.save(opt.output)
+  await html.save(config.output.filepath)
 }

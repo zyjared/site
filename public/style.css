@@ -68,9 +68,11 @@ blockquote {
 body {
   min-height: 100vh;
   box-sizing: border-box;
+
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: justify;
 }
 
@@ -96,74 +98,10 @@ h1 strong:last-child {
   font-size: 1.1em;
 }
 
-h1 + p {
-  text-align: right;
-  color: rgba(var(--c-rgb), 0.5);
-  margin: 0;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  align-items: flex-end;
-  align-content: flex-end;
-  row-gap: .5rem;
-  column-gap: 3rem;
-}
-
-h1 + p::before {
-  display: block;
-  content: '';
-  width: 100%;
-  border-top: 1px solid rgba(var(--c-rgb), .1);
-}
-
-h1 + p small {
-  order: -1;
-}
-
-img[alt=avatar] {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  margin-left: auto;
-  margin-right: 0;
-}
-
 h2 {
   font-size: 1.25rem;
   line-height: 1.5;
   padding: 1rem 0 0;
-}
-
-a {
-  color: var(--b);
-  text-decoration: none;
-  padding: 0 .15em;
-  position: relative;
-  display: inline-block;
-  transition: color .2s;
-  z-index: 1;
-  transition: color .2s;
-}
-
-a::before {
-  display: inline-block;
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  z-index: -1;
-  width: 100%;
-  height: .1em;
-  background-color: rgba(var(--b-rgb), .75);
-  transition: height .2s;
-}
-
-a:hover {
-  color: rgba(var(--c), .5);
-}
-
-a:hover::before {
-  height: 100%;
 }
 
 blockquote {
@@ -193,7 +131,13 @@ blockquote::after {
   color: rgba(var(--d-rgb), 0.75);
 }
 
-ul {
+a {
+  color: var(--b);
+}
+
+/* 特定样式：列表、链接 */
+
+h2 + ul {
   list-style: none;
   padding-left: 0;
 
@@ -203,6 +147,72 @@ ul {
   gap: 1.5rem;
 }
 
+h2 + ul a {
+  padding: 0 .15em;
+  display: inline-block;
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+  transition: color .2s;
+}
+
+h2 + ul a::before {
+  display: inline-block;
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  width: 100%;
+  height: .1em;
+  background-color: rgba(var(--b-rgb), .75);
+  transition: height .2s;
+}
+
+h2 + ul a:hover {
+  color: rgba(var(--c), .5);
+}
+
+h2 + ul a:hover::before {
+  height: 100%;
+}
+
+/* 状态 */
+
+h1 + p {
+  text-align: right;
+  color: rgba(var(--c-rgb), 0.5);
+  margin: 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  align-content: flex-end;
+  row-gap: .5rem;
+  column-gap: 3rem;
+}
+
+h1 + p::before {
+  display: block;
+  content: '';
+  width: 100%;
+  border-top: 1px solid rgba(var(--c-rgb), .1);
+}
+
+h1 + p small {
+  order: -1;
+}
+
+h1 + p a {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+img[alt=avatar] {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
 
 /* 大屏 */
 @media (min-width: 1024px) {

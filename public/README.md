@@ -9,7 +9,7 @@ title: zyjared
 
 > 欢迎访问！或者，你也可以访问 [zyjared.com](https://zyjared.com) 查看最新样式。
 
-## Navigation
+## 导航
 
 + [Outlook](https://outlook.live.com/)
 + [MDN](https://developer.mozilla.org/zh-CN/)
@@ -17,7 +17,7 @@ title: zyjared
 + [有道词典](https://dict.youdao.com/)
 + [bilibili](https://www.bilibili.com/)
 
-## About Me
+## 关于
 
 - [Github](https://github.com/zyjared/)
 - [Twitter](https://x.com/home)

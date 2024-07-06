@@ -7,7 +7,7 @@ title: zyjared
 <small>🌱 I'm currently learning Rust.</small>
 <img alt="avatar" src="avatar.png" width="60" height="60" />
 
-> 欢迎访问！或者，你也可以访问 [zyjared.com](https://zyjared.com) 。
+> 欢迎访问！或者，你也可以访问 [zyjared.com](https://zyjared.com) 查看最新样式。
 
 ## Navigation
 

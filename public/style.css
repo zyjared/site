@@ -68,10 +68,15 @@ blockquote {
 body {
   min-height: 100vh;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: justify;
 }
 
 h1 {
   line-height: 2;
+  margin-bottom: 1rem;
 }
 
 h1 strong:first-child {
@@ -86,10 +91,41 @@ h1 strong:first-child {
 
 h1 strong:last-child {
   color: var(--b);
-
   font-family: "montecarlo", sans-serif;
   font-style: normal;
   font-size: 1.1em;
+}
+
+h1 + p {
+  text-align: right;
+  color: rgba(var(--c-rgb), 0.5);
+  margin: 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  align-content: flex-end;
+  row-gap: .5rem;
+  column-gap: 3rem;
+}
+
+h1 + p::before {
+  display: block;
+  content: '';
+  width: 100%;
+  border-top: 1px solid rgba(var(--c-rgb), .1);
+}
+
+h1 + p small {
+  order: -1;
+}
+
+img[alt=avatar] {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: 0;
 }
 
 h2 {
@@ -131,20 +167,30 @@ a:hover::before {
 }
 
 blockquote {
-  color: rgba(var(--c-rgb), 0.65);
-  padding-left: 2.25rem;
+  color: rgba(var(--c-rgb), 0.5);
+  padding: 0 2rem;
   position: relative;
 }
 
-blockquote::before {
+blockquote::before,
+blockquote::after {
   content: '“';
   position: absolute;
   left: 0;
-  top: -.5rem;
-  font-size: 5rem;
-  line-height: 1;
-  color: rgba(var(--d-rgb), 0.75);
+  top: 0;
+  font-size: 3.5rem;
+  height: 1em;
+  color: rgba(var(--b-rgb), 0.75);
   font-family: Georgia, serif;
+}
+
+blockquote::after {
+  content: '”';
+  left: auto;
+  right: 0;
+  top: auto;
+  bottom: 0;
+  color: rgba(var(--d-rgb), 0.75);
 }
 
 ul {
@@ -153,6 +199,7 @@ ul {
 
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 1.5rem;
 }
 
@@ -160,7 +207,7 @@ ul {
 /* 大屏 */
 @media (min-width: 1024px) {
   body {
-    padding: 5rem 45vw 5rem 5rem;
+    padding: 5rem 50vw 5rem 5rem;
   }
 }
 
@@ -168,7 +215,7 @@ ul {
 
 @media (min-width: 768px) {
   body {
-    padding: 3rem 35vw 3rem 3rem;
+    padding: 3rem 45vw 3rem 3rem;
   }
 }
 

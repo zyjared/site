@@ -1,12 +1,15 @@
 :root {
-  --b: #60a5fa;
   /* brand */
-  --d: #fa5749;
+  --b: #60a5fa;
+
   /* decoration */
-  --c: #cbd5e1;
+  --d: #fa5749;
+
   /* color */
-  --bg: #0f172a;
+  --c: #cbd5e1;
+
   /* background */
+  --bg: #0f172a;
 
   --b-rgb: 96, 165, 250;
   --d-rgb: 250, 87, 73;
@@ -180,6 +183,6 @@ ul {
   }
 }
 
-/* 小屏 */
+/* 手机 竖屏 */
 
 @media (max-width: 479px) {}

@@ -7,22 +7,27 @@ Generate my site from a `README.md` file.
 Create a `config.ts` file with the following content:
 
 ```ts
-import { defineConfig } from '.'
+import { defineConfig } from './src/config'
 
 export default defineConfig({
   input: {
-    filename: 'public/README.md',
+    filepath: 'public/README.md',
     public: 'public',
+    ignore: ['README.md'],
   },
   output: {
-    dist: 'public', // if the same as input.public, skip copying assets
+    dist: 'public',
     filename: 'index.html',
-    filepath: 'public/index.html', // the highest priority (overrides dist filename)
+    clean: false,
+    overwrite: true,
   },
   head: {
+    htmlAttrs: { lang: 'zh-CN' },
     link: [
       { rel: 'stylesheet', href: 'style.css' },
-    ]
+      { rel: 'stylesheet', href: 'zyjared.css' },
+    ],
+    meta: [],
   },
 })
 ```

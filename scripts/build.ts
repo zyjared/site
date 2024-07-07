@@ -1,6 +1,8 @@
 import process from 'node:process'
 import { program } from 'commander'
-import { defineConfig, generate, merge, path } from '..'
+import { generate } from '../src'
+import { defineConfig } from '../src/config'
+import { merge, path } from '../src/utils'
 
 program
   .version('0.0.1')
@@ -10,6 +12,7 @@ program
   .option('-i, --input <input>', 'Path to the input Markdown file')
   .option('-p, --public <public>', 'Directory containing public resources')
   .option('-d, --dist <dist>', 'Output directory for the generated files')
+
 function run() {
   program.parse(process.argv)
 

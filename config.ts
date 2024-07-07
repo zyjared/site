@@ -1,19 +1,22 @@
-import { defineConfig } from '.'
+import { defineConfig } from './src/config'
 
 export default defineConfig({
   input: {
     filepath: 'public/README.md',
     public: 'public',
+    ignore: ['README.md'],
   },
   output: {
     dist: 'public',
     filename: 'index.html',
-    clean: true,
+    clean: false,
   },
   head: {
     htmlAttrs: { lang: 'zh-CN' },
     link: [
       { rel: 'stylesheet', href: 'https://use.typekit.net/rzl1qcy.css' },
+      { rel: 'stylesheet', href: 'style.css' },
+      { rel: 'stylesheet', href: 'zyjared.css' },
     ],
     meta: [
       { name: 'description', content: 'zyjared, a frontend engineer' },

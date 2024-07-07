@@ -2,14 +2,14 @@
   "name": "zyjared-site",
   "type": "commonjs",
   "version": "0.0.1",
-  "private": true,
   "packageManager": "pnpm@9.4.0",
   "author": "Jared Zhang <zyjared@outlook.com>",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "build": "ts-node ./scripts/build.ts"
+    "lint": "eslint ./src/ ./scripts/",
+    "lint:fix": "pnpm lint --fix",
+    "build": "pnpm ts-node ./scripts/build.ts",
+    "test": "pnpm lint && pnpm build"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.21.2",
@@ -20,6 +20,7 @@
     "@types/node": "^20.14.9",
     "@unhead/schema": "^1.9.15",
     "@unhead/ssr": "^1.9.15",
+    "cheerio": "1.0.0-rc.12",
     "commander": "^12.1.0",
     "eslint": "^8.57.0",
     "fs-extra": "^11.2.0",

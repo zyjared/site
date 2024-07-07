@@ -1,11 +1,16 @@
 ---
 title: zyjared
+theme:
+  name: zyjared
+  description: 🌱 I'm currently learning Rust.
+  avatar: avatar.png
+  link: https://github.com/zyjared/
 ---
 
 # __zy__**Jared**
 
-<small>🌱 I'm currently learning Rust.</small>
- [![avatar](avatar.png)](https://github.com/zyjared/ "github link")
+<!-- <small>🌱 I'm currently learning Rust.</small>
+ [![avatar](avatar.png)](https://github.com/zyjared/ "github link") -->
 
 > 欢迎访问！或者，你也可以访问 [zyjared.com](https://zyjared.com) 查看最新样式。
 

@@ -1,0 +1,7 @@
+node_modules
+dist
+build
+
+index.html
+test.html
+public/index.html

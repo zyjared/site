@@ -1,0 +1,60 @@
+{
+  "name": "@zyjared/buildpage",
+  "type": "commonjs",
+  "version": "0.0.11",
+  "packageManager": "pnpm@9.4.0",
+  "author": "Jared Zhang <zyjared@outlook.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zyjared/site.git"
+  },
+  "main": "build/index.js",
+  "types": "build/types/index.d.ts",
+  "bin": {
+    "buildpage": "build/bin/buildpage.js"
+  },
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "clean": "rimraf build dist index.html public/index.html",
+    "lint": "eslint ./src/",
+    "lint:fix": "pnpm lint --fix",
+    "page": "rimraf public/index.html && tsx src/bin/buildpage.ts -c site.config.ts",
+    "build": "pnpm clean && pnpm lint && tsc && tsx scripts/build.ts",
+    "test": "pnpm build && node ./build/bin/buildpage.js -c test.config.js",
+    "patch": "npm version patch -m \"chore(release): %s\""
+  },
+  "dependencies": {
+    "@unhead/ssr": "^1.9.15",
+    "autoprefixer": "^10.4.19",
+    "cheerio": "1.0.0-rc.12",
+    "colorette": "^2.0.20",
+    "commander": "^12.1.0",
+    "cssnano": "^7.0.4",
+    "fs-extra": "^11.2.0",
+    "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21",
+    "markdown-it": "^14.1.0",
+    "markdown-it-front-matter": "^0.2.4",
+    "postcss": "^8.4.39",
+    "unhead": "^1.9.15"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.21.3",
+    "@types/fs-extra": "^11.0.4",
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash": "^4.17.6",
+    "@types/markdown-it": "^14.1.1",
+    "@types/node": "^20.14.9",
+    "@unhead/schema": "^1.9.16",
+    "eslint": "^8.57.0",
+    "rimraf": "^5.0.8",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3"
+  }
+}

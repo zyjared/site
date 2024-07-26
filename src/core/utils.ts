@@ -3,6 +3,10 @@ import process from 'node:process'
 import _ from 'lodash'
 import fs from 'fs-extra'
 
+// -----------------------------------------------
+// 路径
+// -----------------------------------------------
+
 export function absolutePath(...p: string[]) {
   if (p[0] && path.isAbsolute(p[0])) {
     return path.resolve(...p)
@@ -13,16 +17,15 @@ export function absolutePath(...p: string[]) {
 export function relativePath(src: string, dest: string, preDot = true) {
   const relative = path.relative(src, dest).split(path.sep).join('/')
 
-  if (preDot && relative[0] !== '.' && relative !== '..') {
+  if (preDot && relative[0] !== '.' && relative !== '..')
     return `./${relative}`
-  }
-
-  return relative
+  else
+    return relative
 }
 
-export function arePathsEqual(path1: string, path2: string) {
-  return absolutePath(path1) === absolutePath(path2)
-}
+// -----------------------------------------------
+// 对象
+// -----------------------------------------------
 
 export function deepMerge<T = any, U = any>(...args: U[]): T {
   args = args.filter(Boolean)
@@ -32,6 +35,10 @@ export function deepMerge<T = any, U = any>(...args: U[]): T {
     }
   }))
 }
+
+// -----------------------------------------------
+// 文件
+// -----------------------------------------------
 
 export function copyDirectory(src: string, dest: string, options: {
   clean?: boolean
@@ -71,12 +78,21 @@ export function copyDirectory(src: string, dest: string, options: {
   return dest
 }
 
+// -----------------------------------------------
+// 模块
+// -----------------------------------------------
+
 export interface FileImportOptions {
   dirname?: string
   filepath: string
   extensions: string[]
 }
 
+/**
+ * 根据尾缀依次查找，成功返回文件路径，否则返回 null
+ *
+ * 如: ['.js', '.cjs', '.ts']
+ */
 async function resolveFilePathByExtensions(options: FileImportOptions) {
   let { dirname, filepath, extensions } = options
 

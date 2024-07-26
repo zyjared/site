@@ -1,29 +1,6 @@
 import type { FileImportOptions } from './utils'
 import { deepMerge, importModuleFromPath } from './utils'
-import type { Dict, Head } from './types'
-
-interface DefaultConfig {
-  input: string
-  output: string
-  assets: {
-    dir: string
-    ignore: string[]
-    include: string[]
-
-    outDir: string
-
-    /** 是否清空 outDir */
-    clean?: boolean
-
-    /** dev：是否覆盖 */
-    overwrite?: boolean
-  }
-  head: Head
-}
-
-export type Config = {
-  [k in keyof DefaultConfig]?: DefaultConfig[k] extends Dict ? Partial<DefaultConfig[k]> : DefaultConfig[k]
-}
+import type { Config, DefaultConfig } from './types'
 
 const defaultConfig: DefaultConfig = {
   input: 'README.md',
@@ -34,7 +11,7 @@ const defaultConfig: DefaultConfig = {
     include: [],
     outDir: '.',
     clean: false,
-    overwrite: true,
+    overwrite: true, // dev
   },
   head: {
     meta: [
@@ -81,10 +58,10 @@ export async function resolveConfig(config: Config | undefined, resolutionStrate
   return deepMerge<DefaultConfig>({}, defaultConfig, config)
 }
 
-export async function loadConfig(options: FileImportOptions = {
+export async function loadConfig<T = any>(options: FileImportOptions = {
   filepath: './buildpage.config',
   extensions: ['.js', '.cjs'],
-}) {
+}): Promise<T | null> {
   options.dirname = __dirname
   return await importModuleFromPath(options)
 }

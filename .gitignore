@@ -1,7 +1,7 @@
 node_modules
 dist
 build
+cache
 
-index.html
-test.html
-public/index.html
+/index.html
+/public/index.html

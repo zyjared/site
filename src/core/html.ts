@@ -3,7 +3,7 @@ import fs from 'fs-extra'
 import { absolutePath } from './utils'
 import type { Unhead } from './types'
 
-export async function renderHtmlDocument(head: Unhead, body: string) {
+async function renderHtmlDocument(head: Unhead, body: string) {
   const { htmlAttrs, headTags, bodyAttrs, bodyTagsOpen, bodyTags } = await renderSSRHead(head, {
     omitLineBreaks: false,
   })
@@ -18,6 +18,10 @@ export async function renderHtmlDocument(head: Unhead, body: string) {
 </html>`
 }
 
+export async function renderHtml(head: Unhead, body: string) {
+  return await renderHtmlDocument(head, body)
+}
+
 export async function renderHtmlToFile(filepath: string, head: Unhead, body: string) {
   filepath = absolutePath(filepath)
   const html = await renderHtmlDocument(head, body)
@@ -25,5 +29,5 @@ export async function renderHtmlToFile(filepath: string, head: Unhead, body: str
   fs.ensureDirSync(absolutePath(filepath, '..'))
   fs.writeFileSync(filepath, html)
 
-  return filepath
+  return { filepath, html }
 }

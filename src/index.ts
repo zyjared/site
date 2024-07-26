@@ -1,17 +1,31 @@
 import { createHead } from 'unhead'
 import fs from 'fs-extra'
-import type { Config, ConfigResolutionStrategy } from './core/config'
+import { absolutePath, copyDirectory, deepMerge } from './core/utils'
+import { applyResourcesToHead } from './core/assets'
+import { renderHtmlToFile } from './core/html'
 import { resolveConfig } from './core/config'
 import { parseMarkdown } from './core/md'
-import { applyResourcesToHead } from './core/assets'
-import { absolutePath, copyDirectory, deepMerge } from './core/utils'
-import { renderHtmlToFile } from './core/html'
 import { applyTheme } from './core/theme'
+
+import type { ConfigResolutionStrategy } from './core/config'
+import type { Config, DefaultConfig, HeadCreated } from './core/types'
 
 export { defineConfig } from './core/config'
 
-export async function buildpage(options: Config = {}, configResolutionStrategy: ConfigResolutionStrategy = 'preferRoot') {
-  const { assets, ...config } = await resolveConfig(options, configResolutionStrategy)
+interface MarkdownToHtmlOptions {
+  config?: Config
+  configResolutionStrategy?: ConfigResolutionStrategy
+}
+
+export interface MarkdownToHtmlResult {
+  config: DefaultConfig
+  head: HeadCreated
+  body: string
+}
+
+export async function parseMarkdownToHtml(options: MarkdownToHtmlOptions = {}): Promise<MarkdownToHtmlResult> {
+  const config = await resolveConfig(options.config, options.configResolutionStrategy || 'preferRoot')
+  const assets = config.assets
 
   const content = fs.readFileSync(absolutePath(config.input), 'utf-8')
   const { frontMatter: { theme, ...mdHead }, body } = parseMarkdown(content)
@@ -27,8 +41,25 @@ export async function buildpage(options: Config = {}, configResolutionStrategy: 
   // 主题行为
   const themeBody = await applyTheme({ theme, body, head })
 
+  return {
+    config,
+    head,
+    body: themeBody,
+  }
+}
+
+export interface BuildpageResult {
+  assets: string
+  output: string
+  html: string
+}
+
+export async function buildpage(options?: Config, configResolutionStrategy?: ConfigResolutionStrategy): Promise<BuildpageResult> {
+  const { config, head, body } = await parseMarkdownToHtml({ config: options, configResolutionStrategy })
+  const assets = config.assets
+
   // 写入 html
-  const saveTo = await renderHtmlToFile(config.output, head, themeBody)
+  const htmlResult = await renderHtmlToFile(config.output, head, body)
 
   // 拷贝 assets
   const assetsPath = copyDirectory(assets.dir, assets.outDir, {
@@ -38,5 +69,5 @@ export async function buildpage(options: Config = {}, configResolutionStrategy: 
     include: assets.include,
   })
 
-  return { assets: assetsPath, output: saveTo }
+  return { assets: assetsPath, output: htmlResult.filepath, html: htmlResult.html }
 }

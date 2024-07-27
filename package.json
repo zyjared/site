@@ -24,10 +24,10 @@
     "clean": "rimraf build dist index.html public/index.html",
     "lint": "eslint ./src/",
     "lint:fix": "pnpm lint --fix",
-    "dev": "tsx scripts/dev.ts -c site.config.ts",
-    "build": "pnpm clean && pnpm lint && tsc && tsx scripts/build.ts",
-    "test": "pnpm build && node ./build/bin/buildpage.js -c test.config.js",
-    "page": "rimraf public/index.html && tsx src/bin/buildpage.ts -c site.config.ts",
+    "dev": "pnpm clean & tsx scripts/dev.ts -c site.config.ts",
+    "build": "pnpm clean & pnpm lint & tsc & tsx scripts/build.ts",
+    "test": "pnpm build & node ./build/bin/buildpage.js -c test.config.js",
+    "page": "rimraf public/index.html & tsx src/bin/buildpage.ts -c site.config.ts",
     "patch": "npm version patch -m \"chore(release): %s\""
   },
   "dependencies": {

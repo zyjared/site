@@ -16,6 +16,8 @@ export default defineConfig({
     meta: [
       { name: 'keywords', content: 'Jared Zhang, zyjared' },
     ],
-    link: [],
+    link: [
+      { rel: 'icon', href: 'favicon.ico' },
+    ],
   },
 })

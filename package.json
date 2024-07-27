@@ -26,6 +26,7 @@
     "lint:fix": "pnpm lint --fix",
     "build": "pnpm clean & pnpm lint & tsc & tsx scripts/build.ts",
     "dev": "pnpm clean & tsx scripts/dev.ts -c test/dev.config.ts",
+    "dev:page": "pnpm clean & tsx scripts/dev.ts -c site.config.ts",
     "page": "rimraf public/index.html & tsx src/bin/buildpage.ts -c site.config.ts",
     "test": "pnpm build & node build/bin/buildpage.js -c test/test.config.js",
     "pkg": "pnpm clean & pnpm update @zyjared/buildpage & buildpage -c test/pkg.config.js",
@@ -49,6 +50,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^2.21.3",
     "@types/browser-sync": "^2.29.0",
+    "@types/cheerio": "^0.22.35",
     "@types/fs-extra": "^11.0.4",
     "@types/js-yaml": "^4.0.9",
     "@types/lodash": "^4.17.6",

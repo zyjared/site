@@ -54,6 +54,9 @@ importers:
       '@types/browser-sync':
         specifier: ^2.29.0
         version: 2.29.0
+      '@types/cheerio':
+        specifier: ^0.22.35
+        version: 0.22.35
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -433,6 +436,9 @@ packages:
 
   '@types/browser-sync@2.29.0':
     resolution: {integrity: sha512-d2V8FDX/LbDCSm343N2VChzDxvll0h76I8oSigYpdLgPDmcdcR6fywTggKBkUiDM3qAbHOq7NZvepj/HJM5e2g==}
+
+  '@types/cheerio@0.22.35':
+    resolution: {integrity: sha512-yD57BchKRvTV+JD53UZ6PD8KWY5g5rvvMLRnZR3EQBCZXiDT/HR+pKpMzFGlWNhFrXlo7VPZXtKvIEwZkAWOIA==}
 
   '@types/cookie@0.4.1':
     resolution: {integrity: sha512-XW/Aa8APYr6jSVVA1y/DEIZX0/GMKLEVekNG727R8cs56ahETkRAy/3DR7+fJyh7oUgGwNQaRfXCun0+KbWY7Q==}
@@ -2786,6 +2792,10 @@ snapshots:
       '@types/node': 20.14.10
       '@types/serve-static': 1.15.7
       chokidar: 3.6.0
+
+  '@types/cheerio@0.22.35':
+    dependencies:
+      '@types/node': 20.14.10
 
   '@types/cookie@0.4.1': {}
 

@@ -59,6 +59,8 @@
 body,
 h1,
 h2,
+h3,
+h4,
 blockquote {
   margin: 0;
   padding: 0;
@@ -75,9 +77,14 @@ h1 {
 }
 
 h2 {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
+  font-weight: 700;
   line-height: 1.5;
-  padding: 1rem 0 0;
+  padding-top: 1rem;
+}
+
+h3, h4 {
+  font-size: 1rem;
 }
 
 pre {
@@ -85,7 +92,7 @@ pre {
 }
 
 blockquote {
-  color: rgba(var(--c-rgb), 0.5);
+  color: rgba(var(--c-rgb), 0.75);
   padding: 0 2rem;
   position: relative;
 }
@@ -181,7 +188,14 @@ h2+ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.5rem;
+  /* gap: 1.5rem; */
+}
+
+h2+ul>li:not(:last-child)::after {
+  content: '·';
+  display: inline-block;
+  margin: 0 .5rem;
+  font-weight: 700;
 }
 
 h2+ul a {
@@ -202,8 +216,8 @@ h2+ul a::before {
   bottom: 0;
   z-index: -1;
   width: 100%;
-  height: .1em;
-  background-color: rgba(var(--b-rgb), .75);
+  height: 0em;
+  background-color: rgba(var(--b-rgb), 0);
   transition: height .2s;
 }
 
@@ -213,6 +227,7 @@ h2+ul a:hover {
 
 h2+ul a:hover::before {
   height: 100%;
+  background-color: rgba(var(--b-rgb), .75);
 }
 
 /* 状态 */
@@ -246,7 +261,7 @@ h1+p a {
   margin-right: 0;
 }
 
-img[alt=avatar] {
+img[alt="avatar"] {
   width: 2rem;
   height: 2rem;
   border-radius: 50%;

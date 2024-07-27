@@ -4,15 +4,13 @@ import { defineTheme } from '../../core/theme'
 export default defineTheme((options) => {
   const { theme, body, head } = options
   const { description, avatar, link } = theme
-  const p = `
-<p>
-<small>${description || 'welcome'}</small>
-<a href="${link || '#'}" title="github link"><img src="${avatar || 'favicon.ico'}" alt="avatar"></a>
-</p>`
+
+  const desc = `<small>${description || 'welcome'}</small>`
+  const img = avatar ? `<a href="${link || '#'}" title="github link"><img src="${avatar}" alt="avatar"></a>` : '<br />'
 
   const $ = cheerio.load(body)
 
-  $('h1').first().after(p)
+  $('h1').first().after(`<p>${desc}${img}</p>`)
 
   head.push({
     link: [

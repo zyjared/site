@@ -63,17 +63,14 @@ export function copyDirectory(src: string, dest: string, options: {
   const includePaths = new Set(include?.map(i => absolutePath(src, i)) ?? [])
   const ignorePaths = new Set(ignore?.map(i => absolutePath(src, i)) ?? [])
 
-  const filterFn = (s: string) => {
-    if (includePaths.size > 0) {
+  fs.copySync(src, dest, {
+    overwrite,
+    filter(s: string) {
       return includePaths.has(s)
-    }
-    if (ignorePaths.size > 0) {
-      return !ignorePaths.has(s)
-    }
-    return true
-  }
-
-  fs.copySync(src, dest, { overwrite, filter: filterFn })
+        ? true
+        : !ignorePaths.has(s)
+    },
+  })
 
   return dest
 }

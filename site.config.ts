@@ -12,7 +12,7 @@ export default defineConfig({
     ignore: ['README.md'],
   },
   head: {
-    htmlAttrs: { lang: 'en' },
+    htmlAttrs: { lang: 'zh-CN' },
     meta: [
       { name: 'keywords', content: 'Jared Zhang, zyjared' },
     ],

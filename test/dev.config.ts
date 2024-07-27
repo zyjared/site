@@ -1,7 +1,7 @@
 import { defineConfig } from '../src'
 
 export default defineConfig({
-  input: 'test/README.md',
+  input: 'src/themes/zyjared/README.md',
   output: 'dist/dev.html',
   assets: {
     dir: 'test',

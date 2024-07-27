@@ -2,7 +2,7 @@
 title: zyjared
 theme:
   name: zyjared
-  description: 🌱 I'm currently learning Rust.
+  description: 🌱 学习中 ......
   avatar: avatar.png
   link: https://github.com/zyjared/
 ---
@@ -11,7 +11,7 @@ theme:
 
 > Hello World!
 
-## Navigation
+## 导航
 
 + [Outlook](https://outlook.live.com/)
 + [MDN](https://developer.mozilla.org/zh-CN/)
@@ -19,26 +19,9 @@ theme:
 + [有道词典](https://dict.youdao.com/)
 + [bilibili](https://www.bilibili.com/)
 
-## About Me
+## 关于我
 
 - [Github](https://github.com/zyjared/)
 - [Twitter](https://x.com/home)
 - [Bookmarks](https://github.com/zyjared/zyjared/tree/main/bookmarks)
 - [Email](mailto:zyjared@outlook.com)
-
-<!-- ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=zyjared&layout=compact&theme=onedark) -->
-
-<!--
-
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
-
--->

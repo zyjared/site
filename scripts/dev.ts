@@ -9,8 +9,7 @@ import { blue, bold, green, red, yellow } from 'colorette'
 import clearModule from 'clear-module'
 import fs from 'fs-extra'
 import pkg from '../package.json'
-import { loadConfig, resolveConfig } from '../src/core/config'
-import { Config } from '../src/core/types'
+import { loadConfig } from '../src/core/config'
 import type { BuildpageResult } from '../src'
 
 const jiti = createJiti(__dirname, { interopDefault: true })

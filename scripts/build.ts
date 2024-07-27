@@ -29,6 +29,7 @@ function copyThemeStyles(dirpath: string, buildDir: string) {
       copyThemeStyles(abspath, absolutePath(buildDir, file))
     }
     else if (file.endsWith('.css')) {
+      fs.ensureDirSync(absolutePath(buildDir))
       fs.copyFileSync(abspath, absolutePath(buildDir, file))
     }
     else {

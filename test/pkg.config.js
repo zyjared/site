@@ -1,8 +1,8 @@
-const { defineConfig } = require('../build/index')
+const { defineConfig } = require('@zyjared/buildpage')
 
 module.exports = defineConfig({
   input: 'README.md',
-  output: 'dist/test.html',
+  output: 'dist/pkg.html',
   assets: {
     dir: 'test',
     outDir: 'dist',
@@ -13,7 +13,7 @@ module.exports = defineConfig({
   },
   head: {
     htmlAttrs: { lang: 'en' },
-    title: 'test',
+    title: 'pkg',
     link: [
       { rel: 'stylesheet', href: 'custom.css' },
     ],

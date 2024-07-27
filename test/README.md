@@ -1,5 +1,4 @@
 ---
-title: test
 theme:
   name: zyjared
   description: 🌱 I'm currently learning Rust.

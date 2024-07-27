@@ -24,10 +24,11 @@
     "clean": "rimraf build dist",
     "lint": "eslint ./src/",
     "lint:fix": "pnpm lint --fix",
-    "dev": "pnpm clean & tsx scripts/dev.ts -c test/dev.config.ts",
     "build": "pnpm clean & pnpm lint & tsc & tsx scripts/build.ts",
-    "test": "pnpm build & node build/bin/buildpage.js -c test/test.config.js",
+    "dev": "pnpm clean & tsx scripts/dev.ts -c test/dev.config.ts",
     "page": "rimraf public/index.html & tsx src/bin/buildpage.ts -c site.config.ts",
+    "test": "pnpm build & node build/bin/buildpage.js -c test/test.config.js",
+    "pkg": "pnpm clean & pnpm update @zyjared/buildpage & buildpage -c test/pkg.config.js",
     "patch": "npm version patch -m \"chore(release): %s\""
   },
   "dependencies": {
@@ -54,6 +55,7 @@
     "@types/markdown-it": "^14.1.1",
     "@types/node": "^20.14.9",
     "@unhead/schema": "^1.9.16",
+    "@zyjared/buildpage": "^0.0.14",
     "browser-sync": "^3.0.2",
     "chokidar": "^3.6.0",
     "clear-module": "^4.1.2",

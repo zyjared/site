@@ -17,6 +17,8 @@ const { rootDir = 'src', outDir = 'build' } = program.opts()
 const themesDir = absolutePath(rootDir, 'themes')
 const themesBuildDir = absolutePath(outDir, 'themes')
 
+copyThemeStyles(themesDir, themesBuildDir)
+
 function copyThemeStyles(dirpath: string, buildDir: string) {
   const files = fs.readdirSync(dirpath)
 
@@ -26,11 +28,11 @@ function copyThemeStyles(dirpath: string, buildDir: string) {
     if (fs.statSync(abspath).isDirectory()) {
       copyThemeStyles(abspath, absolutePath(buildDir, file))
     }
-
-    if (file.endsWith('.css')) {
+    else if (file.endsWith('.css')) {
       fs.copyFileSync(abspath, absolutePath(buildDir, file))
+    }
+    else {
+      //
     }
   }
 }
-
-copyThemeStyles(themesDir, themesBuildDir)

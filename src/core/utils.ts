@@ -17,7 +17,7 @@ export function absolutePath(...p: string[]) {
 export function relativePath(src: string, dest: string, preDot = true) {
   const relative = path.relative(src, dest).split(path.sep).join('/')
 
-  if (preDot && relative[0] !== '.' && relative !== '..')
+  if (preDot && !relative.startsWith('.'))
     return `./${relative}`
   else
     return relative

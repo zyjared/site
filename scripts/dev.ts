@@ -52,8 +52,6 @@ async function main() {
   })
 
   watcher.on('all', async (e, p) => {
-    // clearModule(path.join(config.output, path.basename(p)))
-
     log(e, p)
     startBuild(bs, config)
 

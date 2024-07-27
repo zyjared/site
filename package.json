@@ -1,7 +1,7 @@
 {
   "name": "@zyjared/buildpage",
   "type": "commonjs",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "packageManager": "pnpm@9.4.0",
   "author": "Jared Zhang <zyjared@outlook.com>",
   "license": "MIT",

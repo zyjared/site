@@ -49,7 +49,7 @@ export async function parseMarkdownToHtml(options: MarkdownToHtmlOptions = {}): 
 }
 
 export interface BuildpageResult {
-  assets: string
+  dist: string
   output: string
   html: string
 }
@@ -69,5 +69,5 @@ export async function buildpage(options?: Config, configResolutionStrategy?: Con
     include: assets.include,
   })
 
-  return { assets: assetsPath, output: htmlResult.filepath, html: htmlResult.html }
+  return { dist: assetsPath, output: htmlResult.filepath, html: htmlResult.html }
 }

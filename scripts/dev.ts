@@ -7,8 +7,11 @@ import chokidar from 'chokidar'
 import browserSync from 'browser-sync'
 import { blue, bold, green, red, yellow } from 'colorette'
 import clearModule from 'clear-module'
+import fs from 'fs-extra'
 import pkg from '../package.json'
 import { loadConfig, resolveConfig } from '../src/core/config'
+import { Config } from '../src/core/types'
+import type { BuildpageResult } from '../src'
 
 const jiti = createJiti(__dirname, { interopDefault: true })
 
@@ -27,14 +30,20 @@ const opts = program.opts()
 main()
 
 async function main() {
-  const bs = browserSync.create()
   const config = await getConfig(opts.config)
+  const result = await startBuild(config) // 修改一些路径配置时，需要重新启动
+
+  const bs = browserSync.create()
+  const watches = ['src', opts.config, config.input].filter(Boolean)
+
+  const serverDir = path.resolve(result.output, '..')
+  fs.ensureDirSync(serverDir)
 
   bs.init({
     ui: false,
     server: {
-      baseDir: path.resolve(config.output, '..'),
-      index: path.basename(config.output),
+      baseDir: serverDir,
+      index: path.basename(result.output),
     },
     // files: [config.output],
     open: opts.open,
@@ -46,40 +55,36 @@ async function main() {
     // logFileChanges: false,
   })
 
-  const watcher = chokidar.watch(['src', config.input], {
+  const watcher = chokidar.watch(watches, {
     ignoreInitial: true,
     ignored: ['**/node_modules/**'],
   })
 
   watcher.on('all', async (e, p) => {
     log(e, p)
-    startBuild(bs, config)
-
+    await startBuild(config)
     bs.reload()
   })
 
-  startBuild(bs, config)
   bs.reload()
 }
 
-async function startBuild(bs: any, config: any) {
+async function startBuild(config: any): Promise<BuildpageResult> {
   clearModule('../src')
   const { buildpage } = jiti('../src')
-  buildpage(config, 'preferUser')
-  bs.reload()
+  return await buildpage(config, 'preferUser')
 }
 
 async function getConfig(p?: string) {
-  let config: any
   if (p) {
     const dotIndex = p.lastIndexOf('.')
-    config = await loadConfig({
+    return await loadConfig({
       filepath: p.slice(0, dotIndex),
       extensions: [p.slice(dotIndex)],
     })
   }
 
-  return await resolveConfig(config, 'preferUser')
+  return null
 }
 
 function log(e: string, p: string) {

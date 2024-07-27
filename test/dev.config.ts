@@ -1,15 +1,15 @@
-import { defineConfig } from './src'
+import { defineConfig } from '../src'
 
 export default defineConfig({
-  input: 'public/README.md',
-  output: 'public/index.html',
+  input: 'test/README.md',
+  output: 'dist/index.html',
   assets: {
-    dir: 'public',
-    outDir: 'public',
+    dir: 'test',
+    outDir: 'dist',
     clean: false,
     overwrite: true,
     include: [],
-    ignore: ['README.md'],
+    ignore: ['README.md', 'dev.config.ts', 'test.config.ts'],
   },
   head: {
     htmlAttrs: { lang: 'en' },

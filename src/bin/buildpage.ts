@@ -32,7 +32,7 @@ async function run() {
     const buildTime = ((endTime - startTime) / 1000).toFixed(2)
 
     const tips = {
-      Dist: relativePath(absolutePath('.'), result.assets, false) || './',
+      Dist: relativePath(absolutePath('.'), result.dist, false) || './',
       Html: relativePath(absolutePath('.'), result.output, false),
       Time: `${buildTime}s`,
     } as Record<string, string>

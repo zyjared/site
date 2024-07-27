@@ -1,6 +1,6 @@
 # buildpage
 
-根据 markdown 文件生成个人单页 html。
+根据 markdown 文件生成**简单的单页 html**，这更像是我主页的样式历史记录。
 
 ## 使用
 
@@ -23,8 +23,8 @@ module.exports = defineConfig({
   input: 'README.md',
   output: 'index.html',
   assets: {
-    dir: '.',
-    outDir: '.',
+    dir: '.', // assets
+    outDir: '.', // public
     clean: false,
     overwrite: true,
     include: [],
@@ -46,7 +46,9 @@ module.exports = defineConfig({
 
 > [!TIP]
 >
-> 如果 `public` 目录中存在 `style.css` 文件，这将会自动添加到 `<head>` 中。
+> 如果 `public` 目录中存在以下文件，将会自动添加到 `<head>` 中:
+> - `favicon.[ico|png|svg|webp|gif|jpg|jpeg]`: 权重依次由高到低
+> - `style.css`
 
 ## 其他
 

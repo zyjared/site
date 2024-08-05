@@ -11,7 +11,7 @@ theme:
 
 > Hello World!
 
-## 导航
+##
 
 + [Outlook](https://outlook.live.com/)
 + [MDN](https://developer.mozilla.org/zh-CN/)
@@ -19,7 +19,7 @@ theme:
 + [有道词典](https://dict.youdao.com/)
 + [bilibili](https://www.bilibili.com/)
 
-## 关于我
+##
 
 - [Github](https://github.com/zyjared/)
 - [Twitter](https://x.com/home)

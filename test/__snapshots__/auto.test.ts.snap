@@ -1,0 +1,446 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`auto 1`] = `
+{
+  "/": {
+    "base": "/",
+    "items": [],
+    "link": "./",
+    "text": "/",
+  },
+  "/examples/css/docs/": {
+    "base": "/examples/css/docs/",
+    "items": [
+      {
+        "link": "border 动画",
+        "text": "border 动画",
+      },
+      {
+        "link": "border 渐变",
+        "text": "border 渐变",
+      },
+      {
+        "link": "clamp 函数",
+        "text": "clamp 函数",
+      },
+      {
+        "link": "clip-path",
+        "text": "clip-path",
+      },
+      {
+        "link": "focus-within",
+        "text": "focus-within",
+      },
+      {
+        "link": "容器阴影",
+        "text": "容器阴影",
+      },
+      {
+        "link": "宽高相等",
+        "text": "宽高相等",
+      },
+      {
+        "link": "文字渐变",
+        "text": "文字渐变",
+      },
+      {
+        "link": "段落渐隐",
+        "text": "段落渐隐",
+      },
+      {
+        "link": "毛玻璃",
+        "text": "毛玻璃",
+      },
+      {
+        "link": "渐变色旋转",
+        "text": "渐变色旋转",
+      },
+      {
+        "link": "滚动吸附",
+        "text": "滚动吸附",
+      },
+      {
+        "link": "计数器",
+        "text": "计数器",
+      },
+      {
+        "link": "转盘",
+        "text": "转盘",
+      },
+    ],
+    "link": "./",
+    "text": "docs",
+  },
+  "/programming/java/": {
+    "base": "/programming/java/",
+    "items": [
+      {
+        "link": "_index",
+        "text": "_index",
+      },
+      {
+        "base": "/programming/java/api/",
+        "items": [],
+        "link": "./",
+        "text": "api",
+      },
+    ],
+  },
+  "/programming/java/JDBC/": {
+    "base": "/programming/java/JDBC/",
+    "items": [
+      {
+        "link": "驱动程序",
+        "text": "驱动程序",
+      },
+    ],
+  },
+  "/programming/java/api/Collection/": {
+    "base": "/programming/java/api/Collection/",
+    "items": [
+      {
+        "link": "ArrayList",
+        "text": "ArrayList",
+      },
+      {
+        "link": "认识",
+        "text": "认识",
+      },
+    ],
+  },
+  "/programming/java/api/IO/": {
+    "base": "/programming/java/api/IO/",
+    "items": [
+      {
+        "link": "IO-介绍",
+        "text": "I/O 介绍",
+      },
+      {
+        "link": "常见IO任务",
+        "text": "常见 I/O 任务",
+      },
+    ],
+  },
+  "/programming/java/api/Stream/": {
+    "base": "/programming/java/api/Stream/",
+    "items": [],
+  },
+  "/programming/java/api/反射/": {
+    "base": "/programming/java/api/反射/",
+    "items": [],
+  },
+  "/programming/java/api/日期时间/": {
+    "base": "/programming/java/api/日期时间/",
+    "items": [],
+  },
+  "/programming/java/api/更多-api/": {
+    "base": "/programming/java/api/更多-api/",
+    "items": [],
+  },
+  "/programming/java/api/正则表达式/": {
+    "base": "/programming/java/api/正则表达式/",
+    "items": [],
+  },
+  "/programming/java/learn/": [
+    {
+      "base": "/programming/java/learn/开始使用/",
+      "items": [
+        {
+          "link": "开发环境",
+          "text": "开发环境",
+        },
+        {
+          "link": "面向对象",
+          "text": "面向对象",
+        },
+      ],
+      "text": "开始使用",
+    },
+    {
+      "base": "/programming/java/learn/基础/",
+      "items": [
+        {
+          "link": "变量",
+          "text": "变量与基础类型",
+        },
+        {
+          "link": "基本数据类型",
+          "text": "基本数据类型",
+        },
+        {
+          "link": "控制流语句",
+          "text": "控制流语句",
+        },
+        {
+          "link": "数组",
+          "text": "数组",
+        },
+        {
+          "link": "类型标识符 var",
+          "text": "类型标识符 var",
+        },
+        {
+          "link": "运算符",
+          "text": "运算符",
+        },
+      ],
+      "text": "基础",
+    },
+    {
+      "base": "/programming/java/learn/类和对象/",
+      "items": [
+        {
+          "link": "创建类",
+          "text": "创建类",
+        },
+        {
+          "link": "定义方法",
+          "text": "定义方法",
+        },
+        {
+          "link": "嵌套类",
+          "text": "嵌套类",
+        },
+        {
+          "link": "构造函数",
+          "text": "构造函数",
+        },
+        {
+          "link": "枚举",
+          "text": "枚举",
+        },
+        {
+          "link": "类的更多特性",
+          "text": "类的更多特性",
+        },
+        {
+          "link": "调用方法和构造函数",
+          "text": "调用方法和构造函数",
+        },
+      ],
+      "text": "类和对象",
+    },
+    {
+      "base": "/programming/java/learn/Numbers 和 Strings/",
+      "items": [
+        {
+          "link": "Autoboxing 和 Unboxing",
+          "text": "Autoboxing 和 Unboxing",
+        },
+        {
+          "link": "Characters",
+          "text": "Characters",
+        },
+        {
+          "link": "Numbers",
+          "text": "Numbers",
+        },
+        {
+          "link": "String Builders",
+          "text": "String Builders",
+        },
+        {
+          "link": "Strings",
+          "text": "Strings",
+        },
+      ],
+      "text": "Numbers 和 Strings",
+    },
+    {
+      "base": "/programming/java/learn/继承 Inheritance/",
+      "items": [
+        {
+          "link": "多态",
+          "text": "多态",
+        },
+        {
+          "link": "抽象类",
+          "text": "抽象类",
+        },
+        {
+          "link": "继承介绍",
+          "text": "继承介绍",
+        },
+        {
+          "link": "覆写",
+          "text": "覆写",
+        },
+        {
+          "link": "超类",
+          "text": "超类",
+        },
+      ],
+      "text": "继承 Inheritance",
+    },
+    {
+      "base": "/programming/java/learn/接口 Interface/",
+      "items": [
+        {
+          "link": "实现接口",
+          "text": "实现接口",
+        },
+        {
+          "link": "接口介绍",
+          "text": "接口介绍",
+        },
+        {
+          "link": "接口作为类型",
+          "text": "接口作为类型",
+        },
+      ],
+      "text": "接口 Interface",
+    },
+    {
+      "base": "/programming/java/learn/泛型/",
+      "items": [
+        {
+          "link": "泛型介绍",
+          "text": "泛型介绍",
+        },
+        {
+          "link": "泛型限制",
+          "text": "泛型限制",
+        },
+        {
+          "link": "类型推断",
+          "text": "类型推断",
+        },
+        {
+          "link": "类型擦除",
+          "text": "类型擦除",
+        },
+        {
+          "link": "通配符",
+          "text": "通配符",
+        },
+      ],
+      "text": "泛型",
+    },
+    {
+      "base": "/programming/java/learn/更多主题/",
+      "items": [
+        {
+          "link": "Annotations",
+          "text": "Annotations",
+        },
+        {
+          "link": "Lambda 表达式",
+          "text": "Lambda 表达式",
+        },
+        {
+          "link": "Record",
+          "text": "Record",
+        },
+        {
+          "link": "函数式风格的重构",
+          "text": "函数式风格的重构",
+        },
+        {
+          "link": "包",
+          "text": "包",
+        },
+        {
+          "link": "异常 Exception",
+          "text": "异常 Exception",
+        },
+        {
+          "link": "模式匹配",
+          "text": "模式匹配",
+        },
+      ],
+      "text": "更多主题",
+    },
+  ],
+  "/rough/": {
+    "base": "/rough/",
+    "items": [
+      {
+        "base": "/rough/algorithm/",
+        "items": [],
+        "link": "./",
+        "text": "algorithm",
+      },
+      {
+        "link": "english-grammar",
+        "text": "english-grammar",
+      },
+    ],
+  },
+  "/rough/devops/": [
+    {
+      "base": "/rough/devops/docker/",
+      "items": [
+        {
+          "link": "basics",
+          "text": "basics",
+        },
+        {
+          "link": "cli-basics",
+          "text": "cli-basics",
+        },
+        {
+          "link": "container-management",
+          "text": "container-management",
+        },
+        {
+          "link": "image-management",
+          "text": "image-management",
+        },
+        {
+          "link": "installation-and-setup",
+          "text": "installation-and-setup",
+        },
+        {
+          "link": "networking",
+          "text": "networking",
+        },
+        {
+          "link": "volumes-and-storage",
+          "text": "volumes-and-storage",
+        },
+      ],
+      "link": "./",
+      "text": "docker",
+    },
+  ],
+  "/rough/issues/git/": {
+    "base": "/rough/issues/git/",
+    "items": [
+      {
+        "link": "github",
+        "text": "github",
+      },
+    ],
+  },
+  "/rough/issues/python/": {
+    "base": "/rough/issues/python/",
+    "items": [
+      {
+        "link": "tcl",
+        "text": "tcl",
+      },
+    ],
+  },
+  "/rough/os/linux/": {
+    "base": "/rough/os/linux/",
+    "items": [
+      {
+        "link": "apt",
+        "text": "apt",
+      },
+      {
+        "link": "init",
+        "text": "init",
+      },
+      {
+        "link": "ssl",
+        "text": "ssl",
+      },
+      {
+        "link": "ufw",
+        "text": "ufw",
+      },
+    ],
+  },
+}
+`;

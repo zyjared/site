@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import '@unocss/reset/tailwind-compat.css'
+
 const route = useRoute()
 const isHome = computed(() => route.path === '/')
 </script>
@@ -6,7 +8,7 @@ const isHome = computed(() => route.path === '/')
 <template>
   <HeaderMain v-if="!isHome" />
 
-  <main class="container mx-auto pt-20 px-4">
+  <main class="container mx-auto" :class="isHome ? '' : 'px-4 pb-4 pt-20'">
     <NuxtPage />
   </main>
 
@@ -14,10 +16,6 @@ const isHome = computed(() => route.path === '/')
 </template>
 
 <style>
-#__nuxt {
-    min-height: 100vh;
-}
-
 .page-enter-active,
 .page-leave-active {
   transition: all .3s;

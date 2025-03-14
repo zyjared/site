@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     pageTransition: { name: 'page', mode: 'out-in' },
   },
 
-  modules: ['@unocss/nuxt', '@nuxtjs/color-mode'],
+  modules: ['@unocss/nuxt', '@nuxtjs/color-mode', '@formkit/auto-animate/nuxt'],
   colorMode: {
     // const colorMode = useColorMode()
     preference: 'system', // default value of $colorMode.preference

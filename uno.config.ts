@@ -31,7 +31,7 @@ export default defineConfig({
     'flex-col-center': 'flex-center flex-col',
     
   },
-  [/^tag-(.*)$/, ([, c])=>`bg-${c}-500/10 text-${c}-500/90 hover:bg-${c}-500/20 px-3 py-2 text-sm rounded`]
+  [/^badge-(.*)$/, ([, c])=>`bg-${c}-500/10 text-${c}-500/90 hover:bg-${c}-500/20 px-3 py-2 text-sm rounded`]
 ],
 
   preflights: [
@@ -55,6 +55,12 @@ export default defineConfig({
     'i-solar:notes-minimalistic-line-duotone',
     'i-mdi:github',
     'i-ic:round-email',
-    'i-ep:collection-tag'
+    'i-ep:collection-tag',
+
+    // tags
+    'i-carbon:code',
+    'i-carbon:cloud',
+    'i-carbon:video',
+    'i-carbon:keyboard'
   ],
 })

@@ -13,7 +13,7 @@ export default defineAppConfig({
   ] as Record<'text' | 'link', string>[],
   socials: [
     { text: 'github', icon: 'i-mdi:github', link: 'https://github.com/zyjared' },
-    { text: 'email', icon: 'i-ic:round-email', link: 'zyjared@outlook.com' },
+    { text: 'email', icon: 'i-ic:round-email', link: 'mailto:zyjared@outlook.com' },
   ],
   links: [
     {

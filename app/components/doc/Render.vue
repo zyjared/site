@@ -106,7 +106,7 @@ useEventListener('resize', useDebounceFn(updateAnchors, 100))
     <ErrorDisplay :error="{ code: 404, fatal: true }" />
   </div>
   <div v-else class="w-full">
-    <article ref="article" class="flex-1 overflow-hidden pt-8" md="pr-48" lg="pl-8 pr-82">
+    <article ref="article" class="flex-1 overflow-hidden pt-8" md="pl-2 pr-46" lg="pl-6 pr-70">
       <slot name="doc-before" />
 
       <slot>

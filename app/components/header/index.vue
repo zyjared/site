@@ -4,7 +4,7 @@ const isHome = computed(() => route.path === '/')
 </script>
 
 <template>
-  <header v-auto-animate="{ duration: 300 }" class="h-full flex-col-center p-2">
+  <header v-auto-animate="{ duration: 500 }" class="h-full flex-col-center p-2">
     <div v-if="!isHome" key="un-home" class="flex-col-center flex-1 gap-4">
       <HeaderLogo />
       <HeaderNavbar />

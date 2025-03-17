@@ -106,7 +106,7 @@ onMounted(() => {
         <!-- 链接区域 -->
         <div class="max-w-3xl w-full flex flex-wrap justify-center gap-3 px-2" md="gap-4">
           <nuxt-link
-            v-for="(link, index) in links" :key="index" :external="true" :to="link.link"
+            v-for="(link, index) in links" :key="index" :to="link.link"
             class="stagger-fade group flex items-center gap-3 border border-transparent rounded-xl px-4 py-2.5"
             hover="transition bg-shared/5 border-shared/10 shadow -translate-y-0.5"
           >

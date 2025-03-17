@@ -18,9 +18,9 @@ const activeIdx = computed(() => {
         v-for="(item, idx) in navbar"
         :key="idx"
         :to="item.link"
-        class="h-10 w-10 flex items-center justify-center rounded-xl transition-colors"
-        un-hover=""
-        :class="activeIdx === idx ? 'ctx-text/50 cursor-default' : 'text-shared/50 hover:bg-shared/10 hover:ctx-text/50'"
+        class="h-10 w-10 flex cursor-default items-center justify-center rounded-xl text-shared/50 transition-colors"
+        un-hover="bg-shared/10 ctx-text/50"
+        :class="activeIdx === idx ? 'ctx-text/50 ' : ''"
       >
         <i :class="item.icon" class="text-xl" />
       </NuxtLink>

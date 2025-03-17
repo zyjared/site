@@ -1,5 +1,4 @@
 export default defineAppConfig({
-
   nickname: '应风',
   github: 'https://github.com/zyjared',
   navbar: [

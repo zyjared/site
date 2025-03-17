@@ -6,8 +6,8 @@ interface Props {
 const {
   gradientStops = [
     { color: 'rgba(59, 130, 246, 0.02)', offset: 0 },
-    { color: 'rgba(139, 92, 246, 0.015)', offset: 0.3 },
-    { color: 'rgba(168, 85, 247, 0.02)', offset: 0.6 },
+    { color: 'rgba(139, 92, 246, 0.02)', offset: 0.3 },
+    { color: 'rgba(168, 85, 247, 0.03)', offset: 0.6 },
     { color: 'rgba(236, 72, 153, 0.05)', offset: 1 },
   ],
 } = defineProps<Props>()

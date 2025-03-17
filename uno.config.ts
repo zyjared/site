@@ -17,19 +17,28 @@ export default defineConfig({
         400: '#737373',
         DEFAULT: '#737373',
       },
-      brand: {
-        400: '#3b82f6',
-        DEFAULT: '#3b82f6',
-      },
     },
   },
-  shortcuts: [{
-    'theme-text': 'text-black dark:text-white',
-    'theme-bg': 'bg-neutral-100  dark:bg-neutral-900',
-    'theme': ' theme-text theme-bg',
-    'flex-center': 'flex justify-center items-center',
-    'flex-col-center': 'flex-center flex-col',
-  }, [/^badge-(.*)$/, ([, c]) => `bg-${c}-500/10 text-${c}-500/90 hover:bg-${c}-500/20 px-3 py-2 text-sm rounded`]],
+  shortcuts: [
+    {
+      // TODO: remove, use `ctx-` instead
+      'theme-text': 'text-black dark:text-white',
+      'theme-bg': 'bg-neutral-100  dark:bg-neutral-900',
+      'theme': ' theme-text theme-bg',
+
+      'flex-center': 'flex justify-center items-center',
+      'flex-col-center': 'flex-center flex-col',
+    },
+
+    [/^ctx-text(.*)$/, ([, o]) => `text-black${o} dark:text-white${o}`],
+    [/^ctx-bg(.*)$/, ([, o]) => `bg-neutral-100${o} dark:bg-neutral-900${o}`],
+    [/^(.*)-ctx-text(.*)$/, ([, w, o]) => `${w}-black${o} dark:${w}-white${o}`],
+    [/^(.*)-ctx-bg(.*)$/, ([, w, o]) => `${w}-neutral-100${o} dark:${w}-neutral-900${o}`],
+
+    [/^badge-(.*)$/, ([, c]) => `bg-${c}-500/10 text-${c}-500/90 hover:bg-${c}-500/20 px-3 py-2 text-sm rounded`],
+  ],
+  rules: [
+  ],
 
   presets: [
     presetWind3(),
@@ -71,12 +80,13 @@ export default defineConfig({
   ],
 
   safelist: [
-    'i-mdi:github',
-    'i-ic:round-email',
+    'i-carbon:logo-github',
+    'i-carbon:email',
+    'i-carbon:home',
 
     // links
-    'i-solar:notes-minimalistic-line-duotone',
-    'i-ep:collection-tag',
+    'i-carbon:bookmark',
+    'i-carbon:notebook',
     'i-memory:pound',
 
     // tags (badges)

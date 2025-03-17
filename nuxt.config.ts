@@ -2,13 +2,16 @@
 import { appDescription } from './app/constants/index'
 
 export default defineNuxtConfig({
+
   modules: [
     '@vueuse/nuxt',
     '@unocss/nuxt',
     '@pinia/nuxt',
     '@nuxtjs/color-mode',
-    '@vite-pwa/nuxt',
+    // '@vite-pwa/nuxt',
     '@nuxt/eslint',
+    '@nuxt/content',
+    '@formkit/auto-animate/nuxt',
   ],
 
   devtools: {
@@ -35,6 +38,23 @@ export default defineNuxtConfig({
     classSuffix: '',
   },
 
+  content: {
+    build: {
+      markdown: {
+        toc: {
+          depth: 3,
+          searchDepth: 3,
+        },
+        highlight: {
+          theme: {
+            default: 'github-light',
+            dark: 'github-dark',
+          },
+        },
+      },
+    },
+  },
+
   future: {
     compatibilityVersion: 4,
   },
@@ -58,7 +78,6 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: false,
       routes: ['/'],
-    //   ignore: ['/hi'],
     },
   },
 

@@ -54,8 +54,14 @@ function getPoint(num: number) {
 }
 
 function reset() {
-  canvas.value!.width = width.value
-  canvas.value!.height = height.value
+  cancelAnimationFrame(animationId)
+
+  const w = width.value
+  const h = height.value
+  canvas.value!.width = w
+  canvas.value!.height = h
+
+  ctx.value!.clearRect(0, 0, w, h)
 }
 
 function plotDot(ctx: CanvasRenderingContext2D, opts: Record<'num' | 'width' | 'height' | 'offset' | 'time', number>) {
@@ -94,20 +100,7 @@ function plot(ctx: CanvasRenderingContext2D, currentTime: number) {
   }
 }
 
-function animate(currentTime: number) {
-  if (!lastTime)
-    lastTime = currentTime
-
-  const deltaTime = currentTime - lastTime
-  if (deltaTime >= frameInterval.value) {
-    plot(ctx.value!, currentTime)
-    lastTime = currentTime - (deltaTime % frameInterval.value)
-  }
-
-  animationId = requestAnimationFrame(animate)
-}
-
-function plotStatic(ctx: CanvasRenderingContext2D) {
+function plotDynamic(ctx: CanvasRenderingContext2D) {
   const w = width.value
   const h = height.value
   const time = performance.now()
@@ -128,8 +121,9 @@ function plotStatic(ctx: CanvasRenderingContext2D) {
   }).sort((a, b) => a.distance - b.distance)
 
   function renderNext() {
-    if (!sortedDots.length)
+    if (!sortedDots.length) {
       return
+    }
 
     let count = 3
     let cur: DotInfo | undefined
@@ -144,10 +138,23 @@ function plotStatic(ctx: CanvasRenderingContext2D) {
       })
     }
 
-    requestAnimationFrame(renderNext)
+    animationId = requestAnimationFrame(renderNext)
   }
 
-  renderNext()
+  animationId = requestAnimationFrame(renderNext)
+}
+
+function animate(currentTime: number) {
+  if (!lastTime)
+    lastTime = currentTime
+
+  const deltaTime = currentTime - lastTime
+  if (deltaTime >= frameInterval.value) {
+    plot(ctx.value!, currentTime)
+    lastTime = currentTime - (deltaTime % frameInterval.value)
+  }
+
+  animationId = requestAnimationFrame(animate)
 }
 
 function run() {
@@ -155,12 +162,11 @@ function run() {
     return
 
   reset()
-
   if (animated) {
     animationId = requestAnimationFrame(animate)
   }
   else {
-    plotStatic(ctx.value!)
+    plotDynamic(ctx.value!)
   }
 }
 

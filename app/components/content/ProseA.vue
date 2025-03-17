@@ -21,8 +21,8 @@ function isExternal(href: string) {
 <template>
   <NuxtLink
     :href="props.href"
-    :target="props.target"
-    class="group inline-flex items-center no-underline transition-colors ctx-a"
+    :target="props.target ?? isExternal(props.href) ? '_blank' : undefined"
+    class="group ctx-a inline-flex items-center no-underline transition-colors"
   >
     <span class="relative">
       <slot />

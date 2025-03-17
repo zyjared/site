@@ -40,14 +40,26 @@ function tryGetPath(error: NuxtError): string {
 function buildError(error: NuxtError): Error {
   const code = error.statusCode
   const path = tryGetPath(error)
-  const title = (error.statusMessage)?.replace(`: ${path}`, '')
-  const message = (error.message)?.replace(`: ${path}`, '')
+
+  const reg = new RegExp(`:?\\s*${path}`, 'g')
+  const title = (error.statusMessage)?.replace(reg, '')
+  const message = error.message === error.statusMessage ? undefined : (error.message)?.replace(reg, '')
+
   return {
     title,
     message,
     code,
     path,
   }
+}
+
+let isHttp = null
+function buildLink(url: string) {
+  if (isHttp === null) {
+    isHttp = !window.location.href.includes('localhost')
+  }
+
+  return isHttp ? '#' : `vscode://file/${url}`
 }
 
 function matchStackData(lines: string[]) {
@@ -96,7 +108,10 @@ function processStackMore(stack: string) {
 </script>
 
 <template>
-  <ErrorDisplay :error="buildError(error)" class="min-h-screen p-8" :class="error.stack ? 'items-start' : '' ">
+  <div v-if="buildLink('#') === '#'" class="h-screen flex-center">
+    <ErrorDisplay :error="buildError(error)" />
+  </div>
+  <ErrorDisplay v-else :error="buildError(error)" class="min-h-screen p-8" :class="error.stack ? 'items-start' : '' ">
     <div
       v-if="error.stack"
       class="w-full flex-1 p-4"
@@ -122,7 +137,7 @@ function processStackMore(stack: string) {
                 {{ line.hook }}
               </td>
               <td class="text-indigo-400">
-                <a :href="`vscode://file/${line.path}`">
+                <a :href="buildLink(line.path)">
                   {{ line.path }}
                 </a>
               </td>
@@ -130,13 +145,15 @@ function processStackMore(stack: string) {
           </tbody>
         </table>
 
-        <div class="relative mt-4 overflow-auto text-sm">
+        <div class="relative mt-4 text-sm">
           <input id="show-stack" type="checkbox" class="peer absolute opacity-0">
 
           <label for="show-stack" class="cursor-pointer select-none text-indigo peer-checked:hidden">More</label>
           <label for="show-stack" class="hidden cursor-pointer select-none text-indigo peer-checked:block">Close</label>
 
-          <pre class="hidden py-2 text-shared peer-checked:block">{{ processStackMore(error.stack) }}</pre>
+          <div class="hidden overflow-auto py-2 peer-checked:block">
+            <pre class="text-shared">{{ processStackMore(error.stack) }}</pre>
+          </div>
         </div>
       </div>
     </div>

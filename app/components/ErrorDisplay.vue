@@ -121,7 +121,7 @@ function returnHome() {
       <div class="h-24 w-px from-transparent via-indigo to-transparent bg-gradient-to-b" />
 
       <p
-        class="tracking-wider uppercase write-vertical-right"
+        class="max-h-42 w-4 overflow-hidden leading-none tracking-wider uppercase write-vertical-right"
         text="shared/60"
       >
         {{ data.title }}
@@ -131,8 +131,6 @@ function returnHome() {
     <p class="tracking-tight font-mono ctx-text/50">
       {{ data.message }}
     </p>
-
-    <slot />
 
     <button
       v-if="back !== null"
@@ -144,5 +142,7 @@ function returnHome() {
     >
       {{ back.text }}
     </button>
+
+    <slot />
   </div>
 </template>

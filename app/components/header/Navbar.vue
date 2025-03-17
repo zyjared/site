@@ -18,7 +18,7 @@ const activeIdx = computed(() => {
         v-for="(item, idx) in navbar"
         :key="idx"
         :to="item.link"
-        class="h-10 w-10 flex cursor-default items-center justify-center rounded-xl text-shared/50 transition-colors"
+        class="h-10 w-10 flex cursor-pointer items-center justify-center rounded-xl text-shared/50 transition-colors"
         un-hover="bg-shared/10 ctx-text/50"
         :class="activeIdx === idx ? 'ctx-text/50 ' : ''"
       >

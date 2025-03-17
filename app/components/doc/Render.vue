@@ -24,8 +24,9 @@ interface Document {
   description: string
 }
 
-defineProps<{
+const { value, level = 3 } = defineProps<{
   value: Document | null | undefined
+  level?: number
 }>()
 
 // 滚动监听
@@ -33,9 +34,6 @@ const article = useTemplateRef<HTMLElement>('article')
 const activeId = ref<string>('')
 
 const { y: scrollY, isScrolling } = useWindowScroll()
-
-// 侧边栏
-const { right: articleRight } = useElementBounding(article)
 
 // 锚点定位
 interface Anchor {
@@ -54,13 +52,20 @@ function toAnchor() {
     activeId.value = current?.id ?? ''
 }
 
+function buildSelector(level: number) {
+  const its = []
+  for (let i = 2; i <= level; i++)
+    its.push(`h${i}`)
+  return its.join(', ')
+}
+
 function updateAnchors() {
   nextTick(() => {
     if (!article.value)
       return
 
     const dom = article.value as HTMLElement
-    const headings = Array.from(dom.querySelectorAll('h2, h3'))
+    const headings = Array.from(dom.querySelectorAll(buildSelector(level)))
     const last = headings.length - 1
 
     anchors.value = headings.map((el, index) => {
@@ -96,16 +101,19 @@ function scrollToAnchor(id: string) {
   }
 }
 
-onMounted(updateAnchors)
+// onMounted(updateAnchors)
 
 useEventListener('resize', useDebounceFn(updateAnchors, 100))
+
+// 侧边栏定位
+const { right: articleRight } = useElementBounding(article)
 </script>
 
 <template>
   <div v-if="!value" class="h-full flex-col-center">
     <ErrorDisplay :error="{ code: 404, fatal: true }" />
   </div>
-  <div v-else class="w-full">
+  <div v-else :ref="updateAnchors" class="w-full">
     <article ref="article" class="flex-1 overflow-hidden pt-8" md="pl-2 pr-46" lg="pl-6 pr-70">
       <slot name="doc-before" />
 

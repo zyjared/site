@@ -35,6 +35,8 @@ export default defineConfig({
     [/^(.*)-ctx-text(.*)$/, ([, w, o]) => `${w}-black${o} dark:${w}-white${o}`],
     [/^(.*)-ctx-bg(.*)$/, ([, w, o]) => `${w}-neutral-100${o} dark:${w}-neutral-900${o}`],
 
+    [/^ctx-a(.*)$/, ([, c]) => `text-sky-300${c} hover:text-sky-500${c}`],
+
     [/^badge-(.*)$/, ([, c]) => `bg-${c}-500/10 text-${c}-500/90 hover:bg-${c}-500/20 px-3 py-2 text-sm rounded`],
   ],
   rules: [
@@ -45,6 +47,10 @@ export default defineConfig({
     presetAttributify(),
     presetIcons({
       scale: 1.2,
+      extraProperties: {
+        'display': 'inline-block',
+        'vertical-align': 'middle',
+      },
     }),
     presetTypography(),
     presetWebFonts({

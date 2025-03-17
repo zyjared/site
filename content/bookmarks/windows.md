@@ -1,25 +1,5 @@
 # Windows
 
-## 测试
-
-测试
-
-### 3 级
-
-这是三级标题。
-
-#### 4 级
-
-这是四级标题。
-
-##### 5 级
-
-这是五级标题。
-
-###### 6 级
-
-这是六级标题。
-
 ## WinGet
 
 - [WinGet](https://learn.microsoft.com/zh-cn/windows/package-manager/winget/)

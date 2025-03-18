@@ -59,7 +59,6 @@ docker tag $IMAGE_NAME $DOCKER_REGISTRY/$PROJECT_NAME:latest
 # 使用新版本更新服务
 echo "→ 部署新版本..."
 export TAG=$VERSION
-docker compose pull
 docker compose up -d --force-recreate
 
 # 清理

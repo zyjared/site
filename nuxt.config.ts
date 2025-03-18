@@ -1,4 +1,6 @@
-// import { pwa } from './app/config/pwa'
+import { pwa } from './app/config/pwa'
+import { appDescription, appName } from './app/constants'
+
 export default defineNuxtConfig({
 
   modules: [
@@ -6,7 +8,7 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
     '@pinia/nuxt',
     '@nuxtjs/color-mode',
-    // '@vite-pwa/nuxt',
+    '@vite-pwa/nuxt',
     '@nuxt/eslint',
     '@nuxt/content',
     '@formkit/auto-animate/nuxt',
@@ -19,7 +21,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       viewport: 'width=device-width,initial-scale=1',
-      title: '应风',
+      title: appName,
       link: [
         { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
       ],
@@ -28,7 +30,7 @@ export default defineNuxtConfig({
       },
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: '应风的主页' },
+        { name: 'description', content: appDescription },
         { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
         { name: 'theme-color', media: '(prefers-color-scheme: light)', content: '#f5f5f5' },
         { name: 'theme-color', media: '(prefers-color-scheme: dark)', content: '#171717' },
@@ -88,5 +90,5 @@ export default defineNuxtConfig({
     },
   },
 
-//   pwa,
+  pwa,
 })

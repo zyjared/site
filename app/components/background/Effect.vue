@@ -1,7 +1,7 @@
 <script setup lang="ts">
 interface Props {
   /** 是否启用动画 */
-  animated?: boolean
+  animated?: boolean | 'random'
   /** 网格大小 */
   gridSize?: number
   /** 波动幅度 */
@@ -25,7 +25,7 @@ const {
   waveSpeed = 0.5,
   breathIntensity = 0.3,
   dotSize = 1,
-  dotFillColor = 'rgba(128, 128, 128, 0.5)',
+  dotFillColor = 'rgba(128, 128, 128, 0.3)',
   fps = 30,
 } = defineProps<Props>()
 
@@ -53,9 +53,12 @@ function getPoint(num: number) {
   }
 }
 
-function reset() {
+function cancel() {
   cancelAnimationFrame(animationId)
+}
 
+function reset() {
+  cancel()
   const w = width.value
   const h = height.value
   canvas.value!.width = w
@@ -162,7 +165,10 @@ function run() {
     return
 
   reset()
-  if (animated) {
+
+  const toAnimated = animated === 'random' ? Math.random() < 0.5 : animated
+
+  if (toAnimated) {
     animationId = requestAnimationFrame(animate)
   }
   else {

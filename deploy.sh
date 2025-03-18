@@ -33,7 +33,7 @@ else
 fi
 
 function docker_build_with_retry() {
-  local max_attempts=3
+  local max_attempts=2
   local attempt=1
   
   while [ $attempt -le $max_attempts ]; do
@@ -42,8 +42,8 @@ function docker_build_with_retry() {
       return 0
     fi
     attempt=$((attempt + 1))
-    echo "→ 等待 30 秒后重试..."
-    sleep 30
+    echo "→ 重试..."
+    sleep 3
   done
   return 1
 }

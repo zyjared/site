@@ -7,11 +7,8 @@ const { vertical = false, right = false } = defineProps<{
 </script>
 
 <template>
-  <div class="gap-3" :class="vertical ? 'flex-col-center' : 'flex-center'">
-    <div
-      class="from-transparent via-shared/20 to-transparent"
-      :class="`${vertical ? 'bg-gradient-to-b w-[1px] h-32' : 'bg-gradient-to-r h-[1px] w-32'} ${divideClass}`"
-    />
+  <div class="gap-3" :class="vertical ? 'flex-col-center' : 'flex-center'" aria-hidden>
+    <div :class="`${vertical ? 'gradient-v' : 'gradient-h'} ${divideClass}`" aria-hidden />
 
     <div
       class="whitespace-nowrap text-xs text-shared/40 tracking-0.5em uppercase"
@@ -22,16 +19,13 @@ const { vertical = false, right = false } = defineProps<{
     >
       <slot>
         <p class="flex-center gap-3">
-          <span class="stagger-fade inline-block">zyj</span>
-          <span class="stagger-fade inline-block">jared</span>
+          <span class="stagger-fade">zyj</span>
+          <span class="stagger-fade">jared</span>
         </p>
       </slot>
     </div>
 
-    <div
-      class="from-transparent via-shared/20 to-transparent"
-      :class="`${vertical ? 'bg-gradient-to-b  w-[1px] h-32' : 'bg-gradient-to-r h-[1px] w-32'} ${divideClass}`"
-    />
+    <div :class="`${vertical ? 'gradient-v' : 'gradient-h'} ${divideClass}`" aria-hidden />
   </div>
 </template>
 
@@ -41,6 +35,21 @@ const { vertical = false, right = false } = defineProps<{
 }
 
 .z-sideways-lr {
-  writing-mode: sideways-lr;
+  transform: rotateZ(180deg);
+
+  /* ios 有些问题 */
+  /* writing-mode: sideways-lr; */
+}
+
+.gradient-h {
+  height: 1px;
+  width: 8rem;
+  background-image: linear-gradient(90deg, transparent, #88888826, transparent);
+}
+
+.gradient-v {
+  width: 1px;
+  height: 8rem;
+  background-image: linear-gradient(180deg, transparent, #88888826, transparent);
 }
 </style>

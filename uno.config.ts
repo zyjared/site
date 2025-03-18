@@ -6,6 +6,8 @@ import {
   presetTypography,
   presetWebFonts,
   presetWind3,
+  // 4 和 3 行为不太一样，谨慎修改
+  // presetWind4,
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
@@ -21,6 +23,7 @@ export default defineConfig({
   },
   shortcuts: [
     {
+
       // TODO: remove, use `ctx-` instead
       'theme-text': 'text-black dark:text-white',
       'theme-bg': 'bg-neutral-100  dark:bg-neutral-900',
@@ -30,6 +33,7 @@ export default defineConfig({
       'flex-col-center': 'flex-center flex-col',
     },
 
+    // 上下文
     [/^ctx-text(.*)$/, ([, o]) => `text-black${o} dark:text-white${o}`],
     [/^ctx-bg(.*)$/, ([, o]) => `bg-neutral-100${o} dark:bg-neutral-900${o}`],
     [/^(.*)-ctx-text(.*)$/, ([, w, o]) => `${w}-black${o} dark:${w}-white${o}`],
@@ -69,19 +73,17 @@ export default defineConfig({
 
   preflights: [
     {
-      getCSS: () => {
-        return `
-          :root {
-              background-color: #f5f5f5;
-              color: #000;
-            }
+      getCSS: _ctx => `
+        :root {
+          background-color: #f5f5f5;
+          color: #000;
+        }
 
-            .dark {
-              background-color: #171717;
-              color: #fff;
-            }
-          `
-      },
+        .dark {
+          background-color: #171717;
+          color: #fff;
+        }
+      `,
     },
   ],
 

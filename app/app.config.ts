@@ -30,10 +30,10 @@ export default defineAppConfig({
       link: 'https://notes.zyjared.com',
       icon: 'i-carbon:notebook',
     },
-    {
-      title: 'error',
-      link: '/error',
-      icon: 'i-memory:pound',
-    },
+    // {
+    //   title: 'error',
+    //   link: '/error',
+    //   icon: 'i-memory:pound',
+    // },
   ],
 })

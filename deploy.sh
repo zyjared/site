@@ -7,22 +7,21 @@ BLUE='\033[0;34m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-# 输出函数
 log() {
     local type="$1"
     local message="$2"
     case "$type" in
         "info")
-            echo -e "${BLUE}📝 $message${NC}"
+            echo -e "\n${BLUE}[i]  $message${NC}"
             ;;
         "success")
-            echo -e "${GREEN}✨ $message${NC}"
+            echo -e "\n${GREEN}✓ $message${NC}"
             ;;
         "error")
-            echo -e "${RED}❌ $message${NC}"
+            echo -e "\n${RED}✗ $message${NC}"
             ;;
         *)
-            echo -e "$message"
+            echo -e "\n$message"
             ;;
     esac
 }
@@ -41,19 +40,16 @@ IMAGE_NAME="$DOCKER_REGISTRY/$PROJECT_NAME:$VERSION"
 command -v docker >/dev/null 2>&1 || { log "error" "错误: 需要 docker"; exit 1; }
 command -v git >/dev/null 2>&1 || { log "error" "错误: 需要 git"; exit 1; }
 
-# 创建日志目录
-mkdir -p logs
-
-log "info" "开始部署..."
+log "info" "开始部署流程"
 
 # 拉取最新代码
 if [ -d .git ]; then
-    log "info" "更新代码..."
+    log "info" "正在拉取最新代码"
     git remote set-url origin https://github.com/$GITHUB_REPO.git || git remote add origin https://github.com/$GITHUB_REPO.git
     git fetch origin $BRANCH
     git reset --hard origin/$BRANCH
 else
-    log "info" "初始化仓库..."
+    log "info" "正在初始化代码仓库"
     git init
     git remote add origin https://github.com/$GITHUB_REPO.git
     git fetch origin $BRANCH
@@ -77,33 +73,30 @@ function docker_build_with_retry() {
 }
 
 # 构建并推送镜像
-log "info" "构建镜像 $IMAGE_NAME"
+log "info" "正在构建镜像 $IMAGE_NAME"
 if ! docker_build_with_retry; then
     log "error" "构建镜像失败"
     exit 1
 fi
 docker tag $IMAGE_NAME $DOCKER_REGISTRY/$PROJECT_NAME:latest
 
-# 使用新版本
-echo "→ 部署新版本..."
+log "info" "正在部署新版本"
 export TAG=$VERSION
 
-# 停止并移除旧容器
-echo "→ 清理旧容器..."
+log "info" "正在清理旧容器"
 docker compose down
 
-# 启动新容器
+log "info" "正在启动新容器"
 docker compose up -d --force-recreate
 
-# 清理
-echo "→ 清理旧版本..."
+log "info" "正在清理旧版本"
 docker images "$DOCKER_REGISTRY/$PROJECT_NAME" --format "{{.ID}}" | tail -n +3 | xargs -r docker rmi
 docker image prune -f
 
-# 检查服务状态
-echo "→ 检查服务状态..."
+log "info" "正在检查服务状态"
 sleep 10
 docker compose ps
 docker compose logs --tail=50
 
-log "success" "部署完成！版本: $VERSION"
+log "success" "部署完成 [版本: $VERSION]"
+echo -e "\n"

@@ -30,7 +30,7 @@ function scrollToAnchor(id: string) {
     <slot name="aside-before" />
 
     <div class="space-y-2">
-      <h3 class="text-sm font-bold ctx-text">
+      <h3 class="text-sm font-bold ctx-text/70">
         目录
       </h3>
       <nav>

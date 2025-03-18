@@ -12,7 +12,7 @@ const { socials } = useAppConfig()
       class="group flex items-center justify-center rounded-xl p-2 ctx-link"
       un-hover="bg-shared/10"
     >
-      <i :class="item.icon" class="text-xl" md="text-2xl" />
+      <i :class="item.icon" class="text-xl" />
     </NuxtLink>
   </div>
 </template>

@@ -10,17 +10,20 @@
 
 <br>
 
-## 技术栈
+## 介绍
+
+个人主页，使用了包括但不限于以下工具：
 
 - [Nuxt3](https://nuxt.com/)
 - [Vitesse Nuxt](https://github.com/antfu/vitesse-nuxt)
 
 ## 部署
 
-确定项目文件夹
+项目文件夹
 
 ```bash
-mkdir site
+# 如 site
+mkdir -p site
 cd site
 ```
 
@@ -28,6 +31,12 @@ cd site
 
 ```bash
 curl -O https://raw.githubusercontent.com/zyjared/site/main/deploy.sh
+
+```
+
+部署
+
+```bash
 sudo chmod +x deploy.sh
 sudo ./deploy.sh
 ```

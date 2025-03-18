@@ -21,9 +21,9 @@ const activeIdx = computed(() => {
         class="flex cursor-pointer items-center justify-center rounded-xl p-2 ctx-link"
         un-hover="bg-shared/10"
         :target="getBlankTarget(item.link)"
-        :class="activeIdx === idx ? 'ctx-text ' : ''"
+        :class="activeIdx === idx ? 'ctx-text/70' : ''"
       >
-        <i :class="item.icon" class="text-xl" md="text-2xl" />
+        <i :class="item.icon" class="text-xl" />
       </NuxtLink>
     </div>
   </nav>

@@ -88,6 +88,8 @@ export default defineConfig({
   ],
 
   safelist: [
+    'bg-white',
+
     'i-carbon:logo-github',
     'i-carbon:email',
     'i-carbon:home',

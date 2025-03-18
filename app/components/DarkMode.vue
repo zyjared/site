@@ -26,7 +26,6 @@ const bounce = {
 
 const ball = useTemplateRef('ball')
 const colorMode = useColorMode()
-const isLight = computed(() => colorMode.value === 'light')
 
 function shouldAnimate(willLight: boolean) {
   animate(ball.value!, {
@@ -37,29 +36,35 @@ function shouldAnimate(willLight: boolean) {
   })
 }
 
+function isLightMode() {
+  return colorMode.preference === 'light'
+}
+
 function toggleColorMode() {
-  colorMode.preference = isLight.value ? 'dark' : 'light'
-  shouldAnimate(!isLight.value)
+  const isLight = isLightMode()
+  colorMode.preference = isLight ? 'dark' : 'light'
+  shouldAnimate(!isLight)
 }
 
 onMounted(() => {
-  shouldAnimate(isLight.value)
+  shouldAnimate(isLightMode())
 })
 </script>
 
 <template>
   <div
-    class="relative aspect-1.9 h-1em flex cursor-pointer items-center rounded-full ring-1.5px ring-shared/20 transition-colors duration-300"
-    :class="isLight ? 'bg-neutral-200' : 'bg-neutral-800'"
+    class="relative aspect-1.9 h-1em flex cursor-pointer items-center rounded-full bg-neutral-200 ring-1.5px ring-shared/20 transition-colors duration-300 dark:bg-neutral-800"
+
     @click="toggleColorMode"
   >
     <div
       ref="ball"
-      class="absolute left-0 top-0 h-1em w-1em flex items-center justify-center rounded-full p-.135em shadow transition-colors"
-      :class="isLight ? 'bg-white' : 'bg-neutral-900'"
+      class="absolute left-0 top-0 h-1em w-1em flex items-center justify-center rounded-full bg-white p-.135em shadow transition-colors dark:bg-neutral-900"
     >
-      <div v-show="isLight" i-material-symbols:light-mode-outline-rounded class="text-red" />
-      <div v-show="!isLight" i-material-symbols:dark-mode-outline class="text-shared" />
+      <div
+        class="i-material-symbols:light-mode-outline-rounded text-amber-500"
+        dark="i-material-symbols:dark-mode-outline text-shared"
+      />
     </div>
   </div>
 </template>

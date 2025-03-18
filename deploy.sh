@@ -28,8 +28,11 @@ if [ -d .git ]; then
   git fetch origin $BRANCH
   git reset --hard origin/$BRANCH
 else
-  echo "→ 克隆仓库..."
-  git clone -b $BRANCH https://github.com/$GITHUB_REPO.git . --depth 1
+  echo "→ 初始化仓库..."
+  git init
+  git remote add origin https://github.com/$GITHUB_REPO.git
+  git fetch origin $BRANCH
+  git reset --hard origin/$BRANCH
 fi
 
 function docker_build_with_retry() {
@@ -56,13 +59,20 @@ if ! docker_build_with_retry; then
 fi
 docker tag $IMAGE_NAME $DOCKER_REGISTRY/$PROJECT_NAME:latest
 
-# 使用新版本更新服务
+# 使用新版本
 echo "→ 部署新版本..."
 export TAG=$VERSION
+
+# 停止并移除旧容器
+echo "→ 清理旧容器..."
+docker compose down
+
+# 启动新容器
 docker compose up -d --force-recreate
 
 # 清理
 echo "→ 清理旧版本..."
+docker images "$DOCKER_REGISTRY/$PROJECT_NAME" --format "{{.ID}}" | tail -n +3 | xargs -r docker rmi
 docker image prune -f
 
 # 检查服务状态

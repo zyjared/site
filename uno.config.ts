@@ -23,12 +23,6 @@ export default defineConfig({
   },
   shortcuts: [
     {
-
-      // TODO: remove, use `ctx-` instead
-      'theme-text': 'text-black dark:text-white',
-      'theme-bg': 'bg-neutral-100  dark:bg-neutral-900',
-      'theme': ' theme-text theme-bg',
-
       'flex-center': 'flex justify-center items-center',
       'flex-col-center': 'flex-center flex-col',
     },
@@ -39,7 +33,8 @@ export default defineConfig({
     [/^(.*)-ctx-text(.*)$/, ([, w, o]) => `${w}-black${o} dark:${w}-white${o}`],
     [/^(.*)-ctx-bg(.*)$/, ([, w, o]) => `${w}-neutral-100${o} dark:${w}-neutral-900${o}`],
 
-    [/^ctx-a(.*)$/, ([, c]) => `text-sky-300${c} hover:text-sky-500${c}`],
+    // [/^ctx-a(.*)$/, ([, c]) => `text-indigo-500${c} hover:text-sky-400${c}`],
+    [/^ctx-link(.*)$/, ([, c]) => `text-shared${c} hover:ctx-text/70 transition-colors`],
 
     [/^badge-(.*)$/, ([, c]) => `bg-${c}-500/10 text-${c}-500/90 hover:bg-${c}-500/20 px-3 py-2 text-sm rounded`],
   ],

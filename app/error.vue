@@ -53,7 +53,7 @@ function buildError(error: NuxtError): Error {
   }
 }
 
-let isHttp = null
+let isHttp: boolean | null = null
 function buildLink(url: string) {
   if (isHttp === null) {
     isHttp = !window.location.href.includes('localhost')

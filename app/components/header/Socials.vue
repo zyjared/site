@@ -8,11 +8,11 @@ const { socials } = useAppConfig()
       v-for="item in socials"
       :key="item.link"
       :to="item.link"
-      external
-      class="group flex items-center justify-center rounded-xl p-2 text-shared/50 transition-colors"
-      un-hover="bg-shared/10 ctx-text/60"
+      :target="getBlankTarget(item.link)"
+      class="group flex items-center justify-center rounded-xl p-2 ctx-link"
+      un-hover="bg-shared/10"
     >
-      <i :class="item.icon" class="text-xl" />
+      <i :class="item.icon" class="text-xl" md="text-2xl" />
     </NuxtLink>
   </div>
 </template>

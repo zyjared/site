@@ -27,7 +27,7 @@ export const pwa: ModuleOptions = {
         type: 'image/png',
       },
       {
-        src: 'maskable-icon.png',
+        src: 'pwa-512x512.png',
         sizes: '512x512',
         type: 'image/png',
         purpose: 'any maskable',

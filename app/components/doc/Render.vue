@@ -118,7 +118,7 @@ const { right: articleRight } = useElementBounding(article)
       <slot name="doc-before" />
 
       <slot>
-        <ContentRenderer :value="value" class="max-w-none prose prose-cyan dark:prose-invert" />
+        <ContentRenderer :value="value" class="max-w-none prose prose" dark="prose-invert" />
       </slot>
 
       <slot name="doc-after">

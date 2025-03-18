@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { animate, stagger } from 'motion'
 
-const { links, nickname } = useAppConfig()
+const { links, displayName, socials } = useAppConfig()
 
 const birthday = 1111
 
@@ -16,21 +16,21 @@ function toBinaryGroup(num: number) {
 }
 
 const tags = [
-  {
-    text: 'Frontend Developer',
-    icon: 'i-carbon:code',
-    class: 'badge-blue',
-  },
+  // {
+  //   text: 'Frontend Developer',
+  //   icon: 'i-carbon:code',
+  //   class: 'badge-blue',
+  // },
   {
     text: 'Dreamer',
     icon: 'i-carbon:cloud',
     class: 'badge-indigo',
   },
-  {
-    text: 'Anime Enthusiast',
-    icon: 'i-carbon:video',
-    class: 'badge-green',
-  },
+  // {
+  //   text: 'Anime Enthusiast',
+  //   icon: 'i-carbon:video',
+  //   class: 'badge-green',
+  // },
   {
     text: 'Ctrl+S Spammer',
     icon: 'i-carbon:keyboard',
@@ -96,21 +96,30 @@ onMounted(() => {
                 aria-hidden
                 class="ani-rotate absolute left-1/2 top-1/3 z--1 h-20 w-2/1 transform-origin-l from-transparent via-blue-6 to-transparent bg-gradient-to-t"
               />
-              <div class="h-full w-full overflow-hidden b-1 rounded-full theme-bg">
+              <div class="h-full w-full overflow-hidden b-1 rounded-full bg-shared">
                 <img src="/avatar.png" alt="avatar" class="block h-full w-full object-cover">
               </div>
             </div>
           </div>
 
           <!-- 信息: 右侧 -->
-          <div class="text-center space-y-4" md="space-y-6 text-left">
-            <h2 class="stagger-fade from-blue-5 to-purple-5 bg-gradient-to-r bg-clip-text text-3xl text-transparent font-bold" md="text-4xl">
-              {{ nickname }}
+          <div class="text-center space-y-4" md="text-left">
+            <h2 class="stagger-fade from-blue-5 to-purple-5 bg-gradient-to-r bg-clip-text text-3xl text-transparent font-bold space-x-2" md="text-4xl">
+              {{ displayName }}
             </h2>
 
+            <!-- 社交别名 -->
+            <div class="text-sm text-shared/50 space-x-4">
+              <template v-for="(social, idx) in socials" :key="idx">
+                <span v-if="social.featured" class="stagger-fade inline-block hover:text-shared/70">
+                  {{ social.username }}
+                </span>
+              </template>
+            </div>
+
             <!-- 个人标签 -->
-            <div class="grid grid-cols-1 mx-auto max-w-md gap-2" md="mx-0 grid-cols-2">
-              <span v-for="(tag, idx) in tags" :key="idx" :class="tag.class" class="stagger-fade flex items-center gap-2 text-xs">
+            <div class="flex-center flex-wrap gap-2" md="flex-start">
+              <span v-for="(tag, idx) in tags" :key="idx" :class="tag.class" class="stagger-fade flex flex-1 items-center gap-2 text-nowrap text-xs" md="flex-0">
                 <span :class="tag.icon" />
                 <span>{{ tag.text }}</span>
               </span>
@@ -145,18 +154,18 @@ onMounted(() => {
 
         <!-- 链接区域 -->
         <div class="max-w-3xl w-full flex flex-wrap justify-center gap-2" md="gap-4">
-          <nuxt-link
+          <NuxtLink
             v-for="(link, index) in links" :key="index" :to="link.link"
-            class="stagger-fade group flex items-center gap-1 border border-transparent rounded-xl px-4 py-2.5"
+            class="stagger-fade group flex items-center gap-1 border border-transparent rounded-xl px-4 py-2.5 ctx-link"
             md="gap-3"
-            hover="transition bg-shared/5 border-shared/10 shadow -translate-y-0.5"
+            hover="transition bg-shared/5 border-shared/10 shadow -translate-y-0.5 "
           >
             <i
               v-if="link.icon" :class="link.icon"
-              class="text-xl text-shared/70 duration-300 delay-50 group-hover:scale-120"
+              class="text-xl transition-transform-200 group-hover:scale-110"
             />
-            <span class="text-sm text-shared/80">{{ link.title }}</span>
-          </nuxt-link>
+            <span class="text-sm">{{ link.text }}</span>
+          </NuxtLink>
         </div>
       </div>
 
@@ -183,7 +192,7 @@ onMounted(() => {
     </div>
 
     <!-- 装饰性元素 -->
-    <Divide vertical right class="stagger-fade w-18" sm="w-24" md="!flex-col-center w-32 pr-0" />
+    <Divide vertical right class="stagger-fade w-18" sm="w-24" md="w-32 pr-0" />
   </div>
 </template>
 

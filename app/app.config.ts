@@ -1,6 +1,9 @@
 export default defineAppConfig({
-  nickname: '应风',
-  github: 'https://github.com/zyjared',
+  displayName: '应风',
+  socials: [
+    { text: 'github', icon: 'i-carbon:logo-github', link: 'https://github.com/zyjared', username: 'zyjared', featured: true },
+    { text: 'email', icon: 'i-carbon:email', link: 'mailto:zyjared@outlook.com', username: 'zyjared@outlook.com' },
+  ],
   navbar: [
     {
       text: '主页',
@@ -13,20 +16,16 @@ export default defineAppConfig({
       link: '/bookmarks',
     },
   ],
-  socials: [
-    { text: 'github', icon: 'i-carbon:logo-github', link: 'https://github.com/zyjared' },
-    { text: 'email', icon: 'i-carbon:email', link: 'mailto:zyjared@outlook.com' },
-  ],
 
   // 首页的链接
   links: [
     {
-      title: '书签',
+      text: '书签',
       link: '/bookmarks',
       icon: 'i-carbon:bookmark',
     },
     {
-      title: '笔记本',
+      text: '笔记本',
       link: 'https://notes.zyjared.com',
       icon: 'i-carbon:notebook',
     },

@@ -4,11 +4,11 @@ services:
     container_name: site
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
       - ./logs:/app/logs
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      test: [CMD, curl, -f, 'http://localhost:3000']
       interval: 30s
       timeout: 10s
       retries: 3

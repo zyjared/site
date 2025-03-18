@@ -23,7 +23,7 @@ function emitAnchor(id: string) {
     <template v-for="link in links" :key="link.id">
       <a
         :href="`#${link.id}`"
-        class="block text-sm transition-colors ctx-text/50 hover:ctx-text"
+        class="block text-sm text-shared transition-colors hover:ctx-text"
         :class="activeId === link.id ? '!ctx-text' : ''"
         @click.prevent="emitAnchor(link.id)"
       >

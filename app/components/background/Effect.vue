@@ -20,12 +20,12 @@ interface Props {
 
 const {
   animated = false,
-  gridSize = 40,
+  gridSize = 35,
   waveAmplitude = 15,
   waveSpeed = 0.5,
   breathIntensity = 0.3,
-  dotSize = 1,
-  dotFillColor = 'rgba(128, 128, 128, 0.3)',
+  dotSize = 0.8,
+  dotFillColor = 'rgba(128, 128, 128, 0.5)',
   fps = 30,
 } = defineProps<Props>()
 

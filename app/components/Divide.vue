@@ -7,8 +7,8 @@ const { vertical = false, right = false } = defineProps<{
 </script>
 
 <template>
-  <div class="gap-3" :class="vertical ? 'flex-col-center' : 'flex-center'" aria-hidden>
-    <div :class="`${vertical ? 'gradient-v' : 'gradient-h'} ${divideClass}`" aria-hidden />
+  <div class="gap-3" :class="vertical ? 'flex-col-center' : 'flex-center'" aria-hidden="true">
+    <div :class="`${vertical ? 'gradient-v' : 'gradient-h'} ${divideClass}`" aria-hidden="true" />
 
     <div
       class="whitespace-nowrap text-xs text-shared/40 tracking-0.5em uppercase"
@@ -25,7 +25,7 @@ const { vertical = false, right = false } = defineProps<{
       </slot>
     </div>
 
-    <div :class="`${vertical ? 'gradient-v' : 'gradient-h'} ${divideClass}`" aria-hidden />
+    <div :class="`${vertical ? 'gradient-v' : 'gradient-h'} ${divideClass}`" aria-hidden="true" />
   </div>
 </template>
 

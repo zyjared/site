@@ -3,13 +3,13 @@ const { socials } = useAppConfig()
 </script>
 
 <template>
-  <div class="stagger-fade flex flex-col gap-2">
+  <div class="flex flex-col gap-2">
     <NuxtLink
       v-for="item in socials"
       :key="item.link"
       :to="item.link"
       :target="getBlankTarget(item.link)"
-      class="group flex items-center justify-center rounded-xl p-2 ctx-link"
+      class="group motion-fade-app flex items-center justify-center rounded-xl p-2 ctx-link"
       un-hover="bg-shared/10"
     >
       <i :class="item.icon" class="text-xl" />

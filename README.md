@@ -31,7 +31,6 @@ cd site
 
 ```bash
 curl -O https://raw.githubusercontent.com/zyjared/site/main/deploy.sh
-
 ```
 
 部署

@@ -8,7 +8,7 @@
     "dev": "nuxi dev",
     "generate": "nuxi generate",
     "prepare": "nuxi prepare",
-    "clean": "nuxi cleanup",
+    "cleanup": "nuxi cleanup",
     "start": "node .output/server/index.mjs",
     "start:generate": "npx serve .output/public",
     "lint": "eslint .",

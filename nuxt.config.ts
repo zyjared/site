@@ -24,14 +24,16 @@ export default defineNuxtConfig({
       title: appName,
       link: [
         { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
+        { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' },
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
       ],
       htmlAttrs: {
         lang: 'zh-CN',
       },
       meta: [
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
         { name: 'description', content: appDescription },
+        { name: 'author', content: 'zyjared, zyjared@outlook.com' },
         { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
         { name: 'theme-color', media: '(prefers-color-scheme: light)', content: '#f5f5f5' },
         { name: 'theme-color', media: '(prefers-color-scheme: dark)', content: '#171717' },
@@ -56,6 +58,11 @@ export default defineNuxtConfig({
     },
   },
 
+  routeRules: {
+    '/': { isr: true, prerender: false },
+    '/bookmarks': { prerender: true },
+  },
+
   future: {
     compatibilityVersion: 4,
   },
@@ -78,7 +85,7 @@ export default defineNuxtConfig({
     },
     prerender: {
       crawlLinks: false,
-      routes: ['/'],
+    //   routes: ['/'],
     },
   },
 

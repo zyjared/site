@@ -1,10 +1,14 @@
 <script setup>
 const route = useRoute()
-const { data: post } = await useAsyncData(route.path, () => {
+const { data } = await useAsyncData(route.path, async () => {
   return queryCollection('posts').path(route.path).first()
 })
+
+if (!data.value) {
+  throw createError({ statusCode: 404 })
+}
 </script>
 
 <template>
-  <DocRender :value="post" />
+  <DocRender :value="data" />
 </template>

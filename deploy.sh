@@ -12,16 +12,16 @@ log() {
     local message="$2"
     case "$type" in
         "info")
-            echo -e "\n${BLUE}[i]  $message${NC}"
+            echo -e "\n${BLUE}[i]  $message${NC}\n"
             ;;
         "success")
-            echo -e "\n${GREEN}✓ $message${NC}"
+            echo -e "\n${GREEN}✓ $message${NC}\n"
             ;;
         "error")
-            echo -e "\n${RED}✗ $message${NC}"
+            echo -e "\n${RED}✗ $message${NC}\n"
             ;;
         *)
-            echo -e "\n$message"
+            echo -e "\n$message\n"
             ;;
     esac
 }
@@ -99,4 +99,3 @@ docker compose ps
 docker compose logs --tail=50
 
 log "success" "部署完成 [版本: $VERSION]"
-echo -e "\n"

@@ -8,6 +8,9 @@ interface NuxtError {
   cause?: unknown
   message?: string
   stack?: string
+
+  // 可能会带有 url
+  url?: string
 }
 
 interface Error {
@@ -15,57 +18,91 @@ interface Error {
   message?: string
   code: number
   path?: string
+  fatal?: boolean
+  unhandled?: boolean
 }
 
 defineProps<{
   error: NuxtError
 }>()
 
-function tryGetPath(error: NuxtError): string {
-  let path = ''
+// -----------------------------
+// path
+// -----------------------------
+
+let url: string | undefined | null
+function tryGetPath(error: NuxtError): string | null {
+  if (url !== undefined) {
+    return url
+  }
   try {
-    const raw = error.data
-    if (typeof raw === 'string') {
-      path = JSON.parse(raw).path || ''
+    if (error.url) {
+      url = error.url
+    }
+    else if (window && window.location) {
+      url = window.location.pathname
+    }
+    else if (error.data) {
+      url = typeof error.data === 'object'
+        ? (error.data as { path: string }).path
+        : JSON.parse(error.data as string).path
     }
   }
   finally {
-    if (!path)
-      path = window.location.pathname
+    if (!url) {
+      url = null
+    }
   }
 
-  return path
+  return url
 }
+
+// -----------------------------
+// error
+// -----------------------------
 
 function buildError(error: NuxtError): Error {
   const code = error.statusCode
-  const path = tryGetPath(error)
+  const path = tryGetPath(error) || 'Missing current path'
 
   const reg = new RegExp(`:?\\s*${path}`, 'g')
   const title = (error.statusMessage)?.replace(reg, '')
-  const message = error.message === error.statusMessage ? undefined : (error.message)?.replace(reg, '')
+
+  // message
+  // 创建错误时不传递时: 'Error'     -> undefined
+  // 默认的错误信息: statusMessage   -> undefined
+  let message = error.message
+  if (!message || message === 'Error' || message === error.statusMessage) {
+    message = undefined
+  }
+  else {
+    message = message.replace(reg, '')
+  }
 
   return {
     title,
     message,
     code,
     path,
+    fatal: error.fatal,
+    unhandled: error.unhandled,
   }
 }
 
-let isHttp: boolean | null = null
+// -----------------------------
+// stack & link
+// -----------------------------
+
 function buildLink(url: string) {
-  if (isHttp === null) {
-    isHttp = !window.location.href.includes('localhost')
-  }
-
-  return isHttp ? '#' : `vscode://file/${url}`
+  return import.meta.dev ? `vscode://file/${url}` : '#'
 }
+
+const STACK_REG = /at\s(.+?)\s\((.+?)\)$/g
 
 function matchStackData(lines: string[]) {
   return lines
     .map((line) => {
-      const match = line.match(/at\s(.+?)\s\((.+?)\)$/g)
+      const match = line.match(STACK_REG)
       if (match) {
         const [, hook, path] = match[0].split(' ')
         return {
@@ -98,7 +135,7 @@ function processStackMore(stack: string) {
       return trimmed && trimmed.includes('node_modules')
     })
     .map((line) => {
-      const match = line.match(/at\s(.+?)\s\((.+?)\)/)
+      const match = line.match(STACK_REG)
       if (match)
         return `at ${match[1]} (${match[2]})`
       return line.trim()
@@ -158,6 +195,6 @@ function processStackMore(stack: string) {
       </div>
     </div>
   </ErrorDisplay>
-  <BackgroundGradient />
+  <BackgroundGradientDiv />
   <BackgroundEffect />
 </template>

@@ -1,16 +1,10 @@
-<script setup lang="ts">
-const { displayName } = useAppConfig()
-</script>
-
 <template>
-  <div class="stagger-fade">
+  <div>
     <NuxtLink
       to="/"
-      class="group relative aspect-square w-12 flex items-center justify-center overflow-hidden rounded-xl ctx-link"
+      class="motion-fade-app"
     >
-      <span class="block text-lg font-bold tracking-wider font-mono">
-        {{ displayName }}
-      </span>
+      <Logo class="h-12 w-12" />
     </NuxtLink>
   </div>
 </template>

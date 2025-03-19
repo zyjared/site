@@ -8,14 +8,10 @@ interface Error {
   unhandled?: boolean
 }
 
-interface Back {
-  text: string
-  link: string
-}
-
-const { error, back = { text: 'Return Home', link: '/' } } = defineProps<{
+const { error, back = true, clean = true } = defineProps<{
   error: Error
-  back?: null | Back
+  clean?: boolean
+  back?: boolean | Record<'text' | 'link', string>
 }>()
 
 const presetError = {
@@ -65,6 +61,7 @@ function getPresetError(statusCode: number) {
 }
 
 const route = useRoute()
+const router = useRouter()
 
 const data = computed(() => {
   const preset = getPresetError(error.code)
@@ -77,13 +74,20 @@ const data = computed(() => {
   }
 })
 
-function returnHome() {
-  clearError({ redirect: '/' })
+function toRedirect() {
+  if (!back)
+    return
+
+  if (clean) {
+    clearError()
+  }
+
+  back === true ? router.back() : router.replace(back.link)
 }
 </script>
 
 <template>
-  <div class="flex-col-center gap-4">
+  <div class="h-full flex-col-center gap-4">
     <div flex="~ gap-6">
       <div flex="~ col justify-between gap-1" class="relative text-right">
         <h2 class="text-8xl font-bold tracking-tight">
@@ -91,7 +95,7 @@ function returnHome() {
           <span>{{ data.code }}</span>
         </h2>
         <div text="sm shared/80" class="tracking-tight font-mono space-y-1">
-          <p class="tracking-tight">
+          <p class="tracking-tight" aria-label="Path">
             {{ data.path }}
           </p>
 
@@ -118,7 +122,7 @@ function returnHome() {
         </div>
       </div>
 
-      <div class="h-24 w-px from-transparent via-indigo to-transparent bg-gradient-to-b" />
+      <div class="h-24 w-px from-transparent via-indigo to-transparent bg-gradient-to-b" aria-hidden="true" />
 
       <p
         class="max-h-42 w-4 overflow-hidden leading-none tracking-wider uppercase write-vertical-right"
@@ -128,19 +132,18 @@ function returnHome() {
       </p>
     </div>
 
-    <p class="tracking-tight font-mono ctx-text/50">
+    <p class="text-center tracking-tight font-mono ctx-text/50">
       {{ data.message }}
     </p>
 
     <button
-      v-if="back !== null"
-      :to=" back.link"
+      v-if="back"
       class="cursor-pointer bg-shared/0 px-6 py-3 text-shared transition-300"
       un-b="~ solid shared/30"
       un-hover="b-shared ctx-text"
-      @click="returnHome"
+      @click="toRedirect"
     >
-      {{ back.text }}
+      {{ back === true ? 'Back' : back.text }}
     </button>
 
     <slot />

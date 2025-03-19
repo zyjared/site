@@ -1,20 +1,10 @@
 <script setup lang="ts">
-interface TocLink {
-  id: string
-  depth: number
-  text: string
-  children?: TocLink[]
-}
+import type { DocToc } from './Aside.vue'
 
 interface DocBody {
   type: string
   value: any[]
-  toc: {
-    title: string
-    searchDepth: number
-    depth: number
-    links: TocLink[]
-  }
+  toc: DocToc
 }
 
 interface Document {
@@ -29,124 +19,162 @@ const { value, level = 3 } = defineProps<{
   level?: number
 }>()
 
-// 滚动监听
 const article = useTemplateRef<HTMLElement>('article')
-const activeId = ref<string>('')
 
-const { y: scrollY, isScrolling } = useWindowScroll()
+// -----------------------------------
+// 侧边栏 目录定位
+// -----------------------------------
 
-// 锚点定位
-interface Anchor {
-  id: string
+interface Heading {
+  id: string | null
   top: number
   bottom: number
 }
-const anchors = shallowRef<Anchor[]>([])
+const headings = shallowRef<Heading[]>([])
+const currentHeadingId = ref<string | null>(null)
 
-function toAnchor() {
-  const y = scrollY.value + 100
+function binarySearchHeading(y: number, headings: Heading[]) {
+  let left = 0
+  let right = headings.length - 1
 
-  const current = anchors.value.find(heading => y >= heading.top && y < heading.bottom)
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2)
+    const heading = headings[mid]!
 
-  if (current?.id !== activeId.value)
-    activeId.value = current?.id ?? ''
+    if (y >= heading.top && y < heading.bottom)
+      return heading
+
+    if (y < heading.top)
+      right = mid - 1
+    else
+      left = mid + 1
+  }
+
+  return undefined
 }
 
-function buildSelector(level: number) {
+function updateCurrentHeading(id?: string) {
+  if (id !== undefined) {
+    currentHeadingId.value = id
+    return
+  }
+
+  const hs = headings.value
+  if (hs.length === 0)
+    return
+
+  const y = window.scrollY + 100
+
+  // 边界检查
+  if (y < hs[0]!.top) {
+    currentHeadingId.value = null
+    return
+  }
+
+  const cur = binarySearchHeading(y, hs)
+  if (cur) {
+    currentHeadingId.value = cur.id
+  }
+}
+
+/**
+ * 存储宽，不更新 x 轴的变化
+ */
+let lastArticleWidth: number | undefined
+
+function getHeadingSelector(level: number) {
   const its = []
-  for (let i = 2; i <= level; i++)
+  const len = level > 6 ? 6 : level
+  for (let i = 2; i <= len; i++)
     its.push(`h${i}`)
   return its.join(', ')
 }
 
-function updateAnchors() {
+/**
+ * 获得 dom 中的标题，
+ * 并记录其在文档中的位置，
+ * 为快速定为位做准备。
+ * 完成后， 会矫正一次目录位置。
+ */
+function syncHeadings() {
+  const articleWidth = article.value?.clientWidth
+  if (articleWidth === lastArticleWidth) {
+    return
+  }
+
+  lastArticleWidth = articleWidth
+
   nextTick(() => {
     if (!article.value)
       return
 
     const dom = article.value as HTMLElement
-    const headings = Array.from(dom.querySelectorAll(buildSelector(level)))
-    const last = headings.length - 1
+    const elements = Array.from(dom.querySelectorAll(getHeadingSelector(level))) as HTMLElement[]
 
-    anchors.value = headings.map((el, index) => {
+    const hs: Heading[] = []
+    elements.forEach((el, index) => {
       const top = (el as HTMLElement).offsetTop
-      const bottom = index < last
-        ? (headings[index + 1] as HTMLElement).offsetTop
-        : dom.scrollHeight
 
-      return {
+      if (index !== 0) {
+        hs[index - 1]!.bottom = top
+      }
+
+      const h = {
         id: el.getAttribute('id'),
-        top,
-        bottom,
-      } as Anchor
+        top: el.offsetTop,
+        bottom: 0,
+      }
+
+      hs.push(h)
     })
 
-    toAnchor()
+    hs[hs.length - 1]!.bottom = dom.scrollHeight
+    headings.value = hs
+
+    updateCurrentHeading()
   })
 }
 
-watchThrottled(isScrolling, (scrolling) => {
-  if (scrolling)
-    return
+onMounted(syncHeadings)
 
-  toAnchor()
-}, {
-  throttle: 50,
-})
-
-function scrollToAnchor(id: string) {
-  const heading = document.getElementById(id)
-  if (heading) {
-    heading.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
-}
-
-// onMounted(updateAnchors)
-
-useEventListener('resize', useDebounceFn(updateAnchors, 100))
-
-// 侧边栏定位
-const { right: articleRight } = useElementBounding(article)
+useEventListener('scroll', () => updateCurrentHeading(), { passive: true }) // 复杂度可以接受
+useEventListener('resize', useDebounceFn(syncHeadings, 100), { passive: true })
 </script>
 
 <template>
-  <div v-if="!value" class="h-full flex-col-center">
-    <ErrorDisplay :error="{ code: 404, fatal: true }" />
+  <div v-if="!value" class="h-screen flex-center">
+    <ErrorDisplay :error="{ code: 404 }" :clean="false" />
   </div>
-  <div v-else :ref="updateAnchors" class="w-full">
-    <article ref="article" class="flex-1 overflow-hidden pt-8" md="pl-2 pr-46" lg="pl-6 pr-70">
+  <div v-else class="w-full flex gap-12" lg="gap-16">
+    <article ref="article" class="flex-1 overflow-hidden pt-8" md="pl-2" lg="pl-6">
       <slot name="doc-before" />
 
       <slot>
-        <ContentRenderer :value="value" class="max-w-none prose prose" dark="prose-invert" />
+        <ContentRenderer :value="value" class="max-w-none prose" dark="prose-invert" />
       </slot>
 
       <slot name="doc-after">
-        <div class="h-52" />
+        <div class="h-52" aria-hidden="true" />
       </slot>
     </article>
 
-    <DocAside
-      v-if="article"
-      :toc="value.body.toc"
-      :active-id="activeId"
-      class="fixed hidden hidden max-h-screen overflow-auto py-16"
-
+    <div
+      class="sticky top-0 hidden max-h-screen overflow-auto py-16"
       md="block w-32"
-      lg="w-52"
-      :style="{
-        top: 0,
-        left: `${articleRight}px`,
-        transform: `translateX(-100%)`,
-      }"
-      @anchor="scrollToAnchor"
+      lg="w-44"
     >
-      <template #aside-before>
-        <slot name="aside-before" />
-      </template>
-      <template #aside-after>
-        <slot name="aside-after" />
-      </template>
-    </DocAside>
+      <DocAside
+        v-if="article"
+        :toc="value.body.toc"
+        :current-id="currentHeadingId"
+      >
+        <template #aside-before>
+          <slot name="aside-before" />
+        </template>
+        <template #aside-after>
+          <slot name="aside-after" />
+        </template>
+      </DocAside>
+    </div>
   </div>
 </template>

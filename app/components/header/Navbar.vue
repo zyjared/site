@@ -12,7 +12,7 @@ const activeIdx = computed(() => {
 </script>
 
 <template>
-  <nav class="mt-12 w-full flex-1">
+  <nav class="w-full flex-1">
     <div class="flex flex-col items-center gap-4">
       <NuxtLink
         v-for="(item, idx) in navbar"

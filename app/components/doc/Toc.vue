@@ -1,21 +1,15 @@
 <script setup lang="ts">
-interface TocLink {
+export interface DocTocLink {
   id: string
   depth: number
   text: string
-  children?: TocLink[]
+  children?: DocTocLink[]
 }
 
 defineProps<{
-  links: TocLink[]
-  activeId?: string
+  links: DocTocLink[]
+  currentId: string | null
 }>()
-
-const emit = defineEmits(['anchor'])
-
-function emitAnchor(id: string) {
-  emit('anchor', id)
-}
 </script>
 
 <template>
@@ -24,8 +18,7 @@ function emitAnchor(id: string) {
       <a
         :href="`#${link.id}`"
         class="block text-sm text-shared transition-colors hover:ctx-text"
-        :class="activeId === link.id ? '!ctx-text' : ''"
-        @click.prevent="emitAnchor(link.id)"
+        :class="currentId === link.id ? '!ctx-text' : ''"
       >
         {{ link.text }}
       </a>
@@ -34,9 +27,8 @@ function emitAnchor(id: string) {
       <DocToc
         v-if="link.children?.length"
         :links="link.children"
-        :active-id="activeId"
+        :current-id="currentId"
         class="ml-4"
-        @anchor="emitAnchor"
       />
     </template>
   </div>

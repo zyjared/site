@@ -2,7 +2,7 @@
 const route = useRoute()
 const isHome = computed(() => route.path === '/')
 
-// scrollbar 抖动优化
+// fixed 是 scrollbar 抖动优化
 
 const el = useTemplateRef<HTMLDivElement>('el')
 const { x: elX } = useElementBounding(el)
@@ -25,14 +25,17 @@ function shouldUpHeaderX() {
 }
 
 useEventListener('resize', shouldUpHeaderX)
-onMounted(upHeaderX)
+onMounted(() => {
+  upHeaderX()
+  motionFade('.motion-fade-app')
+})
 </script>
 
 <template>
-  <div ref="el" class="relative mx-auto pb-[env(safe-area-inset-bottom)] pl-18 container" sm="pl-24" md="pl-32">
+  <div ref="el" class="relative mx-auto pl-18 pr-4 container" sm="pl-24" md="pl-32 pr-8">
     <div
       v-show="headerX !== null"
-      class="fixed inset-y-0 w-14 flex flex-col pb-[env(safe-area-inset-bottom,0)] pr-2"
+      class="fixed inset-y-0 w-14 flex flex-col pb-[env(safe-area-inset-bottom)] pr-2 pt-[env(safe-area-inset-top)]"
       :style="{ left: `${headerX}px` }"
       sm="w-20 pr-6"
       md="w-24"
@@ -46,7 +49,7 @@ onMounted(upHeaderX)
       />
     </div>
 
-    <main class="relative min-h-screen">
+    <main class="relative h-screen pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)]">
       <slot />
     </main>
 
@@ -58,6 +61,10 @@ onMounted(upHeaderX)
 </template>
 
 <style>
+:root {
+  scroll-behavior: smooth;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease;
@@ -70,10 +77,5 @@ onMounted(upHeaderX)
 
 .fade-leave-active {
   position: absolute;
-}
-
-:root {
-  --vh: 1vh;
-  --safe-area: calc(100vh - env(safe-area-inset-bottom, 0px));
 }
 </style>

@@ -11,7 +11,7 @@ const isHome = computed(() => route.path === '/')
       <HeaderNavbar />
     </div>
 
-    <div key="socials" class="flex-col-center gap-8 pt-16">
+    <div key="socials" class="flex-col-center gap-8 pt-12">
       <HeaderSocials />
       <DarkModeVertical class="text-xl" />
     </div>

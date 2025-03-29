@@ -52,13 +52,12 @@ onMounted(() => {
 
 <template>
   <div
-    class="relative aspect-1.9 h-1em flex cursor-pointer items-center rounded-full bg-neutral-200 ring-1.5px ring-shared/20 transition-colors duration-300 dark:bg-neutral-800"
-
+    class="relative aspect-1.9 h-1em flex cursor-pointer items-center rounded-full ring-1.5px ring-shared/20 transition-colors duration-300 bg-ctx-text/3"
     @click="toggleColorMode"
   >
     <div
       ref="scope"
-      class="absolute left-0 top-0 h-1em w-1em flex-center rounded-full bg-white p-.135em shadow transition-colors dark:bg-neutral-900"
+      class="absolute left-0 top-0 h-1em w-1em flex-center rounded-full p-.135em shadow transition-colors bg-ctx-bg/75"
     >
       <div
         class="i-material-symbols:light-mode-outline-rounded text-amber-500"

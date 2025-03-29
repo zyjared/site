@@ -19,6 +19,10 @@ export default defineConfig({
         400: '#737373',
         DEFAULT: '#737373',
       },
+      brand: {
+        400: '',
+        DEFAULT: '',
+      },
     },
   },
   shortcuts: [
@@ -32,9 +36,10 @@ export default defineConfig({
     [/^ctx-bg(.*)$/, ([, o]) => `bg-neutral-100${o} dark:bg-neutral-900${o}`],
     [/^(.*)-ctx-text(.*)$/, ([, w, o]) => `${w}-black${o} dark:${w}-white${o}`],
     [/^(.*)-ctx-bg(.*)$/, ([, w, o]) => `${w}-neutral-100${o} dark:${w}-neutral-900${o}`],
+    [/^(.*)-ctx-brand(.*)$/, ([, w, o]) => `${w}-indigo-500${o} dark:${w}-indigo-400${o}`],
 
-    // [/^ctx-a(.*)$/, ([, c]) => `text-indigo-500${c} hover:text-sky-400${c}`],
-    [/^ctx-link(.*)$/, ([, c]) => `text-shared${c} hover:ctx-text/70 transition-colors`],
+    [/^ctx-a(.*)$/, ([, c]) => `text-blue-500${c} hover:text-blue-600${c} dark:text-blue${c} dark:hover:text-blue-500${c}`], // 链接
+    [/^ctx-link(.*)$/, ([, c]) => `text-shared${c} hover:ctx-text/70 transition-colors`], // 拿不准的时候用
 
     [/^badge-(.*)$/, ([, c]) => `bg-${c}-500/10 text-${c}-500/90 hover:bg-${c}-500/20 px-3 py-2 text-sm rounded`],
   ],

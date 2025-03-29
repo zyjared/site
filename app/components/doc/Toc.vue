@@ -17,7 +17,7 @@ defineProps<{
     <template v-for="link in links" :key="link.id">
       <a
         :href="`#${link.id}`"
-        class="block text-sm text-shared transition-colors hover:ctx-text"
+        class="block text-shared transition-colors hover:ctx-text"
         :class="currentId === link.id ? '!ctx-text' : ''"
       >
         {{ link.text }}

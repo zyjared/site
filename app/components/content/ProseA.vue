@@ -22,12 +22,11 @@ function isExternal(href: string) {
   <NuxtLink
     :href="props.href"
     :target="props.target ?? isExternal(props.href) ? '_blank' : undefined"
-    class="group inline-flex items-center no-underline transition-colors"
+    class="group ctx-a inline-flex items-center no-underline transition-colors"
   >
-    <span class="relative">
+    <span class="underline">
       <slot />
-      <span class="absolute bottom-0 left-0 h-px w-full bg-current op-20 transition-opacity" aria-hidden />
     </span>
-    <span v-if="isExternal(props.href)" class="i-carbon:arrow-up-right ml-1 text-xs" aria-hidden />
+    <span v-if="isExternal(props.href)" class="i-ci:arrow-up-right-md text-xs" aria-hidden />
   </NuxtLink>
 </template>

@@ -2,7 +2,7 @@
 const route = useRoute()
 const isHome = computed(() => route.path === '/')
 
-const variants = {
+const navbarVariants = {
   visible: {
     opacity: 1,
     flex: 1,
@@ -30,6 +30,27 @@ const variants = {
     },
   },
 }
+
+const divideVariants = {
+  initial: {
+    clipPath: 'inset(50% 0)',
+  },
+  animate: {
+    opacity: 1,
+    clipPath: 'inset(0 0)',
+    transition: {
+      delay: 0.3,
+      duration: 0.5,
+    },
+  },
+  exit: {
+    opacity: 0,
+    clipPath: 'inset(50% 0)',
+    transition: {
+      duration: 0.3,
+    },
+  },
+}
 </script>
 
 <template>
@@ -43,7 +64,7 @@ const variants = {
             v-show="!isHome"
             key="motion-navbar"
             layout
-            :variants="variants"
+            :variants="navbarVariants"
             initial="hidden"
             animate="visible"
             exit="hidden"
@@ -70,28 +91,15 @@ const variants = {
             transform: 'translate(50%, -50%)',
             zIndex: -1,
           }"
-          :initial="{
-            clipPath: 'inset(50% 0)',
-          }"
-          :animate="{
-            opacity: 1,
-            clipPath: 'inset(0 0)',
-            transition: {
-              delay: 0.3,
-              duration: 0.5,
-            },
-          }"
-          :exit="{
-            opacity: 0,
-            clipPath: 'inset(50% 0)',
-            transition: {
-              duration: 0.3,
-            },
-          }"
+          :variants="divideVariants"
+          initial="initial"
+          animate="animate"
+          exit="exit"
         >
           <Divide
             vertical
-            class="h-100"
+            :content="false"
+            class="h-80"
           />
         </Motion>
       </MotionAnimatePresence>

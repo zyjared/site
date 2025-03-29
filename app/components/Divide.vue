@@ -12,13 +12,14 @@ const { vertical = false, right = false, content = true } = defineProps<{
     <div :class="`${vertical ? 'gradient-v' : 'gradient-h'} ${divideClass}`" class="flex-1" aria-hidden="true" />
 
     <div
+      v-if="content"
       class="whitespace-nowrap text-xs text-shared/40 tracking-0.5em uppercase"
       :class="{
         'z-vertical-rl': vertical,
         'z-sideways-lr': vertical && right,
       }"
     >
-      <slot v-if="content">
+      <slot>
         <p class="flex-center gap-3">
           <span class="stagger-fade">zyj</span>
           <span class="stagger-fade">jared</span>

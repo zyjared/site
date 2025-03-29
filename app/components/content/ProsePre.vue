@@ -31,12 +31,12 @@ const props = defineProps({
 const { copy } = useClipboard({ source: props.code })
 const copied = ref(false)
 
+let timer: unknown
 async function handleCopy() {
-  if (copied.value)
-    return
   await copy()
   copied.value = true
-  setTimeout(() => {
+  clearTimeout(timer as number)
+  timer = setTimeout(() => {
     copied.value = false
   }, 2000)
 }
@@ -65,16 +65,19 @@ async function handleCopy() {
         </div>
       </div>
 
-      <!-- 复制按钮 -->
-      <button
-        class="flex-center gap-1.5 rounded-md bg-shared/10 px-2 py-1 text-xs text-shared/60 transition-colors duration-300"
-        hover="bg-shared/20 text-shared"
-        @click="handleCopy"
-      >
-        <div v-if="!copied" class="i-carbon:copy flex-center text-sm" />
-        <div v-else class="i-carbon:checkmark text-sm text-green-500" />
-        <span>{{ copied ? '已复制' : '复制' }}</span>
-      </button>
+      <!-- 复制 -->
+      <div class="flex items-center gap-2 text-sm ctx-text/50">
+        <span class="">{{ copied ? '已复制' : '' }}</span>
+        <button
+          class="flex-center gap-1.5 rounded-md p-2 transition-colors duration-300"
+          b="~ 1 shared/10"
+          hover="bg-shared/10"
+          @click="handleCopy"
+        >
+          <span v-if="!copied" class="i-carbon:copy" />
+          <span v-else class="i-carbon:checkmark" />
+        </button>
+      </div>
     </div>
 
     <!-- 代码内容区 -->

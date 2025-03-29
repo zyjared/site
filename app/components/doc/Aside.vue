@@ -18,11 +18,11 @@ defineProps<{
   <aside class="overflow-auto space-y-4">
     <slot name="aside-before" />
 
-    <div v-if="toc.links?.length" class="space-y-2">
-      <h3 class="text-sm font-bold ctx-text/70">
+    <div v-if="toc.links?.length" class="space-y-4">
+      <h3 class="tex font-bold ctx-text/70">
         目录
       </h3>
-      <nav>
+      <nav class="text-sm">
         <DocToc
           :links="toc.links"
           :current-id="currentId"

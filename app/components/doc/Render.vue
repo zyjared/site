@@ -154,7 +154,7 @@ useEventListener('resize', useDebounceFn(syncHeadings, 100), { passive: true })
     <ErrorDisplay :error="{ code: 404 }" :clean="false" />
   </div>
   <div v-else class="w-full flex gap-12" lg="gap-16">
-    <article ref="article" class="flex-1 overflow-hidden pt-8" md="pl-2" lg="pl-6">
+    <article ref="article" class="flex-1 overflow-hidden" md="pl-2" lg="pl-6">
       <slot name="doc-before" />
 
       <slot>

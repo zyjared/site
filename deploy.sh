@@ -55,16 +55,16 @@ check_deps() {
 
 update_code() {
     if [ -d .git ]; then
-        log "info" "拉取最新代码"
         git remote set-url origin https://github.com/$GITHUB_REPO.git || git remote add origin https://github.com/$GITHUB_REPO.git
         git fetch origin $BRANCH
         git reset --hard origin/$BRANCH
+        log "success" "已拉取最新代码"
     else
-        log "info" "初始化代码仓库"
         git init
         git remote add origin https://github.com/$GITHUB_REPO.git
         git fetch origin $BRANCH
         git reset --hard origin/$BRANCH
+        log "success" "已初始化代码仓库"
     fi
 }
 
@@ -89,28 +89,28 @@ deploy_service() {
     log "info" "将部署新版本 $VERSION"
     export TAG=$VERSION
 
-    log "info" "停止旧容器"
     docker compose down
+    log "success" "已停止旧容器"
     
-    log "info" "启动新容器"
     docker compose up -d --force-recreate
+    log "success" "已启动新容器"
 }
 
 cleanup() {
-    log "info" "清理旧版本"
     docker images "$DOCKER_REGISTRY/$PROJECT_NAME" --format "{{.ID}}" | tail -n +3 | xargs -r docker rmi
     docker image prune -f
+    log "success" "已清理旧版本"
 }
 
 check_service() {
-    log "info" "正在检查服务状态"
-    sleep 6
+    sleep 10
     if docker compose ps | grep -q "running"; then
         log "success" "服务已成功启动"
     else
         log "error" "服务启动失败"
         exit 1
     fi
+    log "success" "已检查服务状态"
 }
 
 main() {

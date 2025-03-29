@@ -104,13 +104,14 @@ cleanup() {
 
 check_service() {
     sleep 10
-    if docker compose ps | grep -q "running"; then
+    if docker compose ps --format "{{.State}}" | grep -q "Up"; then
         log "success" "服务已成功启动"
     else
-        log "error" "服务启动失败"
+        local container_logs=$(docker compose logs --tail=50)
+        log "error" "服务启动异常，最近的日志："
+        echo "$container_logs"
         exit 1
     fi
-    log "success" "已检查服务状态"
 }
 
 main() {

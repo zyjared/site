@@ -7,6 +7,16 @@ BLUE='\033[0;34m'
 RED='\033[0;31m'
 NC='\033[0m'
 
+# 配置
+PROJECT_NAME="site"
+DOCKER_REGISTRY="zyjared"
+GITHUB_REPO="zyjared/site"
+BRANCH="main"
+
+# 版本标签
+VERSION=$(date +%Y%m%d_%H%M)
+IMAGE_NAME="$DOCKER_REGISTRY/$PROJECT_NAME:$VERSION"
+
 log() {
     local type="$1"
     local message="$2"
@@ -26,43 +36,46 @@ log() {
     esac
 }
 
-# 配置
-PROJECT_NAME="site"
-DOCKER_REGISTRY="zyjared"
-GITHUB_REPO="zyjared/site"
-BRANCH="main"
+handle_error() {
+    log "error" "发生错误: $1"
+    exit 1
+}
 
-# 版本标签
-VERSION=$(date +%Y%m%d_%H%M)
-IMAGE_NAME="$DOCKER_REGISTRY/$PROJECT_NAME:$VERSION"
+trap 'handle_error $LINENO' ERR
 
-# 检查必要命令
-command -v docker >/dev/null 2>&1 || { log "error" "错误: 需要 docker"; exit 1; }
-command -v git >/dev/null 2>&1 || { log "error" "错误: 需要 git"; exit 1; }
+check_deps() {
+    local deps=("docker" "git")
+    for dep in "${deps[@]}"; do
+        if ! command -v $dep >/dev/null 2>&1; then
+            log "error" "缺少必要依赖: $dep"
+            exit 1
+        fi
+    done
+}
 
-log "info" "开始部署流程"
+update_code() {
+    if [ -d .git ]; then
+        log "info" "拉取最新代码"
+        git remote set-url origin https://github.com/$GITHUB_REPO.git || git remote add origin https://github.com/$GITHUB_REPO.git
+        git fetch origin $BRANCH
+        git reset --hard origin/$BRANCH
+    else
+        log "info" "初始化代码仓库"
+        git init
+        git remote add origin https://github.com/$GITHUB_REPO.git
+        git fetch origin $BRANCH
+        git reset --hard origin/$BRANCH
+    fi
+}
 
-# 拉取最新代码
-if [ -d .git ]; then
-    log "info" "正在拉取最新代码"
-    git remote set-url origin https://github.com/$GITHUB_REPO.git || git remote add origin https://github.com/$GITHUB_REPO.git
-    git fetch origin $BRANCH
-    git reset --hard origin/$BRANCH
-else
-    log "info" "正在初始化代码仓库"
-    git init
-    git remote add origin https://github.com/$GITHUB_REPO.git
-    git fetch origin $BRANCH
-    git reset --hard origin/$BRANCH
-fi
-
-function docker_build_with_retry() {
+build_image() {
     local max_attempts=2
     local attempt=1
     
     while [ $attempt -le $max_attempts ]; do
-        log "info" "构建镜像尝试 $attempt/$max_attempts..."
+        log "info" "构建镜像 $attempt/$max_attempts..."
         if docker build -t $IMAGE_NAME .; then
+            docker tag $IMAGE_NAME $DOCKER_REGISTRY/$PROJECT_NAME:latest
             return 0
         fi
         attempt=$((attempt + 1))
@@ -72,30 +85,43 @@ function docker_build_with_retry() {
     return 1
 }
 
-# 构建并推送镜像
-log "info" "正在构建镜像 $IMAGE_NAME"
-if ! docker_build_with_retry; then
-    log "error" "构建镜像失败"
-    exit 1
-fi
-docker tag $IMAGE_NAME $DOCKER_REGISTRY/$PROJECT_NAME:latest
+deploy_service() {
+    log "info" "将部署新版本 $VERSION"
+    export TAG=$VERSION
 
-log "info" "正在部署新版本"
-export TAG=$VERSION
+    log "info" "停止旧容器"
+    docker compose down
+    
+    log "info" "启动新容器"
+    docker compose up -d --force-recreate
+}
 
-log "info" "正在清理旧容器"
-docker compose down
+cleanup() {
+    log "info" "清理旧版本"
+    docker images "$DOCKER_REGISTRY/$PROJECT_NAME" --format "{{.ID}}" | tail -n +3 | xargs -r docker rmi
+    docker image prune -f
+}
 
-log "info" "正在启动新容器"
-docker compose up -d --force-recreate
+check_service() {
+    log "info" "正在检查服务状态"
+    sleep 6
+    if docker compose ps | grep -q "running"; then
+        log "success" "服务已成功启动"
+    else
+        log "error" "服务启动失败"
+        exit 1
+    fi
+}
 
-log "info" "正在清理旧版本"
-docker images "$DOCKER_REGISTRY/$PROJECT_NAME" --format "{{.ID}}" | tail -n +3 | xargs -r docker rmi
-docker image prune -f
+main() {
+    log "info" "开始部署"
+    check_deps
+    update_code
+    build_image || handle_error "镜像构建失败"
+    deploy_service || handle_error "服务部署失败"
+    cleanup
+    check_service || handle_error "服务检查失败"
+    log "success" "部署完成 [版本: $VERSION]"
+}
 
-log "info" "正在检查服务状态"
-sleep 10
-docker compose ps
-docker compose logs --tail=50
-
-log "success" "部署完成 [版本: $VERSION]"
+main

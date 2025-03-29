@@ -1,4 +1,6 @@
 <script setup lang='ts'>
+import { stagger } from 'motion-v'
+
 const { links, displayName } = useAppConfig()
 
 const birthday = 1111
@@ -57,13 +59,23 @@ const techIcons = [
   'i-vscode-icons:file-type-sql',
 ]
 
+// motion
+
+const [scope, animate] = useMotionAnimate()
+
 onMounted(() => {
-  motionFade('.motion-fade-home')
+  animate('.motion-fade-home', {
+    opacity: [0, 1],
+    y: [20, 0],
+  }, {
+    delay: stagger(0.1, { from: 'first' }),
+    duration: 0.5,
+  })
 })
 </script>
 
 <template>
-  <div class="flex-center">
+  <div ref="scope" class="flex-center">
     <div class="h-screen flex-col-center flex-1">
       <!-- 主内容 -->
       <div class="flex-col-center gap-4 py-12" md="gap-6 flex-1 pt-40 pb-8 mb-8">

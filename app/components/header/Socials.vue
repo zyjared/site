@@ -9,7 +9,7 @@ const { socials } = useAppConfig()
       :key="item.link"
       :to="item.link"
       :target="getBlankTarget(item.link)"
-      class="group motion-fade-app flex items-center justify-center rounded-xl p-2 ctx-link"
+      class="group flex items-center justify-center rounded-xl p-2 ctx-link"
       un-hover="bg-shared/10"
     >
       <i :class="item.icon" class="text-xl" />

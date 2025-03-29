@@ -14,10 +14,18 @@ interface Document {
   description: string
 }
 
-const { value, level = 3 } = defineProps<{
+interface Props {
   value: Document | null | undefined
+
+  /**
+   * 标题层级
+   *
+   * @default 3
+   */
   level?: number
-}>()
+}
+
+const { value, level = 3 } = defineProps<Props>()
 
 const article = useTemplateRef<HTMLElement>('article')
 
@@ -54,14 +62,14 @@ function binarySearchHeading(y: number, headings: Heading[]) {
 }
 
 function updateCurrentHeading(id?: string) {
+  const hs = headings.value
+  if (hs.length === 0)
+    return
+
   if (id !== undefined) {
     currentHeadingId.value = id
     return
   }
-
-  const hs = headings.value
-  if (hs.length === 0)
-    return
 
   const y = window.scrollY + 100
 

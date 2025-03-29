@@ -3,9 +3,7 @@ title: protobuf 爬虫记录
 date: 2025-03-23
 ---
 
-
 # protobuf 爬虫记录
-
 
 这两天做爬虫，解析 protobuf 数据，因为是“爬”，所以需要反推，记录一下。~~因为实在不知道写什么~~
 
@@ -16,14 +14,14 @@ date: 2025-03-23
 我一直觉得有文档就看文档会好有些：[Protocol Buffers Documentation](https://protobuf.dev/)。
 
 看完后，需要知道以下内容:
+
 - 是什么：一种对数据进行序列化的机制。
 - 为什么：` smaller, faster, and simpler`
 - 如何做：[工作流程](https://protobuf.dev/overview/#work)
 
 多看几遍关于工作流程内容，我觉得关键点在字段的定义，以及[.proto 文件会生成了什么](https://protobuf.dev/programming-guides/editions/#generated)
 
-
-之后，就可以使用 ai 了 ~_~
+之后，就可以使用 ai 了 ~\_~
 
 ## 逆向
 
@@ -61,19 +59,18 @@ import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 import { blue, bold, green, red, underline } from 'colorette'
-import {program} from 'commander'
+import { program } from 'commander'
 
 const resolve = (p: string) => path.resolve(process.cwd(), p)
 
 program
   .option('-i, --input <dir>', '输入目录', resolve('./data'))
   .option('-o, --output <dir>', '输出目录', resolve('./.result'))
-  .option('-c, --clean', '清空输出目录' , true)
+  .option('-c, --clean', '清空输出目录', true)
   .parse(process.argv)
 
 const options = program.opts()
 processDirectory(options.input, options.output, options.clean)
-
 
 function checkProtoc() {
   try {
@@ -165,8 +162,22 @@ function processDirectory(inputDir: string, outputDir: string, clean = false) {
 - 看调用栈
 - ~~眼睛疼的时候，代码复制到编辑器，然后脑袋疼...~~
 
+## 编写脚本
+
+如果要尝试编写 `.proto` 文件，也就是复原，在数据量比较多的时候，可以找找规律，用脚本来提取。
+
+1. 找到有映射关系的 `.js` 文件；
+2. 尝试手动还原几个
+3. 找到规律
+4. 写代码
+   1. 确定 message：识别函数与作用域（嵌套的是过滤还是追加）
+   2. 确定字段：作用域 + 正则
+   3. 保存文本
+
+这种文件太规律了，只需要细心和时间就好。
+
 ## 总结
 
 踩过坑，下次再踩一次就好了，反正后面还会踩，不要对自己有太高要求。
 
-困了，睡觉 ~_~
+困了，睡觉 ~\_~

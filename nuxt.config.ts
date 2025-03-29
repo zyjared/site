@@ -11,7 +11,6 @@ export default defineNuxtConfig({
     '@vite-pwa/nuxt',
     '@nuxt/eslint',
     '@nuxt/content',
-    '@formkit/auto-animate/nuxt',
   ],
 
   devtools: {
@@ -31,14 +30,16 @@ export default defineNuxtConfig({
         lang: 'zh-CN',
       },
       meta: [
-        { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        // { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
         { name: 'description', content: appDescription },
         { name: 'author', content: 'zyjared, zyjared@outlook.com' },
-        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
+        // { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
         { name: 'theme-color', media: '(prefers-color-scheme: light)', content: '#f5f5f5' },
         { name: 'theme-color', media: '(prefers-color-scheme: dark)', content: '#171717' },
       ],
     },
+    // pageTransition: { name: 'page', mode: 'out-in' },
   },
 
   colorMode: {

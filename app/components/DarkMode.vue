@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { animate } from 'motion'
+const [scope, animate] = useMotionAnimate()
 
 function bounceEase(x: number) {
   const n1 = 7.5625
@@ -24,20 +24,19 @@ const bounce = {
   ease: bounceEase,
 }
 
-const ball = useTemplateRef('ball')
 const colorMode = useColorMode()
 
+function isLightMode() {
+  return colorMode.preference === 'light'
+}
+
 function shouldAnimate(willLight: boolean) {
-  animate(ball.value!, {
+  animate(scope.value!, {
     x: willLight ? 0 : '90%', // height * (aspect - 1)
   }, {
     ...bounce,
     duration: 0.6,
   })
-}
-
-function isLightMode() {
-  return colorMode.preference === 'light'
 }
 
 function toggleColorMode() {
@@ -58,8 +57,8 @@ onMounted(() => {
     @click="toggleColorMode"
   >
     <div
-      ref="ball"
-      class="absolute left-0 top-0 h-1em w-1em flex items-center justify-center rounded-full bg-white p-.135em shadow transition-colors dark:bg-neutral-900"
+      ref="scope"
+      class="absolute left-0 top-0 h-1em w-1em flex-center rounded-full bg-white p-.135em shadow transition-colors dark:bg-neutral-900"
     >
       <div
         class="i-material-symbols:light-mode-outline-rounded text-amber-500"

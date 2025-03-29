@@ -15,8 +15,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@formkit/auto-animate": "^0.8.2",
-    "motion": "^12.5.0"
+    "motion-v": "^0.13.1"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.5.1",

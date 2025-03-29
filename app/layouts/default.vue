@@ -1,8 +1,6 @@
 <script setup lang="ts">
-const route = useRoute()
-const isHome = computed(() => route.path === '/')
-
-// fixed 是 scrollbar 抖动优化
+// fixed 是 scrollbar 与 mx-auto 发生抖动的优化
+// TODO: scrollbar 是否需要使用自定义的替换掉
 
 const el = useTemplateRef<HTMLDivElement>('el')
 const { x: elX } = useElementBounding(el)
@@ -27,7 +25,6 @@ function shouldUpHeaderX() {
 useEventListener('resize', shouldUpHeaderX)
 onMounted(() => {
   upHeaderX()
-  motionFade('.motion-fade-app')
 })
 </script>
 
@@ -35,18 +32,12 @@ onMounted(() => {
   <div ref="el" class="relative mx-auto pl-18 pr-4 container" sm="pl-24" md="pl-32 pr-8">
     <div
       v-show="headerX !== null"
-      class="fixed inset-y-0 w-14 flex flex-col pb-[env(safe-area-inset-bottom)] pr-2 pt-[env(safe-area-inset-top)]"
+      class="fixed inset-y-0 w-14 flex flex-col pb-[calc(2rem+env(safe-area-inset-bottom))] pr-2 pt-[calc(2rem+env(safe-area-inset-top))]"
       :style="{ left: `${headerX}px` }"
       sm="w-20 pr-6"
       md="w-24"
     >
-      <Header class="flex-1 py-8" />
-
-      <Divide
-        :class="{ '!opacity-100': !isHome }"
-        vertical
-        class="absolute right-0 top-1/2 z--1 opacity-0 transition-300 -translate-y-1/2"
-      />
+      <Header />
     </div>
 
     <main class="relative h-screen pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)]">
@@ -65,7 +56,7 @@ onMounted(() => {
   scroll-behavior: smooth;
 }
 
-.fade-enter-active,
+/* .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease;
 }
@@ -77,5 +68,5 @@ onMounted(() => {
 
 .fade-leave-active {
   position: absolute;
-}
+} */
 </style>

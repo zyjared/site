@@ -1,14 +1,15 @@
 <script setup lang='ts'>
-const { vertical = false, right = false } = defineProps<{
+const { vertical = false, right = false, content = true } = defineProps<{
   vertical?: boolean
   right?: boolean
   divideClass?: string
+  content?: boolean
 }>()
 </script>
 
 <template>
   <div class="gap-3" :class="vertical ? 'flex-col-center' : 'flex-center'" aria-hidden="true">
-    <div :class="`${vertical ? 'gradient-v' : 'gradient-h'} ${divideClass}`" aria-hidden="true" />
+    <div :class="`${vertical ? 'gradient-v' : 'gradient-h'} ${divideClass}`" class="flex-1" aria-hidden="true" />
 
     <div
       class="whitespace-nowrap text-xs text-shared/40 tracking-0.5em uppercase"
@@ -17,7 +18,7 @@ const { vertical = false, right = false } = defineProps<{
         'z-sideways-lr': vertical && right,
       }"
     >
-      <slot>
+      <slot v-if="content">
         <p class="flex-center gap-3">
           <span class="stagger-fade">zyj</span>
           <span class="stagger-fade">jared</span>
@@ -25,7 +26,7 @@ const { vertical = false, right = false } = defineProps<{
       </slot>
     </div>
 
-    <div :class="`${vertical ? 'gradient-v' : 'gradient-h'} ${divideClass}`" aria-hidden="true" />
+    <div v-if="content" :class="`${vertical ? 'gradient-v' : 'gradient-h'} ${divideClass}`" class="flex-1" aria-hidden="true" />
   </div>
 </template>
 

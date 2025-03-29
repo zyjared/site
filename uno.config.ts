@@ -83,16 +83,15 @@ export default defineConfig({
   ],
 
   safelist: [
-    'bg-white',
-
     'i-carbon:logo-github',
     'i-carbon:email',
     'i-carbon:home',
 
     // links
+    'i-mdi:feather',
     'i-carbon:bookmark',
     'i-carbon:notebook',
-    'i-memory:pound',
+    // 'i-memory:pound', // # 号
 
     // tags (badges)
     'i-carbon:code',

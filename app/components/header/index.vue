@@ -91,7 +91,7 @@ const variants = {
         >
           <Divide
             vertical
-            class=""
+            class="h-100"
           />
         </Motion>
       </MotionAnimatePresence>

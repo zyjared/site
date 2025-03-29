@@ -69,7 +69,7 @@ onMounted(() => {
     y: [20, 0],
   }, {
     delay: stagger(0.1, { from: 'first' }),
-    duration: 0.5,
+    duration: 0.45,
   })
 })
 </script>
@@ -148,6 +148,7 @@ onMounted(() => {
         <div class="max-w-3xl w-full flex flex-wrap justify-center gap-2" md="gap-4">
           <NuxtLink
             v-for="(link, index) in links" :key="index" :to="link.link"
+            :target="getBlankTarget(link.link)"
             class="motion-fade-home group flex items-center gap-1 border border-transparent rounded-xl px-4 py-2.5 ctx-link"
             md="gap-3"
             hover="transition bg-shared/5 border-shared/10 shadow -translate-y-0.5 "
@@ -184,7 +185,7 @@ onMounted(() => {
     </div>
 
     <!-- 装饰性元素 -->
-    <Divide vertical right class="motion-fade-home w-14" sm="w-20" md="w-24 pr-0" />
+    <Divide vertical right class="motion-fade-home h-100 w-14" sm="w-20" md="w-24 pr-0" />
   </div>
 </template>
 

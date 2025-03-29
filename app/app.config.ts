@@ -11,6 +11,11 @@ export default defineAppConfig({
       link: '/',
     },
     {
+      text: '碎片',
+      icon: 'i-mdi:feather',
+      link: '/posts',
+    },
+    {
       text: '书签',
       icon: 'i-carbon:bookmark',
       link: '/bookmarks',
@@ -19,6 +24,11 @@ export default defineAppConfig({
 
   // 首页的链接
   links: [
+    {
+      text: '碎片',
+      link: '/posts',
+      icon: 'i-mdi:feather',
+    },
     {
       text: '书签',
       link: '/bookmarks',

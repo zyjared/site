@@ -18,15 +18,6 @@ mkdir -p site
 cd site
 ```
 
-下载脚本
-
 ```bash
-curl -O https://raw.githubusercontent.com/zyjared/site/main/deploy.sh
-```
-
-执行脚本
-
-```bash
-sudo chmod +x deploy.sh
-sudo ./deploy.sh
+curl -sSL https://raw.githubusercontent.com/zyjared/site/main/deploy.sh | sudo bash
 ```

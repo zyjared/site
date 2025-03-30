@@ -3,7 +3,7 @@
 set -e
 
 GREEN='\033[0;32m'
-BLUE='\033[0;34m'
+INFO='\033[0;36m'
 RED='\033[0;31m'
 NC='\033[0m'
 
@@ -22,7 +22,7 @@ log() {
     local message="$2"
     case "$type" in
         "info")
-            echo -e "\n${BLUE}[i]  $message${NC}\n"
+            echo -e "\n${INFO}[i]  $message${NC}\n"
             ;;
         "success")
             echo -e "\n${GREEN}✓ $message${NC}\n"
@@ -55,23 +55,23 @@ check_deps() {
 
 update_code() {
     if [ -d .git ]; then
+        log "info" "拉取最新代码"
         git remote set-url origin https://github.com/$GITHUB_REPO.git || git remote add origin https://github.com/$GITHUB_REPO.git
         git fetch origin $BRANCH
         git reset --hard origin/$BRANCH
-        log "success" "已拉取最新代码"
     else
+        log "info" "初始化代码仓库"
         git init
         git remote add origin https://github.com/$GITHUB_REPO.git
         git fetch origin $BRANCH
         git reset --hard origin/$BRANCH
-        log "success" "已初始化代码仓库"
     fi
 }
 
 build_image() {
     local max_attempts=2
     local attempt=1
-    
+
     while [ $attempt -le $max_attempts ]; do
         log "info" "构建镜像 $attempt/$max_attempts..."
         if docker build -t $IMAGE_NAME .; then
@@ -89,27 +89,25 @@ deploy_service() {
     log "info" "将部署新版本 $VERSION"
     export TAG=$VERSION
 
+    log "info" "停止旧容器"
     docker compose down
-    log "success" "已停止旧容器"
-    
+
+    log "info" "启动新容器"
     docker compose up -d --force-recreate
-    log "success" "已启动新容器"
 }
 
 cleanup() {
+    log "info" "清理旧版本"
     docker images "$DOCKER_REGISTRY/$PROJECT_NAME" --format "{{.ID}}" | tail -n +3 | xargs -r docker rmi
     docker image prune -f
-    log "success" "已清理旧版本"
 }
 
 check_service() {
-    sleep 10
-    if docker compose ps --format "{{.State}}" | grep -q "Up"; then
-        log "success" "服务已成功启动"
-    else
-        local container_logs=$(docker compose logs --tail=50)
-        log "error" "服务启动异常，最近的日志："
-        echo "$container_logs"
+    log "info" "检查服务运行状态"
+    sleep 5
+    if ! docker compose ps &>/dev/null; then
+        log "error" "服务启动失败"
+        docker compose ps
         exit 1
     fi
 }

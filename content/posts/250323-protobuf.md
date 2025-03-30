@@ -11,7 +11,7 @@ date: 2025-03-23
 
 ## 认识 protobuf
 
-我一直觉得有文档就看文档会好有些：[Protocol Buffers Documentation](https://protobuf.dev/)。
+- [Protocol Buffers Documentation](https://protobuf.dev/)。
 
 看完后，需要知道以下内容:
 
@@ -19,18 +19,16 @@ date: 2025-03-23
 - 为什么：`smaller, faster, and simpler`
 - 如何做：[工作流程](https://protobuf.dev/overview/#work)
 
-多看几遍关于其工作流程内容，我觉得关键点是对字段的定义，以及 [.proto 文件会生成什么](https://protobuf.dev/programming-guides/editions/#generated)。
+多看几遍关于工作流程的内容以及 [.proto 文件会生成什么](https://protobuf.dev/programming-guides/editions/#generated)。
 
 这些了解完之后，就可以使用 ai 了 \~\_\~
 
-## 逆向
-
-~~我对逆向认识也不够，只是感觉这标题高大上~~
+## 查看数据类型
 
 利用浏览器的开发者工具，在网络中找到需要的响应，或使用抓包工具，可以拿到响应的 `ArrayBuffer`，直接复制就好。
 
 - 直接复制响应
-- 粘贴到文本文件中，但是需要注意粘贴的是什么，读取的时候根据格式处理
+- 粘贴到文本文件中，但是需要注意粘贴的是什么
   - 比如 base64，就需要删除前缀
 - 使用 `protoc` 解码
 - 查看结果
@@ -47,26 +45,15 @@ date: 2025-03-23
 }
 ```
 
-<!-- TODO: 增加项目链接  -->
-
 ## 确定字段类型
 
-如果了解了 protobuf 数据的结构，应该能理解是否知道其字段名并没有那么重要，你甚至可以为其取名为 `a`、`b`、`c` 等等，重要的是确定其类型。
+知道了 protobuf 数据的结构，应该能理解是否知道其字段名并没有那么重要，你甚至可以为其取名为 `a`、`b`、`c` 等等，重要的是确定其类型。
 
 ```proto
 message {
   int32 a = 1;
 }
 ```
-
-## 技巧
-
-- ai
-- 搜索
-- 抓包
-- 断点
-- `ctrl + f`
-- 看调用栈
 
 ## 编写脚本
 

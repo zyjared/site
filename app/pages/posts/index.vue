@@ -82,7 +82,7 @@ const progress = computed(() => {
 
               <div
                 aria-hidden="true"
-                class="absolute top-0 h-full w-2px origin-t scale-y-0 rounded-full from-indigo/75 to-transparent bg-gradient-to-b transition-transform duration-500 -left-4 group-hover:scale-y-100"
+                class="absolute top-0 h-full w-[1.5px] origin-t scale-y-0 rounded-full to-transparent bg-gradient-to-b transition-transform duration-500 -left-4 group-hover:scale-y-100 from-ctx-a/75"
               />
             </div>
           </div>
@@ -96,6 +96,11 @@ const progress = computed(() => {
           <Divide :content="false" class="w-full" />
           <Divide :content="false" class="w-full" />
         </div> -->
+
+        <!-- <div
+          aria-hidden="true"
+          class="absolute inset-x-0 scale-x-0 from-transparent via-shared/15 to-transparent bg-gradient-to-r opacity-0 transition-all duration-500 -inset-y-4 -left-4 group-hover:scale-x-100 group-hover:opacity-100"
+        /> -->
       </Motion>
     </section>
   </div>

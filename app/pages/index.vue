@@ -151,7 +151,7 @@ onMounted(() => {
             :target="getBlankTarget(link.link)"
             class="motion-fade-home group flex items-center gap-1 border border-transparent rounded-xl px-4 py-2.5 ctx-link"
             md="gap-3"
-            hover="transition bg-shared/5 border-shared/10 shadow -translate-y-0.5 "
+            hover="bg-shared/5 border-shared/10 shadow -translate-y-0.5 "
           >
             <i
               v-if="link.icon" :class="link.icon"

@@ -11,6 +11,7 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
+import { dxShortcut } from './shared/node/uno/shortcuts'
 
 export default defineConfig({
   theme: {
@@ -30,16 +31,10 @@ export default defineConfig({
       'flex-center': 'flex justify-center items-center',
       'flex-col-center': 'flex-center flex-col',
     },
-
-    // 上下文
-    [/^ctx-text(.*)$/, ([, o]) => `text-black${o} dark:text-white${o}`],
-    [/^ctx-bg(.*)$/, ([, o]) => `bg-neutral-100${o} dark:bg-neutral-900${o}`],
-    [/^(.*)-ctx-text(.*)$/, ([, w, o]) => `${w}-black${o} dark:${w}-white${o}`],
-    [/^(.*)-ctx-bg(.*)$/, ([, w, o]) => `${w}-neutral-100${o} dark:${w}-neutral-900${o}`],
-    [/^(.*)-ctx-brand(.*)$/, ([, w, o]) => `${w}-indigo-500${o} dark:${w}-indigo-400${o}`],
-
-    [/^ctx-a(.*)$/, ([, c]) => `text-blue-500${c} hover:text-blue-600${c} dark:text-blue${c} dark:hover:text-blue-500${c}`], // 链接
-    [/^ctx-link(.*)$/, ([, c]) => `text-shared${c} hover:ctx-text/70 transition-colors`], // 拿不准的时候用
+    dxShortcut({ name: 'ctx-text', base: 'text', value: 'black dark:white' }),
+    dxShortcut({ name: 'ctx-bg', base: 'bg', value: 'neutral-100 dark:neutral-900' }),
+    dxShortcut({ name: 'ctx-a', base: 'text', value: 'blue-500 hover:blue-600 dark:blue dark:hover:blue-500' }),
+    dxShortcut({ name: 'ctx-link', base: 'text', value: 'shared hover:ctx-text/80', extra: 'transition-colors' }),
 
     [/^badge-(.*)$/, ([, c]) => `bg-${c}-500/10 text-${c}-500/90 hover:bg-${c}-500/20 px-3 py-2 text-sm rounded`],
   ],

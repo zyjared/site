@@ -29,7 +29,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="el" class="relative mx-auto pl-18 pr-4 container" sm="pl-24" md="pl-32 pr-8">
+  <div ref="el" class="relative mx-auto pl-18 pr-4 container" sm="pl-24" md="pl-32">
     <div
       v-show="headerX !== null"
       class="fixed inset-y-0 w-14 flex flex-col pb-[calc(2rem+env(safe-area-inset-bottom))] pr-2 pt-[calc(2rem+env(safe-area-inset-top))]"

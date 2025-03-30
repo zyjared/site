@@ -30,5 +30,5 @@ cd site
 下载部署脚本
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/zyjared/site/main/deploy.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/zyjared/site/main/deploy.sh | bash
 ```

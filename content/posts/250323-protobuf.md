@@ -19,7 +19,7 @@ date: 2025-03-23
 - 为什么：`smaller, faster, and simpler`
 - 如何做：[工作流程](https://protobuf.dev/overview/#work)
 
-多看几遍关于其工作流程内容，我觉得关键点是对字段的定义，以及 [.proto 文件会生成了什么](https://protobuf.dev/programming-guides/editions/#generated)。
+多看几遍关于其工作流程内容，我觉得关键点是对字段的定义，以及 [.proto 文件会生成什么](https://protobuf.dev/programming-guides/editions/#generated)。
 
 这些了解完之后，就可以使用 ai 了 \~\_\~
 

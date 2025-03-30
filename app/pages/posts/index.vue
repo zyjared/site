@@ -22,7 +22,7 @@ const progress = computed(() => {
     >
       <Motion
         key="title"
-        class="origin-bl text-8xl font-900 ctx-text"
+        class="origin-br text-8xl font-900 ctx-text"
         :animate="{ opacity: progress, scale: Math.max(progress, 0.2) }"
       >
         碎片

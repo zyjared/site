@@ -1,7 +1,7 @@
 // 修改 motion-v/nuxt 的自动导入
 
 import { addComponent, addImports, defineNuxtModule } from '@nuxt/kit'
-import { signAutoImports } from '../shared/node/imp'
+import { markImports } from '../shared/node/imports'
 
 const components = [
   'Motion',
@@ -42,11 +42,11 @@ const index = defineNuxtModule({
   },
   setup(options, _nuxtApp) {
     if (options.components) {
-      const signComponents = signAutoImports({
+      const signComponents = markImports({
         importants: components,
-        sign: 'motion',
+        mark: 'motion',
         from: 'motion-v',
-        format: true,
+        toImport: true,
       })
       signComponents.forEach((c) => {
         addComponent({
@@ -58,11 +58,11 @@ const index = defineNuxtModule({
     }
 
     if (options.utilities) {
-      const utils = signAutoImports({
+      const utils = markImports({
         importants: utilities,
-        sign: 'motion',
+        mark: 'motion',
         from: 'motion-v',
-        format: true,
+        toImport: true,
       })
 
       //   console.log('重命名: motion-v\n', utils)

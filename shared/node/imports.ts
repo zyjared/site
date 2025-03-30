@@ -1,8 +1,23 @@
-import { capitalize, isCapitalized, uncapitalize } from '../utils/str'
+import { capitalize, isCapitalized, uncapitalize } from '../common/string'
 
-export function signName(name: string, sign: string) {
-  const capSign = capitalize(sign)
-  const lowerSign = uncapitalize(sign)
+export interface Import {
+  from: string
+  name: string
+  as?: string
+}
+
+interface MarkOptions {
+  mark: string
+
+  /**
+   *  如果已经有 as，是否强制替换
+   */
+  force?: boolean
+}
+
+export function markName(name: string, mark: string) {
+  const capSign = capitalize(mark)
+  const lowerSign = uncapitalize(mark)
 
   const reg = new RegExp(`(${capSign}|${lowerSign})`)
 
@@ -19,30 +34,15 @@ export function signName(name: string, sign: string) {
   return fixer
 }
 
-export interface Import {
-  from: string
-  name: string
-  as?: string
-}
-
-interface SignImportOpts {
-  sign: string
-
-  /**
-   *  如果已经有 as，是否强制替换
-   */
-  force?: boolean
-}
-
-export function signImport(impt: Import, opts: SignImportOpts): Import {
-  const { sign, force } = opts
+export function markImport(impt: Import, opts: MarkOptions): Import {
+  const { mark, force } = opts
 
   if (impt.as && !force)
     return impt
 
   const { name } = impt
 
-  const fixer = signName(name, sign)
+  const fixer = markName(name, mark)
 
   if (fixer !== name) {
     impt.as = fixer
@@ -51,21 +51,25 @@ export function signImport(impt: Import, opts: SignImportOpts): Import {
   return impt
 }
 
-interface SignAutoImportsOpts {
+interface BatchMarkOptions {
   importants: string[]
-  sign: string
+  mark: string
 }
 
-interface SignAutoImportsParseOpts extends SignAutoImportsOpts {
+interface BatchMarkToImportOptions extends BatchMarkOptions {
   from: string
-  format: boolean
+
+  /**
+   * 是否返回 Import[] 类型
+   */
+  toImport: boolean
 }
 
 /**
  * 为 import 的名字增加标记名
  *
  * ```js
- * signAutoImports({
+ * markImports({
  *   sign: 'motion',
  *   importants: ['motion', 'AnimatePresenceMotion', 'useAnimate', 'useReducedMotion']
  * })
@@ -79,19 +83,20 @@ interface SignAutoImportsParseOpts extends SignAutoImportsOpts {
  * ]
  * ```
  */
-export function signAutoImports(opts: SignAutoImportsOpts): Array<string | [string, string]>
-export function signAutoImports(opts: SignAutoImportsParseOpts): Import[]
-export function signAutoImports(opts: SignAutoImportsOpts | SignAutoImportsParseOpts) {
-  const { sign, importants } = opts
+export function markImports(opts: BatchMarkOptions): Array<string | [string, string]>
+export function markImports(opts: BatchMarkToImportOptions): Import[]
+// export function markImports(imports: Import[], mark: string): Import[]
+export function markImports(opts: BatchMarkOptions | BatchMarkToImportOptions) {
+  const { mark, importants } = opts
 
   const res = importants.map((it) => {
-    const fixer = signName(it, sign)
+    const fixer = markName(it, mark)
     return fixer === it ? it : [it, fixer]
   })
 
-  const { from, format } = opts as SignAutoImportsParseOpts
+  const { from, toImport } = opts as BatchMarkToImportOptions
 
-  return !format
+  return !toImport
     ? res
     : res.map((v) => {
         const imp = {

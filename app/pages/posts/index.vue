@@ -82,7 +82,7 @@ const progress = computed(() => {
 
               <div
                 aria-hidden="true"
-                class="absolute top-0 h-full w-[1.5px] origin-t scale-y-0 rounded-full to-transparent bg-gradient-to-b transition-transform duration-500 -left-4 group-hover:scale-y-100 from-ctx-a/75"
+                class="absolute top-0 h-full w-[1.5px] origin-t scale-y-0 rounded-full to-transparent bg-gradient-to-b transition-transform duration-500 -left-4 group-hover:scale-y-100 from-ctx-text/75"
               />
             </div>
           </div>

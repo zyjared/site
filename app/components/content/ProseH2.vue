@@ -8,7 +8,7 @@ const generate = computed(() => props.id && ((typeof headings?.anchorLinks === '
 <template>
   <h2
     :id="props.id"
-    class="mb-8 mt-12 pt-6 text-2xl font-bold tracking-tight"
+    class="relative mb-8 mt-12 pt-6 text-2xl font-bold tracking-tight before:text-ctx-a/0 hover:before:text-ctx-a hover:before:block"
     b="t-1 shared/20"
   >
     <a
@@ -21,3 +21,13 @@ const generate = computed(() => props.id && ((typeof headings?.anchorLinks === '
     <slot v-else />
   </h2>
 </template>
+
+<style scoped>
+h2::before {
+  content: '#';
+  position: absolute;
+  transform: translateX(-100%);
+  padding-right: 0.25em;
+  transition: color 0.2s linear;
+}
+</style>

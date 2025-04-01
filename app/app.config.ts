@@ -34,11 +34,11 @@ export default defineAppConfig({
       link: '/bookmarks',
       icon: 'i-carbon:bookmark',
     },
-    {
-      text: '笔记本',
-      link: 'https://notes.zyjared.com',
-      icon: 'i-carbon:notebook',
-    },
+    // {
+    //   text: '笔记本',
+    //   link: 'https://notes.zyjared.com',
+    //   icon: 'i-carbon:notebook',
+    // },
     // {
     //   title: 'error',
     //   link: '/error',

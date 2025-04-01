@@ -74,6 +74,11 @@ const data = computed(() => {
   }
 })
 
+const defaultBack = {
+  text: 'Return Home',
+  link: '/',
+}
+
 function toRedirect() {
   if (!back)
     return
@@ -82,7 +87,7 @@ function toRedirect() {
     clearError()
   }
 
-  back === true ? router.back() : router.replace(back.link)
+  router.replace(back === true ? defaultBack.link : back.link)
 }
 </script>
 
@@ -143,7 +148,7 @@ function toRedirect() {
       un-hover="b-shared ctx-text"
       @click="toRedirect"
     >
-      {{ back === true ? 'Back' : back.text }}
+      {{ back === true ? defaultBack.text : back.text }}
     </button>
 
     <slot />

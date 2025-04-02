@@ -153,12 +153,12 @@ useEventListener('resize', useDebounceFn(syncHeadings, 100), { passive: true })
   <div v-if="!value" class="h-screen flex-center">
     <ErrorDisplay :error="{ code: 404 }" :clean="false" />
   </div>
-  <div v-else class="w-full flex gap-12" lg="gap-16">
-    <article ref="article" class="flex-1" md="pl-2" lg="pl-6">
+  <div v-else class="grid grid-cols-12">
+    <article ref="article" class="col-span-12" md="col-span-8" lg="col-start-2 col-span-7">
       <slot name="doc-before" />
 
       <slot>
-        <ContentRenderer :value="value" class="max-w-none prose" dark="prose-invert" />
+        <ContentRenderer :value="value" class="max-w-full min-w-full prose" dark="prose-invert" />
       </slot>
 
       <slot name="doc-after">
@@ -168,8 +168,7 @@ useEventListener('resize', useDebounceFn(syncHeadings, 100), { passive: true })
 
     <div
       class="sticky top-0 hidden max-h-screen overflow-auto py-16"
-      md="block w-32"
-      lg="w-44"
+      md="block col-start-10 col-span-3"
     >
       <DocAside
         v-if="article"

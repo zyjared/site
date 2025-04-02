@@ -55,7 +55,7 @@ const divideVariants = {
 
 <template>
   <ClientOnly>
-    <header tag="header" name="header" class="relative h-full flex-col-center p-2">
+    <header tag="header" name="header" class="relative h-full flex-col-center">
       <MotionLayoutGroup>
         <HeaderLogo key="logo" />
 

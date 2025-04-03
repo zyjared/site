@@ -94,10 +94,19 @@ export default defineConfig({
     'i-carbon:notebook',
     // 'i-memory:pound', // # 号
 
+    // 'i-carbon:bookmark-filled',
+
     // tags (badges)
     'i-carbon:code',
     'i-carbon:cloud',
     'i-carbon:video',
     'i-carbon:keyboard',
+
+    // bookmarks
+    'i-carbon:terminal',
+    'i-carbon:machine-learning',
+    'i-carbon:settings',
+    'i-carbon:image',
+    'i-carbon:rocket',
   ],
 })

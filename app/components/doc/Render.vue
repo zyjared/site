@@ -154,7 +154,7 @@ useEventListener('resize', useDebounceFn(syncHeadings, 100), { passive: true })
     <ErrorDisplay :error="{ code: 404 }" :clean="false" />
   </div>
   <div v-else class="grid grid-cols-12">
-    <article ref="article" class="col-span-12" md="col-span-8" lg="col-start-2 col-span-7">
+    <article ref="article" class="col-span-12" md="col-start-2 col-span-7" lg="col-start-2 col-span-8">
       <slot name="doc-before" />
 
       <slot>
@@ -169,6 +169,7 @@ useEventListener('resize', useDebounceFn(syncHeadings, 100), { passive: true })
     <div
       class="sticky top-0 hidden max-h-screen overflow-auto py-16"
       md="block col-start-10 col-span-3"
+      lg="col-start-11 col-span-2"
     >
       <DocAside
         v-if="article"

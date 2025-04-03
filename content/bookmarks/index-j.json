@@ -1,0 +1,74 @@
+{
+  "title": "我的书签",
+  "description": "常用工具和网站收藏",
+  "collections": [
+    {
+      "title": "初始化",
+      "icon": "i-carbon:settings",
+      "description": "系统初始化配置工具",
+      "items": [
+        {
+          "title": "Windows 初始化",
+          "link": "/bookmarks/windows",
+          "description": "Windows 系统初始化配置指南"
+        },
+        {
+          "title": "Linux 初始化",
+          "link": "/bookmarks/linux",
+          "description": "Linux 系统初始化配置指南"
+        }
+      ]
+    },
+    {
+      "title": "终端工具",
+      "icon": "i-carbon:terminal",
+      "description": "终端相关工具",
+      "items": [
+        {
+          "title": "Starship",
+          "link": "https://starship.rs/zh-CN/",
+          "description": "轻量级、快速、可定制的跨平台 Shell 提示符"
+        }
+      ]
+    },
+    {
+      "title": "图片工具",
+      "icon": "i-carbon:image",
+      "description": "图片处理工具",
+      "items": [
+        {
+          "title": "ImageMagick",
+          "link": "https://imagemagick.org/script/command-line-processing.php",
+          "description": "强大的图片处理命令行工具"
+        }
+      ]
+    },
+    {
+      "title": "AI 助手",
+      "icon": "i-carbon:machine-learning",
+      "description": "AI 对话和助手工具",
+      "items": [
+        {
+          "title": "DeepSeek",
+          "link": "https://chat.deepseek.com/",
+          "description": "DeepSeek AI 对话助手"
+        },
+        {
+          "title": "通义千问",
+          "link": "https://tongyi.aliyun.com/",
+          "description": "阿里通义千问 AI 助手"
+        },
+        {
+          "title": "腾讯元宝",
+          "link": "https://yuanbao.tencent.com/",
+          "description": "腾讯元宝 AI 助手"
+        },
+        {
+          "title": "ChatGPT",
+          "link": "https://chatgpt.com/",
+          "description": "OpenAI ChatGPT 对话助手"
+        }
+      ]
+    }
+  ]
+}

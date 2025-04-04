@@ -45,7 +45,7 @@ const items = computed(() => {
 // ---------------------------------------
 
 const curTab = ref('all')
-function selectTab(item: { id: string }) {
+function selectTab(item: { id: string | number, label: string }) {
   curTab.value = item.id as string
 }
 
@@ -69,7 +69,7 @@ const categoryStats = computed(() => {
     {
       id: 'all',
       title: '全部',
-      icon: 'i-carbon:bookmark',
+      icon: 'i-material-symbols:border-all-rounded',
       description: '所有书签',
       count: items.reduce((total, item) => total + item.count, 0),
     },
@@ -100,9 +100,9 @@ const bookmarks = computed(() => {
 </script>
 
 <template>
-  <div class="relative min-h-screen overflow-hidden p-8 pt-16 space-y-8">
+  <div class="relative min-h-screen space-y-8" md="p-4">
     <div class="space-y-6">
-      <div class="flex flex-col gap-4" sm="flex-row items-end justify-between">
+      <div class="mb-12 mt-16 flex flex-col gap-4" sm="flex-row items-end justify-between">
         <div class="space-y-1">
           <h1 class="text-3xl font-bold">
             {{ data?.title }}
@@ -131,7 +131,7 @@ const bookmarks = computed(() => {
     </div>
 
     <MotionLayoutGroup>
-      <Motion layout class="relative grid gap-4" sm="grid-cols-2" md="grid-cols-3" lg="grid-cols-4">
+      <Motion layout class="relative grid auto-rows-fr grid-cols-1 gap-4" sm="grid-cols-2" md="grid-cols-3" lg="grid-cols-4">
         <MotionAnimatePresence>
           <Motion
             v-for="item in bookmarks"
@@ -140,19 +140,14 @@ const bookmarks = computed(() => {
             :initial="false"
             :animate="{ opacity: 1, scale: 1 }"
             :exit="{ opacity: 0, scale: 0.8 }"
-            :transition="{
-              type: 'spring',
-              stiffness: 400,
-              damping: 30,
-            }"
           >
             <NuxtLink
               :target="getBlankTarget(item.link)"
               :to="item.link"
-              class="group block cursor-pointer overflow-hidden border border-shared/30 rounded-lg"
+              class="group block cursor-pointer border border-shared/30 rounded-lg"
             >
               <div class="p-4 space-y-2">
-                <h3 class="line-clamp-1 font-medium">
+                <h3 class="truncate font-medium">
                   {{ item.title }}
                 </h3>
                 <p class="truncate text-sm text-shared/60">

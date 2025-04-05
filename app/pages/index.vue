@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { stagger } from 'motion-v'
 
-const { links, displayName } = useAppConfig()
+const { links, displayName, socials } = useAppConfig()
 
 const birthday = 1111
 
@@ -16,21 +16,11 @@ function toBinaryGroup(num: number) {
 }
 
 const tags = [
-  // {
-  //   text: 'Frontend Developer',
-  //   icon: 'i-carbon:code',
-  //   class: 'badge-blue',
-  // },
   {
     text: 'Dreamer',
     icon: 'i-carbon:cloud',
     class: 'badge-indigo',
   },
-  // {
-  //   text: 'Anime Enthusiast',
-  //   icon: 'i-carbon:video',
-  //   class: 'badge-green',
-  // },
   {
     text: 'Ctrl+S Spammer',
     icon: 'i-carbon:keyboard',
@@ -45,20 +35,6 @@ const binaryColors = [
   'text-red-400/80',
 ]
 
-// @unocss-include
-const techIcons = [
-  'i-vscode-icons:file-type-html',
-  'i-vscode-icons:file-type-css',
-  'i-vscode-icons:file-type-js',
-  'i-vscode-icons:file-type-typescript',
-  'i-vscode-icons:file-type-vue',
-  'i-vscode-icons:file-type-reactts',
-  'i-vscode-icons:file-type-python',
-  'i-vscode-icons:file-type-java',
-  'i-vscode-icons:file-type-rust',
-  'i-vscode-icons:file-type-sql',
-]
-
 // motion
 
 const [scope, animate] = useMotionAnimate()
@@ -69,7 +45,9 @@ onMounted(() => {
     y: [20, 0],
   }, {
     delay: stagger(0.1, { from: 'first' }),
-    duration: 0.45,
+    duration: 0.3,
+    type: 'spring',
+    stiffness: 200,
   })
 })
 </script>
@@ -80,7 +58,7 @@ onMounted(() => {
       <!-- 主内容 -->
       <div class="flex-col-center gap-4 py-12" md="gap-6 flex-1 pt-40 pb-8 mb-8">
         <!-- 信息 -->
-        <div class="w-full flex-center flex-col gap-2" md="flex-row gap-8">
+        <Motion drag :drag-constraints="(scope as HTMLElement)" class="w-full flex-center flex-col gap-2" md="flex-row gap-8">
           <!-- 信息: 左侧头像 -->
           <div class="motion-fade-home">
             <div class="relative aspect-1 w-20 overflow-hidden rounded-full p-2px" sm="w-24" md="w-32">
@@ -88,9 +66,10 @@ onMounted(() => {
                 aria-hidden="true"
                 class="ani-rotate absolute left-1/2 top-1/3 z--1 h-20 w-2/1 transform-origin-l from-transparent via-blue-6 to-transparent bg-gradient-to-t"
               />
-              <div class="h-full w-full overflow-hidden b-1 rounded-full bg-shared">
-                <img src="/avatar.png" alt="avatar" class="block h-full w-full object-cover">
+              <div class="h-full w-full overflow-hidden b-1 rounded-full bg-shared/5">
+                <img src="/avatar.png" alt="avatar" class="block h-full w-full select-none object-cover">
               </div>
+              <div aria-hidden="true" class="absolute inset-0 z-1" />
             </div>
           </div>
 
@@ -110,8 +89,8 @@ onMounted(() => {
             </div> -->
 
             <!-- 个人标签 -->
-            <div class="flex-center flex-wrap gap-2" md="flex-start">
-              <span v-for="(tag, idx) in tags" :key="idx" :class="tag.class" class="motion-fade-home flex flex-1 items-center gap-2 text-nowrap text-xs" md="flex-0">
+            <div class="motion-fade-home flex-center flex-wrap gap-2" md="flex-start">
+              <span v-for="(tag, idx) in tags" :key="idx" :class="tag.class" class="flex flex-1 items-center gap-2 text-nowrap text-xs" md="flex-0">
                 <span :class="tag.icon" />
                 <span>{{ tag.text }}</span>
               </span>
@@ -119,11 +98,11 @@ onMounted(() => {
 
             <!-- 二进制生日 -->
             <p
-              class="text-sm text-shared tracking-widest font-mono space-x-2"
+              class="motion-fade-home text-sm text-shared tracking-widest font-mono space-x-2"
               role="text"
               aria-description="生日的二进制表示"
             >
-              <span class="motion-fade-home text-gray-400/60" aria-hidden="true">0b</span>
+              <span class="text-gray-400/60" aria-hidden="true">0b</span>
               <span
                 class="space-x-1"
                 :aria-label="getBirthAriaLabel()"
@@ -134,7 +113,6 @@ onMounted(() => {
                   v-for="(b, idx) in toBinaryGroup(birthday)"
                   :key="idx"
                   :class="binaryColors[idx]"
-                  class="motion-fade-home"
                   aria-hidden="true"
                 >
                   {{ b }}
@@ -142,39 +120,51 @@ onMounted(() => {
               </span>
             </p>
           </div>
-        </div>
+        </Motion>
 
-        <!-- 链接区域 -->
-        <div class="max-w-3xl w-full flex flex-wrap justify-center gap-2" md="gap-4">
-          <NuxtLink
-            v-for="(link, index) in links" :key="index" :to="link.link"
-            :target="getBlankTarget(link.link)"
-            class="motion-fade-home group flex items-center gap-1 border border-transparent rounded-xl px-4 py-2.5 ctx-link"
-            md="gap-3"
-            hover="bg-shared/5 border-shared/10 shadow -translate-y-0.5 "
-          >
-            <i
-              v-if="link.icon" :class="link.icon"
-              class="text-xl transition-transform-200 group-hover:scale-110"
-            />
-            <span class="text-sm">{{ link.text }}</span>
-          </NuxtLink>
-        </div>
+        <Motion drag :drag-constraints="(scope as HTMLElement)" class="motion-fade-home z-1 w-full flex flex-col gap-6 pt-6" md="flex-row-reverse pt-0">
+          <!-- socials -->
+          <div class="flex-center flex-1 gap-6">
+            <DarkMode />
+            <NuxtLink
+              v-for="item in socials"
+              :key="item.link"
+              :to="item.link"
+              :target="getBlankTarget(item.link)"
+              class="group flex items-center justify-center ctx-link"
+            >
+              <i :class="item.icon" class="text-xl" />
+            </NuxtLink>
+          </div>
+
+          <div class="hidden h-full flex-1" md="block">
+            <UiDivide class="h-full" vertical :content="false" />
+          </div>
+          <div class="w-full flex-1" md="hidden">
+            <UiDivide class="w-full" :content="false" />
+          </div>
+
+          <!-- 导航 -->
+          <div class="flex flex-wrap justify-center gap-4" md="gap-6">
+            <NuxtLink
+              v-for="(link, index) in links" :key="index" :to="link.link"
+              :target="getBlankTarget(link.link)"
+              class="group flex items-center gap-1 rounded-lg px-2 py-2 transition ctx-link"
+              md="gap-2"
+            >
+              <i v-if="link.icon" :class="link.icon" class="" />
+              <span class="text-sm">{{ link.text }}</span>
+            </NuxtLink>
+          </div>
+        </Motion>
       </div>
 
       <!-- 装饰性元素 -->
       <div class="mb-6 w-full flex-col-center gap-8" md="gap-8 mb-8" aria-hidden="true">
-        <div class="flex-center flex-wrap gap-4 text-center opacity-20" aria-hidden="true">
-          <i v-for="(icon) in techIcons" :key="icon" :class="icon" class="motion-fade-home" />
-        </div>
-
-        <!-- 分隔 -->
-        <div class="motion-fade-home h-[1px] w-48 from-transparent via-shared/15 to-transparent bg-gradient-to-r" aria-hidden="true" />
-
-        <!-- 句子 -->
         <p class="motion-fade-home max-w-md px-4 text-center text-sm text-shared/30 tracking-wider font-serif italic" aria-hidden="true">
           "Always learning, forever exploring"
         </p>
+        <UiDivide class="motion-fade-home" :content="false" />
       </div>
 
       <footer class="h-16 flex items-end justify-center pb-8">
@@ -185,7 +175,9 @@ onMounted(() => {
     </div>
 
     <!-- 装饰性元素 -->
-    <Divide vertical right class="motion-fade-home h-100 w-14" sm="w-20" md="w-24 pr-0" />
+    <div class="opacity-0" sm="opacity-100 w-fit">
+      <UiDivide vertical right class="motion-fade-home h-100 w-14" sm="w-20" md="w-24 pr-0" />
+    </div>
   </div>
 </template>
 

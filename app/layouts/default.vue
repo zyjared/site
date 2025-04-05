@@ -1,18 +1,24 @@
 <script setup lang="ts">
-
+const route = useRoute()
+const isHome = computed(() => route.path === '/')
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative overflow-x-clip">
     <div
-      class="app-header fixed inset-y-0 w-14"
+      class="fixed inset-y-0 w-14 pb-[calc(env(safe-area-inset-bottom,0)+2rem)] pt-[calc(env(safe-area-inset-top,0)+2rem)] transition-all duration-500 ease-in-out"
       sm="w-20"
       md="w-24"
+      :class="isHome ? '-translate-x-full opacity-0' : 'translate-x-0 opacity-100'"
     >
       <Header />
     </div>
 
-    <main class="relative ml-18 mr-4" sm="ml-24" md="ml-28">
+    <main
+      class="relative ml-18 mr-4 transition-all duration-500"
+      sm="ml-24"
+      md="ml-28"
+    >
       <slot />
     </main>
 
@@ -27,27 +33,4 @@
 :root {
   scroll-behavior: smooth;
 }
-
-.app-header {
-  padding-top: calc(2rem + env(safe-area-inset-top));
-  padding-bottom: calc(2rem + env(safe-area-inset-bottom));
-}
-
-.app-main {
-  padding-right: env(safe-area-inset-right);
-}
-
-/* .fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.fade-leave-active {
-  position: absolute;
-} */
 </style>

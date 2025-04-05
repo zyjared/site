@@ -1,107 +1,91 @@
 <script setup lang="ts">
-const { data: posts } = await useAsyncData('posts', () => {
-  return queryCollection('posts').all()
-})
-
-const { y } = useWindowScroll()
-
-const progress = computed(() => {
-  if (y.value > 96) {
-    return 0
+// 简化日期格式化
+function formatPostDate(date: string) {
+  const d = new Date(date)
+  return {
+    year: d.getFullYear(),
+    month: d.toLocaleString('zh-CN', { month: 'short' }),
+    day: d.getDate().toString().padStart(2, '0'),
   }
-  return 1 - y.value / 96
+}
+
+const { data: posts } = await useAsyncData('posts', () => queryCollection('posts').all())
+const isEmpty = computed(() => !posts.value?.length)
+
+// 文章分组
+const postsByYear = computed(() => {
+  if (!posts.value)
+    return new Map()
+  return new Map(
+    Object.entries(
+      posts.value.reduce((acc, post) => {
+        const year = formatPostDate(post.meta.date as string).year
+        if (!acc[year])
+          acc[year] = []
+        acc[year].push(post)
+        return acc
+      }, {} as Record<string, any[]>),
+    ).sort(([a], [b]) => Number(b) - Number(a)),
+  )
 })
 </script>
 
 <template>
-  <div class="relative pb-60" md="px-10" lg="px-20">
-    <section
-      class="mb-28 mt-12 min-h-24 flex flex-row-reverse justify-between gap-2"
-      md="mb-36"
-      lg="mb-40"
+  <PageContainer class="min-h-screen">
+    <PageTitle
+      title="碎片"
+      subtitle="记录 & 笔记"
+      accent="FRAGMENTS"
     >
-      <Motion
-        key="title"
-        class="origin-br text-8xl font-900 ctx-text"
-        :animate="{ opacity: progress, scale: Math.max(progress, 0.4) }"
-      >
-        碎片
-      </Motion>
-
-      <Motion
-        key="sub-title"
-        class="origin-bl self-end"
-        :animate="{ opacity: progress }"
-      >
-        <div class="text-sm text-shared/75 font-mono">
-          FRAGMENTS OF THOUGHTS
+      <template #after>
+        <div class="mt-12 flex items-center gap-2 text-sm text-shared/40 font-mono">
+          {{ posts?.length || 0 }} 碎片
+          <span class="h-3 w-[1px] bg-shared/20" />
+          {{ postsByYear.size }} 年
         </div>
-        <p class="text-lg text-shared">
-          痕迹
+      </template>
+    </PageTitle>
+
+    <!-- 空状态 -->
+    <div v-if="isEmpty" class="mx-auto max-w-2xl text-shared">
+      <div class="relative aspect-video flex-col-center gap-6">
+        <div class="text-8xl" i-carbon:pen-fountain />
+        <p>
+          思考中......
         </p>
-      </Motion>
-    </section>
+      </div>
+    </div>
 
-    <section
-      class="relative mx-auto max-w-4xl space-y-20"
-      md="space-y-28"
-    >
-      <Motion
-        v-for="(post) in posts"
-        :key="post.path"
-        :initial="{ opacity: 0, y: 50 }"
-        :while-in-view="{ opacity: 1, y: 0 }"
-        :transition="{ duration: 0.5 }"
-        class="group relative"
-      >
-        <NuxtLink
-          :to="post.path"
-          class="block"
-        >
-          <div class="flex items-baseline gap-8">
-            <time
-              v-if="post.meta.date"
-              class="hidden shrink-0 text-sm text-shared tracking-wider font-mono"
-              md="block"
-            >
-              {{ formatDate(post.meta.date as string) }}
-            </time>
+    <!-- 文章列表 -->
+    <div v-else class="space-y-20">
+      <section v-for="[year, yearPosts] in postsByYear" :key="year" class="group space-y-8">
+        <!-- 年份标记 -->
+        <div>
+          <span class="text-7xl text-shared/50 font-bold font-mono">{{ year }}</span>
+        </div>
 
-            <div class="relative opacity-75 transition-opacity group-hover:opacity-100">
-              <h2
-                class="text-2xl font-bold"
-              >
+        <!-- 文章网格 -->
+        <div class="grid gap-6 md:grid-cols-2">
+          <NuxtLink v-for="post in yearPosts" :key="post.path" :to="post.path" class="group/item ctx-link">
+            <article class="h-ful flex-col border border-shared/10 rounded-xl p-6 space-y-4 group-hover/item:b-shared/20">
+              <div class="flex items-center justify-between">
+                <time class="flex items-baseline gap-2 font-mono">
+                  <span class="text-2xl font-bold">{{ formatPostDate(post.meta.date as string).day }}</span>
+                  <span class="text-sm">{{ formatPostDate(post.meta.date as string).month }}</span>
+                </time>
+                <span aria-hidden="true" class="text-sm text-inherit opacity-0 transition-[opacity] group-hover/item:opacity-100" i-carbon:arrow-up-right />
+              </div>
+
+              <h3 class="text-xl font-medium ctx-text">
                 {{ post.title }}
-              </h2>
-
-              <p
-                class="mt-3 text-shared"
-              >
+              </h3>
+              <p class="line-clamp-2 h-[3em] text-sm leading-[1.5em]">
                 {{ post.description }}
               </p>
-
-              <div
-                aria-hidden="true"
-                class="absolute top-0 h-full w-[1.5px] origin-t scale-y-0 rounded-full to-transparent bg-gradient-to-b transition-transform duration-500 -left-4 group-hover:scale-y-100 from-ctx-text/75"
-              />
-            </div>
-          </div>
-        </NuxtLink>
-
-        <!-- <div
-          class="[clip-path:inset(0_50%_0_50%)] absolute inset-x-0 transition-[clip-path] duration-500 group-hover:[clip-path:inset(0_0_0_0)] -inset-y-12 -z-1"
-          flex="~ col justify-between items-center"
-          p="y-4"
-        >
-          <Divide :content="false" class="w-full" />
-          <Divide :content="false" class="w-full" />
-        </div> -->
-
-        <!-- <div
-          aria-hidden="true"
-          class="absolute inset-x-0 scale-x-0 from-transparent via-shared/15 to-transparent bg-gradient-to-r opacity-0 transition-all duration-500 -inset-y-4 -left-4 group-hover:scale-x-100 group-hover:opacity-100"
-        /> -->
-      </Motion>
-    </section>
-  </div>
+            </article>
+          </NuxtLink>
+        </div>
+      </section>
+    </div>
+  </PageContainer>
 </template>

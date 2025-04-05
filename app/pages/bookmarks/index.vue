@@ -19,6 +19,15 @@ interface Data {
   description: string
 }
 
+interface BookmarkItem extends Bookmark {
+  id: string
+  collection: {
+    title: string
+    icon: string
+    description: string
+  }
+}
+
 const { data } = await useAsyncData('bookmarks', () => {
   return queryCollection('bookmarks').path('/bookmarks/index-j').first()
 })
@@ -29,8 +38,8 @@ const items = computed(() => {
     return []
   return body.collections.flatMap((collection, pidx) =>
     collection.items.map((item, idx) => ({
-      id: `${pidx}-${idx}`,
       ...item,
+      id: `${pidx}-${idx}`,
       collection: {
         title: collection.title,
         icon: collection.icon,
@@ -82,83 +91,76 @@ const categoryStats = computed(() => {
 // ---------------------------------------
 const search = ref('')
 
-const bookmarks = computed(() => {
-  const s = search.value.trim().toLowerCase()
+function getBookmarks(ctx: { search: string, tab: string }): BookmarkItem[] {
+  const { search, tab } = ctx
+  const s = search.trim().toLowerCase()
   const allItems = items.value
 
-  if (!s && curTab.value === 'all')
+  if (!s && tab === 'all')
     return allItems
 
-  const selectedCategory = categoryStats.value.find(c => c.id === curTab.value)?.title
+  const selectedCategory = categoryStats.value.find(c => c.id === tab)?.title
 
   return allItems.filter((it) => {
-    const matchCategory = curTab.value === 'all' || it.collection.title === selectedCategory
+    const matchCategory = tab === 'all' || it.collection.title === selectedCategory
     const matchSearch = !s || it.title.toLowerCase().includes(s) || it.description.toLowerCase().includes(s)
     return matchCategory && matchSearch
   })
-})
+}
+
+const bookmarks = computed(() => getBookmarks({ search: search.value, tab: curTab.value }))
 </script>
 
 <template>
-  <div class="relative min-h-screen space-y-8" md="p-4">
-    <div class="space-y-6">
-      <div class="mb-12 mt-16 flex flex-col gap-4" sm="flex-row items-end justify-between">
-        <div class="space-y-1">
-          <h1 class="text-3xl font-bold">
-            {{ data?.title }}
-          </h1>
-          <p class="text-sm text-shared/50">
-            {{ data?.description }}
-          </p>
-        </div>
-
+  <PageContainer class="relative min-h-screen">
+    <PageTitle :title="data?.title || '书签'" :subtitle="data?.description || '常用工具和网站收藏'" accent="COLLECTIONS">
+      <template #after>
         <UiSearch
           v-model="search"
           placeholder="搜索书签..."
         />
-      </div>
+      </template>
+    </PageTitle>
 
-      <UiTabs
-        v-model="curTab"
-        :items="categoryStats.map(item => ({
-          id: item.id,
-          label: item.title,
-          icon: item.icon,
-          badge: item.count,
-        }))"
-        @select="selectTab"
-      />
-    </div>
+    <UiTabs
+      v-model="curTab"
+      :items="categoryStats.map(item => ({
+        id: item.id,
+        label: item.title,
+        icon: item.icon,
+        badge: item.count,
+      }))"
+      @select="selectTab"
+    />
 
     <MotionLayoutGroup>
-      <Motion layout class="relative grid auto-rows-fr grid-cols-1 gap-4" sm="grid-cols-2" md="grid-cols-3" lg="grid-cols-4">
-        <MotionAnimatePresence>
+      <Motion layout class="relative grid auto-rows-fr grid-cols-1 mt-6 gap-4" sm="grid-cols-2" md="grid-cols-3" lg="grid-cols-4">
+        <MotionAnimatePresence mode="popLayout">
           <Motion
             v-for="item in bookmarks"
             :key="item.id"
             layout
             :initial="false"
-            :animate="{ opacity: 1, scale: 1 }"
-            :exit="{ opacity: 0, scale: 0.8 }"
+            :animate="{ opacity: 1, scale: 1 } "
           >
             <NuxtLink
               :target="getBlankTarget(item.link)"
               :to="item.link"
-              class="group block cursor-pointer border border-shared/30 rounded-lg"
+              class="group block cursor-pointer border border-shared/10 rounded-lg hover:b-shared/20 ctx-link"
             >
               <div class="p-4 space-y-2">
-                <h3 class="truncate font-medium">
+                <h3 class="truncate font-medium ctx-text">
                   {{ item.title }}
                 </h3>
-                <p class="truncate text-sm text-shared/60">
+                <p class="truncate text-sm">
                   {{ item.description }}
                 </p>
               </div>
 
               <div
                 :to="item.link"
-                class="flex items-center justify-between px-4 py-2 text-xs text-shared/50"
-                b="t-1 shared/30"
+                class="flex items-center justify-between px-4 py-2 text-xs text-shared/50 transition group-hover:b-shared/20"
+                b="t-1 shared/10 "
               >
                 <div class="flex-center gap-2">
                   <span :class="item.collection.icon" />
@@ -174,5 +176,5 @@ const bookmarks = computed(() => {
         </MotionAnimatePresence>
       </Motion>
     </MotionLayoutGroup>
-  </div>
+  </PageContainer>
 </template>

@@ -8,7 +8,7 @@ const generate = computed(() => props.id && ((typeof headings?.anchorLinks === '
 <template>
   <h2
     :id="props.id"
-    class="relative mb-8 mt-12 pt-6 text-2xl font-bold tracking-tight before:text-ctx-a/0 hover:before:text-ctx-a hover:before:block"
+    class="relative mb-8 mt-12 pt-6 text-2xl font-bold tracking-tight hover:before:block before:text-ctx-a/0 hover:before:text-ctx-a"
     b="t-1 shared/20"
   >
     <a

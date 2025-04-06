@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const route = useRoute()
+
 // 简化日期格式化
 function formatPostDate(date: string) {
   const d = new Date(date)
@@ -9,7 +11,7 @@ function formatPostDate(date: string) {
   }
 }
 
-const { data: posts } = await useAsyncData('posts', () => queryCollection('posts').all())
+const { data: posts } = await useAsyncData(route.path, () => queryCollection('posts').order('id', 'DESC').all())
 const isEmpty = computed(() => !posts.value?.length)
 
 // 文章分组

@@ -40,16 +40,16 @@ const postsByYear = computed(() => {
       accent="FRAGMENTS"
     >
       <template #after>
-        <div class="mt-12 flex items-center gap-2 text-sm text-shared/40 font-mono">
+        <div class="mt-12 flex items-center gap-2 text-sm text-neutral/40 font-mono">
           {{ posts?.length || 0 }} 碎片
-          <span class="h-3 w-[1px] bg-shared/20" />
+          <span class="h-3 w-[1px] bg-neutral/20" />
           {{ postsByYear.size }} 年
         </div>
       </template>
     </PageTitle>
 
     <!-- 空状态 -->
-    <div v-if="isEmpty" class="mx-auto max-w-2xl text-shared">
+    <div v-if="isEmpty" class="mx-auto max-w-2xl text-neutral">
       <div class="relative aspect-video flex-col-center gap-6">
         <div class="text-8xl" i-carbon:pen-fountain />
         <p>
@@ -63,13 +63,13 @@ const postsByYear = computed(() => {
       <section v-for="[year, yearPosts] in postsByYear" :key="year" class="group space-y-8">
         <!-- 年份标记 -->
         <div>
-          <span class="text-7xl text-shared/50 font-bold font-mono">{{ year }}</span>
+          <span class="text-7xl text-neutral/50 font-bold font-mono">{{ year }}</span>
         </div>
 
         <!-- 文章网格 -->
         <div class="grid gap-6 md:grid-cols-2">
           <NuxtLink v-for="post in yearPosts" :key="post.path" :to="post.path" class="group/item ctx-link">
-            <article class="h-ful flex-col border border-shared/10 rounded-xl p-6 space-y-4 group-hover/item:b-shared/20">
+            <article class="h-ful flex-col border border-neutral/10 rounded-xl p-6 space-y-4 group-hover/item:b-neutral/20">
               <div class="flex items-center justify-between">
                 <time class="flex items-baseline gap-2 font-mono">
                   <span class="text-2xl font-bold">{{ formatPostDate(post.meta.date as string).day }}</span>

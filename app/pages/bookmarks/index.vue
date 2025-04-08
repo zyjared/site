@@ -146,7 +146,7 @@ const bookmarks = computed(() => getBookmarks({ search: search.value, tab: curTa
             <NuxtLink
               :target="getBlankTarget(item.link)"
               :to="item.link"
-              class="group block cursor-pointer border border-shared/10 rounded-lg hover:b-shared/20 ctx-link"
+              class="group block cursor-pointer border border-neutral/10 rounded-lg hover:b-neutral/20 ctx-link"
             >
               <div class="p-4 space-y-2">
                 <h3 class="truncate font-medium ctx-text">
@@ -159,8 +159,8 @@ const bookmarks = computed(() => getBookmarks({ search: search.value, tab: curTa
 
               <div
                 :to="item.link"
-                class="flex items-center justify-between px-4 py-2 text-xs text-shared/50 transition group-hover:b-shared/20"
-                b="t-1 shared/10 "
+                class="flex items-center justify-between px-4 py-2 text-xs text-neutral/50 transition group-hover:b-neutral/20"
+                b="t-1 neutral/10 "
               >
                 <div class="flex-center gap-2">
                   <span :class="item.collection.icon" />

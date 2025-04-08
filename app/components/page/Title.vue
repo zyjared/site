@@ -37,10 +37,10 @@ const aligns = {
         <!-- accent -->
         <div v-if="accent" class="relative mb-6">
           <div class="flex items-baseline gap-6">
-            <span class="text-3xl text-shared/20 font-bold font-mono">
+            <span class="text-3xl text-neutral/20 font-bold font-mono">
               {{ accent }}
             </span>
-            <div class="h-px flex-1 from-shared/10 to-transparent bg-gradient-to-r" />
+            <div class="h-px flex-1 from-neutral/10 to-transparent bg-gradient-to-r" />
           </div>
         </div>
 
@@ -50,7 +50,7 @@ const aligns = {
         </h1>
 
         <!-- subtitle -->
-        <div v-if="subtitle" class="max-w-2xl text-lg text-shared">
+        <div v-if="subtitle" class="max-w-2xl text-lg text-neutral">
           {{ subtitle }}
         </div>
       </div>

@@ -13,7 +13,7 @@ const { vertical = false, right = false, content = true } = defineProps<{
 
     <div
       v-if="content"
-      class="whitespace-nowrap text-xs text-shared/40 tracking-0.5em uppercase"
+      class="whitespace-nowrap text-xs text-neutral/40 tracking-0.5em uppercase"
       :class="{
         'z-vertical-rl': vertical,
         'z-sideways-lr': vertical && right,

@@ -52,7 +52,7 @@ onMounted(() => {
 
 <template>
   <div
-    class="relative aspect-1.9 h-1em flex cursor-pointer items-center rounded-full ring-1.5px ring-shared/20 transition-colors duration-300 bg-ctx-text/3"
+    class="relative aspect-1.9 h-1em flex cursor-pointer items-center rounded-full ring-1.5px ring-neutral/20 transition-colors duration-300 bg-ctx-text/3"
     @click="toggleColorMode"
   >
     <div
@@ -61,7 +61,7 @@ onMounted(() => {
     >
       <div
         class="i-material-symbols:light-mode-outline-rounded text-amber-500"
-        dark="i-material-symbols:dark-mode-outline text-shared"
+        dark="i-material-symbols:dark-mode-outline text-neutral"
       />
     </div>
   </div>

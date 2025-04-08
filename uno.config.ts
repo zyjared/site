@@ -16,13 +16,9 @@ import { dxShortcut } from './shared/node/uno/shortcuts'
 export default defineConfig({
   theme: {
     colors: {
-      shared: {
+      neutral: {
         400: '#737373',
         DEFAULT: '#737373',
-      },
-      brand: {
-        400: '',
-        DEFAULT: '',
       },
     },
   },
@@ -32,10 +28,11 @@ export default defineConfig({
       'flex-center': 'flex justify-center items-center',
       'flex-col-center': 'flex-center flex-col',
     },
+
     dxShortcut({ name: 'ctx-text', base: 'text', value: 'black dark:white' }),
     dxShortcut({ name: 'ctx-bg', base: 'bg', value: 'neutral-100 dark:neutral-900' }),
     dxShortcut({ name: 'ctx-a', base: 'text', value: 'blue-500 hover:blue-600 dark:blue dark:hover:blue-500' }),
-    dxShortcut({ name: 'ctx-link', base: 'text', value: 'shared hover:ctx-text/80', extra: 'transition-colors' }),
+    dxShortcut({ name: 'ctx-link', base: 'text', value: 'neutral hover:ctx-text/80', extra: 'transition-colors' }),
 
     [/^badge-(.*)$/, ([, c]) => `bg-${c}-500/10 text-${c}-500/90 hover:bg-${c}-500/20 px-3 py-2 text-sm rounded`],
   ],

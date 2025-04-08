@@ -19,9 +19,9 @@ const activeIdx = computed(() => {
       data-idx="idx"
       :to="item.link"
       class="flex cursor-pointer items-center justify-center rounded-xl p-2 ctx-link"
-      un-hover="bg-shared/10"
+      un-hover="bg-neutral/10"
       :target="getBlankTarget(item.link)"
-      :class="activeIdx === idx ? 'ctx-text/70' : ''"
+      :class="activeIdx === idx ? 'ctx-text' : ''"
       :style="{
         transitionDelay: `${idx * 0.1}s`,
       }"

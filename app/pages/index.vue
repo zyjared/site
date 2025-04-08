@@ -66,7 +66,7 @@ onMounted(() => {
                 aria-hidden="true"
                 class="ani-rotate absolute left-1/2 top-1/3 z--1 h-20 w-2/1 transform-origin-l from-transparent via-blue-6 to-transparent bg-gradient-to-t"
               />
-              <div class="h-full w-full overflow-hidden b-1 rounded-full bg-shared/5">
+              <div class="h-full w-full overflow-hidden b-1 rounded-full bg-neutral/5">
                 <img src="/avatar.png" alt="avatar" class="block h-full w-full select-none object-cover">
               </div>
               <div aria-hidden="true" class="absolute inset-0 z-1" />
@@ -80,9 +80,9 @@ onMounted(() => {
             </h2>
 
             <!-- 社交别名 -->
-            <!-- <div class="text-sm text-shared/50 space-x-4">
+            <!-- <div class="text-sm text-neutral/50 space-x-4">
               <template v-for="(social, idx) in socials" :key="idx">
-                <span v-if="social.featured" class="motion-fade-home inline-block hover:text-shared/70">
+                <span v-if="social.featured" class="motion-fade-home inline-block hover:text-neutral/70">
                   {{ social.username }}
                 </span>
               </template>
@@ -98,7 +98,7 @@ onMounted(() => {
 
             <!-- 二进制生日 -->
             <p
-              class="motion-fade-home text-sm text-shared tracking-widest font-mono space-x-2"
+              class="motion-fade-home text-sm text-neutral tracking-widest font-mono space-x-2"
               role="text"
               aria-description="生日的二进制表示"
             >
@@ -161,14 +161,14 @@ onMounted(() => {
 
       <!-- 装饰性元素 -->
       <div class="mb-6 w-full flex-col-center gap-8" md="gap-8 mb-8" aria-hidden="true">
-        <p class="motion-fade-home max-w-md px-4 text-center text-sm text-shared/30 tracking-wider font-serif italic" aria-hidden="true">
+        <p class="motion-fade-home max-w-md px-4 text-center text-sm text-neutral/30 tracking-wider font-serif italic" aria-hidden="true">
           "Always learning, forever exploring"
         </p>
         <UiDivide class="motion-fade-home" :content="false" />
       </div>
 
       <footer class="h-16 flex items-end justify-center pb-8">
-        <p text="xs shared/50" class="motion-fade-home">
+        <p text="xs neutral/50" class="motion-fade-home">
           Copyright © 2024-present zyjared
         </p>
       </footer>

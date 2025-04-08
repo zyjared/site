@@ -29,7 +29,7 @@ interface DxShortcutOptions {
  * 在变体中被使用时，除去 dark 外的变体。
  *
  * @example
- * name='ctx-custom', prefix='text', value='white dark:black dark:hover:blue'
+ * name='ctx-custom', base='text', value='white dark:black dark:hover:blue'
  *
  * 'ctx-custom'
  * => 'text-white hover:text-black dark:text-black dark:hover:text-blue'

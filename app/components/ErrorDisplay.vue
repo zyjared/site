@@ -99,7 +99,7 @@ function toRedirect() {
           <div class="absolute inset-0 from-blue-500/20 to-indigo-500/20 bg-gradient-to-r blur-2xl" />
           <span>{{ data.code }}</span>
         </h2>
-        <div text="sm shared/80" class="tracking-tight font-mono space-y-1">
+        <div text="sm neutral/80" class="tracking-tight font-mono space-y-1">
           <p class="tracking-tight" aria-label="Path">
             {{ data.path }}
           </p>
@@ -131,7 +131,7 @@ function toRedirect() {
 
       <p
         class="max-h-42 w-4 overflow-hidden leading-none tracking-wider uppercase write-vertical-right"
-        text="shared/60"
+        text="neutral/60"
       >
         {{ data.title }}
       </p>
@@ -143,9 +143,9 @@ function toRedirect() {
 
     <button
       v-if="back"
-      class="cursor-pointer bg-shared/0 px-6 py-3 text-shared transition-300"
-      un-b="~ solid shared/30"
-      un-hover="b-shared ctx-text"
+      class="cursor-pointer bg-neutral/0 px-6 py-3 text-neutral transition-300"
+      un-b="~ solid neutral/30"
+      un-hover="b-neutral ctx-text"
       @click="toRedirect"
     >
       {{ back === true ? defaultBack.text : back.text }}

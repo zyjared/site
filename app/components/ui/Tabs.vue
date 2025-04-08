@@ -168,7 +168,7 @@ function handleWheel(e: WheelEvent) {
           />
           <div
             class="flex items-center gap-2 transition-colors duration-300"
-            :class="isSelected(item) ? 'text-ctx-bg' : 'text-shared hover:ctx-text'"
+            :class="isSelected(item) ? 'text-ctx-bg' : 'text-neutral hover:ctx-text'"
           >
             <span v-if="item.icon" :class="item.icon" />
             <span>{{ item.label }}</span>

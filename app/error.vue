@@ -159,7 +159,7 @@ function processStackMore(stack: string) {
       >
         <table class="w-full border-collapse">
           <thead>
-            <tr class="border-b border-shared/20 text-left *:p-3 *:text-shared">
+            <tr class="border-shared/20 *:text-shared border-b text-left *:p-3">
               <th>Function</th>
               <th>Location</th>
             </tr>
@@ -168,7 +168,7 @@ function processStackMore(stack: string) {
             <tr
               v-for="(line, index) in processStack(error.stack)"
               :key="index"
-              class="border-b border-shared/10 hover:bg-shared/5 *:p-3 *:font-mono"
+              class="border-shared/10 hover:bg-shared/5 border-b *:p-3 *:font-mono"
             >
               <td class="text-blue-400">
                 {{ line.hook }}

@@ -66,6 +66,16 @@ code $PROFILE
 ```
 
 ```psl
+# Set-PSReadLineKeyHandler -Chord "Tab" -Function ForwardChar
+Set-PSReadLineKeyHandler -Chord "Ctrl+l" -Function ForwardWord
+Set-PSReadLineKeyHandler -Chord "Ctrl+j" -Function NextSuggestion
+Set-PSReadLineKeyHandler -Chord "Ctrl+k" -Function PreviousSuggestion
+
+Invoke-Expression (&starship init powershell)
+Import-Module PSReadLine
+Set-PSReadLineKeyHandler -Chord Tab -Function MenuComplete
+
+Set-Alias -Name ls -Value lsd
 Set-Alias -Name touch -Value New-Item
 ```
 
@@ -133,4 +143,25 @@ Set-Alias -Name ls -Value lsd
 
 ```bash
 scoop install gsudo
+```
+
+## AutoHotKey
+
+- [AutoHotKey](https://www.autohotkey.com/)
+
+`win + R` 输入 `shell:startup` 打开启动文件夹，创建一个 `.ahk` 文件。
+
+```ahk
+#Requires AutoHotkey v2.0
+
+; win + T 终端
+#t::Run "wt"
+
+; win + c 代码编辑器
+#c::{
+    if WinExist("ahk_exe Code.exe")
+        WinActivate
+    else
+        Run "code"
+}
 ```

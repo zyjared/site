@@ -119,6 +119,12 @@ function syncHeadings() {
     const dom = article.value as HTMLElement
     const elements = Array.from(dom.querySelectorAll(getHeadingSelector(level))) as HTMLElement[]
 
+    if (elements.length === 0) {
+      headings.value = []
+      currentHeadingId.value = null
+      return
+    }
+
     const hs: Heading[] = []
     elements.forEach((el, index) => {
       const top = (el as HTMLElement).offsetTop

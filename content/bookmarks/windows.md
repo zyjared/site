@@ -155,7 +155,12 @@ scoop install gsudo
 #Requires AutoHotkey v2.0
 
 ; win + T 终端
-#t::Run "wt"
+#t::{
+    if WinExist("ahk_exe WindowsTerminal.exe")
+        WinActivate
+    else
+        Run "wt"
+}
 
 ; win + c 代码编辑器
 #c::{

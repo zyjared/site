@@ -56,7 +56,7 @@ onMounted(() => {
   <div ref="scope" class="flex-center">
     <div class="h-screen flex-col-center flex-1">
       <!-- 主内容 -->
-      <div class="flex-col-center gap-4 py-12" md="gap-6 flex-1 pt-40 pb-8 mb-8">
+      <div class="flex-col-center gap-4 py-12" md="gap-12 flex-1 pt-40 pb-8 mb-8">
         <!-- 信息 -->
         <Motion drag :drag-constraints="(scope as HTMLElement)" class="w-full flex-center flex-col gap-2" md="flex-row gap-8">
           <!-- 信息: 左侧头像 -->
@@ -78,15 +78,6 @@ onMounted(() => {
             <h2 class="motion-fade-home from-blue-5 to-purple-5 bg-gradient-to-r bg-clip-text text-3xl text-transparent font-bold space-x-2" md="text-4xl">
               {{ displayName }}
             </h2>
-
-            <!-- 社交别名 -->
-            <!-- <div class="text-sm text-neutral/50 space-x-4">
-              <template v-for="(social, idx) in socials" :key="idx">
-                <span v-if="social.featured" class="motion-fade-home inline-block hover:text-neutral/70">
-                  {{ social.username }}
-                </span>
-              </template>
-            </div> -->
 
             <!-- 个人标签 -->
             <div class="motion-fade-home flex-center flex-wrap gap-2" md="flex-start">

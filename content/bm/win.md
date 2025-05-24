@@ -205,6 +205,22 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2                              " YA
 " ========== 插件配置 ==========
 " NERDTree 配置
 nnoremap <leader>n :NERDTreeToggle<CR>  " 设置快捷键切换文件浏览器
+
+" 基础自动补全
+inoremap ( ()<Left>
+inoremap [ []<Left>
+inoremap { {}<Left>
+inoremap ' ''<Left>
+inoremap " ""<Left>
+inoremap ` ``<Left>
+
+" 智能跳过已闭合符号
+inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+inoremap <expr> ] strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
+inoremap <expr> } strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
+inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "'" ? "\<Right>" : "'"
+inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\""
+inoremap <expr> ` strpart(getline('.'), col('.')-1, 1) == "`" ? "\<Right>" : "`"
 ```
 
 ## curl

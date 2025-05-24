@@ -18,7 +18,7 @@ export default defineAppConfig({
     {
       text: '书签',
       icon: 'i-carbon:bookmark',
-      link: '/bookmarks',
+      link: '/bm',
     },
   ],
 
@@ -31,7 +31,7 @@ export default defineAppConfig({
     },
     {
       text: '书签',
-      link: '/bookmarks',
+      link: '/bm',
       icon: 'i-carbon:bookmark',
     },
     // {

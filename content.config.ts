@@ -6,8 +6,8 @@ export default defineContentConfig({
       source: 'posts/**',
       type: 'page',
     }),
-    bookmarks: defineCollection({
-      source: 'bookmarks/**',
+    bm: defineCollection({
+      source: 'bm/**',
       type: 'page',
     }),
   },

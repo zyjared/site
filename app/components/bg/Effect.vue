@@ -24,7 +24,7 @@ const {
   waveAmplitude = 15,
   waveSpeed = 0.5,
   breathIntensity = 0.3,
-  dotSize = 0.8,
+  dotSize = 1,
   dotFillColor = 'rgba(128, 128, 128, 0.5)',
   fps = 30,
 } = defineProps<Props>()

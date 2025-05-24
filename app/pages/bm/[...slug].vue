@@ -2,7 +2,7 @@
 const route = useRoute()
 
 const { data } = await useAsyncData(route.path, () => {
-  return queryCollection('bookmarks').path(route.path).first()
+  return queryCollection('bm').path(route.path).first()
 })
 
 if (!data.value) {

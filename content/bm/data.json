@@ -9,12 +9,12 @@
       "items": [
         {
           "title": "Windows 初始化",
-          "link": "/bookmarks/windows",
+          "link": "/bm/win",
           "description": "Windows 系统初始化配置指南"
         },
         {
           "title": "Linux 初始化",
-          "link": "/bookmarks/linux",
+          "link": "/bm/linux",
           "description": "Linux 系统初始化配置指南"
         }
       ]

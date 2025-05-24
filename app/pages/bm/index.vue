@@ -28,8 +28,8 @@ interface BookmarkItem extends Bookmark {
   }
 }
 
-const { data } = await useAsyncData('bookmarks', () => {
-  return queryCollection('bookmarks').path('/bookmarks/index-j').first()
+const { data } = await useAsyncData('bm-data', () => {
+  return queryCollection('bm').path('/bm/data').first()
 })
 
 const items = computed(() => {

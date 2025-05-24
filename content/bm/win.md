@@ -169,4 +169,16 @@ scoop install gsudo
     else
         Run "code"
 }
+
+; win + b 浏览器 (Edge)
+#b::{
+    if WinExist("ahk_exe msedge.exe")
+        WinActivate
+    else
+        Run "msedge"
+}
 ```
+
+## Snipaste
+
+- [Snipaste](https://zh.snipaste.com/)

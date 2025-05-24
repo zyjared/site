@@ -23,8 +23,8 @@ const isHome = computed(() => route.path === '/')
     </main>
 
     <Teleport to="body">
-      <BackgroundGradientDiv />
-      <BackgroundEffect animated="random" />
+      <BgGradientDiv />
+      <BgEffect animated="random" />
     </Teleport>
   </div>
 </template>

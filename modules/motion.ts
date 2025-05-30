@@ -1,7 +1,7 @@
 // 修改 motion-v/nuxt 的自动导入
 
+import { markImports } from '#shared/lib/imports'
 import { addComponent, addImports, defineNuxtModule } from '@nuxt/kit'
-import { markImports } from '../shared/node/imports'
 
 const components = [
   'Motion',

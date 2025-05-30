@@ -11,7 +11,7 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
-import { dxShortcut } from './shared/node/uno/shortcuts'
+import { dxShortcut } from './shared/lib/uno/shortcuts'
 
 export default defineConfig({
   theme: {

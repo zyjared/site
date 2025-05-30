@@ -25,17 +25,25 @@ interface DxShortcutOptions {
 
 /**
  * 使关于颜色的 shortcut 可重用。
- *
  * 在变体中被使用时，除去 dark 外的变体。
  *
+ * @param options 选项
+ * @param options.name 名称
+ * @param options.base 未重用时的前缀，如 'text'、'bg'
+ * @param options.value 预设的颜色，如 'white dark:white dark:hover:black'
+ * @param options.extra 不会在变体中被使用
+ *
  * @example
+ * // 定义 ctx-custom
  * name='ctx-custom', base='text', value='white dark:black dark:hover:blue'
  *
+ * // ctx-custom 的值
  * 'ctx-custom'
- * => 'text-white hover:text-black dark:text-black dark:hover:text-blue'
+ * // => 'text-white hover:text-black dark:text-black dark:hover:text-blue'
  *
+ * // 重用 ctx-custom
  * 'border-ctx-custom'
- * => 'border-white hover:border-black dark:border-black dark:hover:border-blue'
+ * // => 'border-white hover:border-black dark:border-black dark:hover:border-blue'
  */
 export function dxShortcut(options: DxShortcutOptions): DynamicShortcut {
   const {

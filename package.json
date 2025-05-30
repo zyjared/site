@@ -12,7 +12,8 @@
     "start": "node .output/server/index.mjs",
     "start:generate": "npx serve .output/public",
     "lint": "eslint .",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "test": "vitest run"
   },
   "dependencies": {
     "motion-v": "^0.13.1",
@@ -38,6 +39,7 @@
     "pinia": "^3.0.1",
     "typescript": "^5.8.2",
     "unocss": "^66.1.0-beta.3",
+    "vitest": "^3.1.4",
     "vue-tsc": "^2.2.8"
   },
   "pnpm": {

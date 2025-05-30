@@ -1,4 +1,4 @@
-import { capitalize, isCapitalized, uncapitalize } from '../common/string'
+import { capitalize, isCapitalized, uncapitalize } from '../../core/string'
 
 export interface Import {
   from: string

@@ -5,11 +5,6 @@ export default defineAppConfig({
     { text: 'email', icon: 'i-carbon:email', link: 'mailto:zyjared@outlook.com', username: 'zyjared@outlook.com' },
   ],
   navbar: [
-    // {
-    //   text: '主页',
-    //   icon: 'i-carbon:home',
-    //   link: '/',
-    // },
     {
       text: '碎片',
       icon: 'i-mdi:feather',

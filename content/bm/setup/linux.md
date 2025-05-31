@@ -1,3 +1,8 @@
+---
+title: Linux
+description: 初始化 Linux
+---
+
 # linux
 
 ```bash

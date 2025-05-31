@@ -1,7 +1,7 @@
 <script setup lang="ts">
 export interface UiTabItem {
   id: string | number
-  label: string
+  title: string
   icon?: string
   badge?: string | number
 }
@@ -171,7 +171,7 @@ function handleWheel(e: WheelEvent) {
             :class="isSelected(item) ? 'text-ctx-bg' : 'text-neutral hover:ctx-text'"
           >
             <span v-if="item.icon" :class="item.icon" />
-            <span>{{ item.label }}</span>
+            <span>{{ item.title }}</span>
             <span v-if="item.badge !== undefined" class="text-xs opacity-60">({{ item.badge }})</span>
           </div>
         </button>

@@ -1,0 +1,28 @@
+{
+  "title": "AI 助手",
+  "icon": "i-carbon:machine-learning",
+  "description": "AI 对话和助手工具",
+  "order": 1,
+  "children": [
+    {
+      "title": "DeepSeek",
+      "link": "https://chat.deepseek.com/",
+      "description": "DeepSeek AI 对话助手"
+    },
+    {
+      "title": "通义千问",
+      "link": "https://tongyi.aliyun.com/",
+      "description": "阿里通义千问 AI 助手"
+    },
+    {
+      "title": "腾讯元宝",
+      "link": "https://yuanbao.tencent.com/",
+      "description": "腾讯元宝 AI 助手"
+    },
+    {
+      "title": "ChatGPT",
+      "link": "https://chatgpt.com/",
+      "description": "OpenAI ChatGPT 对话助手"
+    }
+  ]
+}

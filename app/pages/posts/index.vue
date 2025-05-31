@@ -11,7 +11,9 @@ function formatPostDate(date: string) {
   }
 }
 
-const { data: posts } = await useAsyncData(route.path, () => queryCollection('posts').order('id', 'DESC').all())
+const { data: posts } = await useAsyncData(route.path, () => {
+  return queryCollection('posts').where('hide', '<>', true).order('id', 'DESC').all()
+})
 const isEmpty = computed(() => !posts.value?.length)
 
 // 文章分组
@@ -21,7 +23,7 @@ const postsByYear = computed(() => {
   return new Map(
     Object.entries(
       posts.value.reduce((acc, post) => {
-        const year = formatPostDate(post.meta.date as string).year
+        const year = post.date ? formatPostDate(post.date).year : 'unknown'
         if (!acc[year])
           acc[year] = []
         acc[year].push(post)
@@ -72,8 +74,8 @@ const postsByYear = computed(() => {
             <article class="h-ful flex-col border border-neutral/10 rounded-xl p-6 space-y-4 group-hover/item:b-neutral/20">
               <div class="flex items-center justify-between">
                 <time class="flex items-baseline gap-2 font-mono">
-                  <span class="text-2xl font-bold">{{ formatPostDate(post.meta.date as string).day }}</span>
-                  <span class="text-sm">{{ formatPostDate(post.meta.date as string).month }}</span>
+                  <span class="text-2xl font-bold">{{ formatPostDate(post.date).day }}</span>
+                  <span class="text-sm">{{ formatPostDate(post.date).month }}</span>
                 </time>
                 <span aria-hidden="true" class="text-sm text-inherit opacity-0 transition-[opacity] group-hover/item:opacity-100" i-carbon:arrow-up-right />
               </div>

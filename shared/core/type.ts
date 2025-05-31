@@ -58,7 +58,7 @@ export function isObject(value: unknown): value is object {
  * @returns 是否为纯粹对象
  *
  * @example
- * ```
+ * ```ts
  * isPlainObject({}); // true
  * isPlainObject(new Object()); // true
  * isPlainObject(Object.create(null)); // true
@@ -78,39 +78,6 @@ export function isPlainObject(value: unknown): value is Record<PropertyKey, unkn
 
   const proto = Object.getPrototypeOf(value)
   return proto === null || proto === Object.prototype
-}
-
-/**
- * 检查值是否为空状态
- * 支持类型：null/undefined/空字符串/空数组/空对象/空集合
- * @param value - 待检查的值
- * @returns 是否为空
- *
- * @example
- * ```
- * isEmpty(null);        // true
- * isEmpty(undefined);   // true
- * isEmpty('');          // true
- * isEmpty([]);          // true
- * isEmpty({});          // true
- * isEmpty(new Map());   // true
- * isEmpty(new Set());   // true
- * ```
- */
-export function isEmpty(value: unknown): boolean {
-  if (value === null || value === undefined)
-    return true
-
-  if (isString(value) || isArray(value))
-    return value.length === 0
-
-  if (isPlainObject(value))
-    return Reflect.ownKeys(value).length === 0
-
-  if (value instanceof Map || value instanceof Set)
-    return value.size === 0
-
-  return false
 }
 
 /**
@@ -140,4 +107,38 @@ export function isPromise<T = unknown>(value: unknown): value is Promise<T> {
  */
 export function isError(value: unknown): value is Error {
   return value instanceof Error
+}
+
+/**
+ * 检查值是否为空状态
+ * 支持类型：null/undefined/空字符串/空数组/空对象/空集合
+ * @param value - 待检查的值
+ * @returns 是否为空
+ *
+ * @example
+ * ```ts
+ * isEmpty(0);           // false
+ * isEmpty(null);        // true
+ * isEmpty(undefined);   // true
+ * isEmpty('');          // true
+ * isEmpty([]);          // true
+ * isEmpty({});          // true
+ * isEmpty(new Map());   // true
+ * isEmpty(new Set());   // true
+ * ```
+ */
+export function isEmpty(value: unknown): boolean {
+  if (value === null || value === undefined)
+    return true
+
+  if (isString(value) || isArray(value))
+    return value.length === 0
+
+  if (isPlainObject(value))
+    return Reflect.ownKeys(value).length === 0
+
+  if (value instanceof Map || value instanceof Set)
+    return value.size === 0
+
+  return false
 }

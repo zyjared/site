@@ -1,0 +1,13 @@
+{
+  "title": "图片",
+  "icon": "i-carbon:image",
+  "description": "图片处理工具",
+  "order": 2,
+  "children": [
+    {
+      "title": "ImageMagick",
+      "link": "https://imagemagick.org/script/command-line-processing.php",
+      "description": "强大的图片处理命令行工具"
+    }
+  ]
+}

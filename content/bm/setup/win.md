@@ -1,3 +1,8 @@
+---
+title: Win
+description: 初始化 Windows
+---
+
 # Windows
 
 ## WinGet

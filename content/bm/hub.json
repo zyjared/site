@@ -1,0 +1,13 @@
+{
+  "title": "空间",
+  "icon": "i-material-symbols:workspaces",
+  "description": "Digital knowledge core",
+  "order": 1,
+  "children": [
+    {
+      "title": "Notion",
+      "link": "https://notion.so",
+      "description": "工作空间"
+    }
+  ]
+}

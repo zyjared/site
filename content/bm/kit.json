@@ -1,0 +1,28 @@
+{
+  "title": "工具集",
+  "icon": "i-carbon:image",
+  "description": "图片处理工具",
+  "order": 3,
+  "children": [
+    {
+      "title": "7-Zip",
+      "link": "https://7-zip.org",
+      "description": "压缩工具"
+    },
+    {
+      "title": "Snipaste",
+      "link": "https://zh.snipaste.com",
+      "description": "截图工具"
+    },
+    {
+      "title": "AutoHotkey",
+      "link": "https://www.autohotkey.com/",
+      "description": "自动化工具"
+    },
+    {
+      "title": "ImageMagick",
+      "link": "https://imagemagick.org",
+      "description": "图像处理"
+    }
+  ]
+}

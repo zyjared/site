@@ -1,8 +1,8 @@
 {
-  "title": "AI 助手",
+  "title": "AI",
   "icon": "i-carbon:machine-learning",
-  "description": "AI 对话和助手工具",
-  "order": 1,
+  "description": "Intelligent conversations",
+  "order": 2,
   "children": [
     {
       "title": "DeepSeek",
@@ -23,6 +23,11 @@
       "title": "ChatGPT",
       "link": "https://chatgpt.com/",
       "description": "OpenAI ChatGPT 对话助手"
+    },
+    {
+      "title": "Claude",
+      "link": "https://claude.ai",
+      "description": "Claude"
     }
   ]
 }

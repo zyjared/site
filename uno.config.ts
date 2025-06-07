@@ -105,5 +105,7 @@ export default defineConfig({
     'i-carbon:settings',
     'i-carbon:image',
     'i-carbon:rocket',
+    'i-material-symbols:workspaces',
+    'i-material-symbols:border-all-rounded',
   ],
 })

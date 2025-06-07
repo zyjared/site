@@ -151,28 +151,25 @@ function handleWheel(e: WheelEvent) {
         class="scrollbar-none transition-[mask-image] relative max-w-full flex flex-1 gap-2 overflow-x-auto text-nowrap"
         :class="{
           'mask-r-from': currentPage !== pages.length - 1,
-        }"
-        @wheel.stop.prevent="handleWheel"
+        }" @wheel.stop.prevent="handleWheel"
       >
         <button
-          v-for="(item, idx) in items"
-          :key="item.id"
-          class="relative flex items-center gap-2 px-3 py-1.5 text-sm"
-          @click="handleSelect(item)"
+          v-for="(item, idx) in items" :key="item.id"
+          class="relative flex items-center gap-2 px-3 py-1.5 text-sm" @click="handleSelect(item)"
         >
           <Motion
-            v-if="isSelected(item)"
-            layout-id="ui-active-tab"
+            v-if="isSelected(item)" layout-id="ui-active-tab"
             :transition="{ type: !(idx % (items.length - 1)) ? '' : 'spring', stiffness: 200, damping: 20 }"
             class="absolute inset-0 rounded-lg -z-1 bg-ctx-text"
           />
           <div
-            class="flex items-center gap-2 transition-colors duration-300"
+            class="flex items-center gap-1 transition-colors duration-300"
             :class="isSelected(item) ? 'text-ctx-bg' : 'text-neutral hover:ctx-text'"
           >
             <span v-if="item.icon" :class="item.icon" />
             <span>{{ item.title }}</span>
-            <span v-if="item.badge !== undefined" class="text-xs opacity-60">({{ item.badge }})</span>
+            <!-- <span v-if="item.badge !== undefined" class="text-xs leading-none opacity-60 p-1! badge-ctx-text">{{ item.badge
+            }}</span> -->
           </div>
         </button>
       </div>
@@ -190,6 +187,7 @@ function handleWheel(e: WheelEvent) {
   -ms-overflow-style: none;
   transition: all 0.3s linear;
 }
+
 .mask-r-from {
   mask-image: linear-gradient(to left, transparent, black var(--ui-tabs-mask-size));
 }

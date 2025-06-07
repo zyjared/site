@@ -121,7 +121,7 @@ export function useBm() {
     return augmentKey(
       augmentKey(data, 'link', item.path),
       'children',
-      sortItems(children.filter(Boolean) as BmItem[]),
+      children.filter(Boolean) as BmItem[],
     )
   }
 

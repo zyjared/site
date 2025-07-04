@@ -5,6 +5,11 @@
   "order": 3,
   "children": [
     {
+      "title": "Keychron",
+      "link": "https://launcher.keychron.com/#/light",
+      "description": "键盘配置"
+    },
+    {
       "title": "7-Zip",
       "link": "https://7-zip.org",
       "description": "压缩工具"
